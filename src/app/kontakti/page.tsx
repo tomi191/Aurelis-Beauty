@@ -41,13 +41,21 @@ export default function KontaktiPage() {
                   <dd className="mt-1.5 font-display text-[1.5rem] leading-snug text-primary-ink">
                     {contact.addressFull}
                   </dd>
+                  <a
+                    href="https://www.google.com/maps/search/?api=1&query=ул.+Дунавски+лебед+14,+Варна"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="link-ink mt-2 inline-block text-[0.9rem]"
+                  >
+                    Отвори в Google Maps
+                  </a>
                 </div>
                 <div>
                   <dt className="text-[0.85rem] text-tertiary-ink">Телефон</dt>
                   <dd className="mt-1.5">
                     <a
                       href={contact.phoneHref}
-                      className="font-display text-[1.5rem] text-bordeaux transition-colors duration-300 hover:text-wine"
+                      className="tnum font-display text-[1.5rem] text-bordeaux underline decoration-gold/50 decoration-1 underline-offset-8 transition-colors duration-300 hover:text-wine"
                     >
                       {contact.phone}
                     </a>
@@ -111,7 +119,7 @@ export default function KontaktiPage() {
               title="AURÈLIS Beauty Atelier на картата"
               src="https://www.google.com/maps?q=ул.%20Дунавски%20лебед%2014%2C%20Варна&output=embed"
               className="h-[400px] w-full"
-              loading="lazy"
+              loading="eager"
               referrerPolicy="no-referrer-when-downgrade"
             />
           </div>

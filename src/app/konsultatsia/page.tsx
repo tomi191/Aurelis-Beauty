@@ -57,7 +57,7 @@ export default function KonsultatsiaPage() {
           <Reveal delay={0.1} className="lg:col-span-5">
             <Card className="relative overflow-hidden p-7 md:p-8">
               <SunRays className="absolute right-6 top-6 w-11 text-gold/70" />
-              <p className="font-display text-xl font-semibold text-bordeaux">
+              <p className="text-[1.05rem] font-semibold text-bordeaux">
                 Какво включва
               </p>
               <ul className="mt-5 space-y-3">
@@ -84,7 +84,7 @@ export default function KonsultatsiaPage() {
 
       <section className="mx-auto max-w-6xl px-5 py-12 md:px-8 md:py-16">
         <Reveal>
-          <Card className="grid gap-8 p-7 md:grid-cols-2 md:p-10">
+          <Card className="grid items-center gap-8 p-7 md:grid-cols-2 md:p-10">
             <div>
               <h2 className="font-display text-[clamp(1.6rem,2.8vw,2.2rem)] font-medium leading-tight text-bordeaux">
                 Кога е добра идея

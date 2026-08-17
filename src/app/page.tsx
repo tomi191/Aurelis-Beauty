@@ -162,10 +162,10 @@ export default function Home() {
             </Card>
             <Card className="hover-lift absolute -right-1 top-10 hidden px-5 py-4 md:-right-4 md:block">
               <p className="font-display text-xl font-semibold text-bordeaux">
-                {brands.length} професионални марки
+                LED терапия подарък
               </p>
               <p className="mt-0.5 text-[0.8rem] text-tertiary-ink">
-                с патенти и собствени формули
+                към всяка пакетна програма за лице
               </p>
             </Card>
           </Reveal>
@@ -198,7 +198,8 @@ export default function Home() {
         <Reveal>
           <div className="flex flex-wrap items-end justify-between gap-6">
             <h2 className="max-w-[18ch] font-display text-[clamp(1.9rem,3.6vw,3rem)] font-medium leading-tight text-bordeaux">
-              Процедури за лице и тяло
+              Процедури за{" "}
+              <span className="whitespace-nowrap">лице и тяло</span>
             </h2>
             <Link href="/uslugi" className="link-ink mb-2 text-[0.95rem]">
               Всички процедури и цени
@@ -218,9 +219,21 @@ export default function Home() {
                     <h3 className="font-display text-[1.55rem] font-medium leading-snug text-bordeaux">
                       {cat.name}
                     </h3>
-                    <p className="mt-3 line-clamp-3 text-[0.93rem] text-secondary-ink">
+                    <p className="mt-3 text-[0.93rem] text-secondary-ink">
                       {cat.intro}
                     </p>
+                    {(i === 0 || i === 3 || i === 5) && (
+                      <ul className="mt-4 flex flex-wrap gap-2">
+                        {cat.procedures.map((p) => (
+                          <li
+                            key={p.slug}
+                            className="rounded-full border hairline px-3 py-1 text-[0.8rem] text-tertiary-ink"
+                          >
+                            {p.name}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                   </div>
                   <div className="mt-6 flex items-center justify-between">
                     <span className="tnum rounded-full bg-paper-soft px-4 py-1.5 text-[0.85rem] text-secondary-ink">
@@ -342,8 +355,8 @@ export default function Home() {
           <div className="arch relative mx-auto flex aspect-[4/5] max-w-sm items-end justify-center overflow-hidden bg-gradient-to-b from-taupe/50 via-taupe/30 to-paper-soft">
             <SunRays half className="mb-16 w-32 text-taupe" />
           </div>
-          <Card className="absolute -bottom-6 left-1/2 w-[85%] max-w-xs -translate-x-1/2 px-6 py-5">
-            <p className="font-display text-[1.15rem] leading-snug text-bordeaux">
+          <Card className="absolute -bottom-6 left-1/2 w-[88%] max-w-sm -translate-x-1/2 px-6 py-5">
+            <p className="font-display text-[1.4rem] leading-snug text-bordeaux">
               „{founder.quote}“
             </p>
             <p className="mt-2 text-[0.8rem] text-tertiary-ink">
@@ -361,7 +374,7 @@ export default function Home() {
           <div className="mt-8 space-y-4">
             <Reveal delay={0.08}>
               <Card className="p-6">
-                <h3 className="font-display text-lg font-semibold text-bordeaux">
+                <h3 className="text-[1.02rem] font-semibold text-bordeaux">
                   Нашата мисия
                 </h3>
                 <p className="mt-2 text-[0.95rem] text-secondary-ink">
@@ -371,7 +384,7 @@ export default function Home() {
             </Reveal>
             <Reveal delay={0.14} className="md:pl-10">
               <Card className="p-6">
-                <h3 className="font-display text-lg font-semibold text-bordeaux">
+                <h3 className="text-[1.02rem] font-semibold text-bordeaux">
                   Нашата визия
                 </h3>
                 <p className="mt-2 text-[0.95rem] text-secondary-ink">
@@ -440,12 +453,6 @@ export default function Home() {
           {/* Портрет: очаква фотосесия — тонален arch placeholder */}
           <div className="arch relative mx-auto flex aspect-[4/5] max-w-sm items-center justify-center overflow-hidden bg-gradient-to-b from-taupe/45 to-paper-soft">
             <SunRays className="w-28 text-taupe/80" />
-            <div className="absolute inset-x-6 bottom-6 rounded-2xl border border-white/70 bg-card/90 px-5 py-4 text-center shadow-soft">
-              <p className="font-display text-lg font-semibold text-bordeaux">
-                {founder.name}
-              </p>
-              <p className="text-[0.8rem] text-tertiary-ink">{founder.role}</p>
-            </div>
           </div>
         </Reveal>
       </section>
@@ -513,7 +520,7 @@ export default function Home() {
               <li key={b.name}>
                 <Link
                   href="/marki"
-                  className="font-display text-[clamp(1.35rem,2.4vw,1.9rem)] text-tertiary-ink transition-colors duration-300 hover:text-bordeaux"
+                  className="font-display text-[clamp(1.35rem,2.4vw,1.9rem)] text-bordeaux/80 underline decoration-gold/40 decoration-1 underline-offset-8 transition-colors duration-300 hover:text-bordeaux hover:decoration-bordeaux"
                 >
                   {b.name}
                 </Link>

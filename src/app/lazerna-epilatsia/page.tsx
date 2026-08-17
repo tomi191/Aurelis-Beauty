@@ -56,14 +56,9 @@ export default function LaserPage() {
             <h2 className="font-display text-[clamp(1.9rem,3.6vw,2.9rem)] font-medium text-bordeaux">
               Зони и цени
             </h2>
-            <div className="mb-1 flex gap-2">
-              <span className="rounded-full bg-bordeaux/10 px-3.5 py-1 text-[0.8rem] text-bordeaux">
-                Ж = жени
-              </span>
-              <span className="rounded-full bg-taupe/20 px-3.5 py-1 text-[0.8rem] text-secondary-ink">
-                М = мъже
-              </span>
-            </div>
+            <p className="mb-1 text-[0.88rem] text-tertiary-ink">
+              Цените са на процедура, за жени и мъже
+            </p>
           </div>
         </Reveal>
 
@@ -75,9 +70,9 @@ export default function LaserPage() {
                   <h3 className="font-display text-xl font-semibold text-bordeaux">
                     {group.group}
                   </h3>
-                  <span className="flex gap-6 text-[0.75rem] tracking-wide text-tertiary-ink">
-                    <span className="w-12 text-right">Ж</span>
-                    <span className="w-12 text-right">М</span>
+                  <span className="flex gap-6 text-[0.8rem] text-secondary-ink">
+                    <span className="w-14 text-right">Жени</span>
+                    <span className="w-14 text-right">Мъже</span>
                   </span>
                 </div>
                 <ul className="divide-y hairline">
@@ -90,10 +85,10 @@ export default function LaserPage() {
                         {z.zone}
                       </span>
                       <span className="flex shrink-0 gap-6">
-                        <span className="tnum w-12 text-right text-[0.95rem] font-semibold text-bordeaux">
+                        <span className="tnum w-14 text-right text-[0.95rem] font-semibold text-bordeaux">
                           {z.f}
                         </span>
-                        <span className="tnum w-12 text-right text-[0.95rem] text-secondary-ink">
+                        <span className="tnum w-14 text-right text-[0.95rem] text-secondary-ink">
                           {z.m}
                         </span>
                       </span>
@@ -124,7 +119,7 @@ export default function LaserPage() {
           <p className="mt-6 text-center text-[0.9rem] text-tertiary-ink">
             {laserPackages.extra}{" "}
             <Link href="/paketi" className="link-ink">
-              Вижте комбо пакетите
+              Виж комбо пакетите
             </Link>
           </p>
         </Reveal>

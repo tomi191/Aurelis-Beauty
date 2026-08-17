@@ -31,7 +31,8 @@ export default function UslugiPage() {
           <Reveal>
             <Chip>Услуги и цени</Chip>
             <h1 className="mt-6 max-w-[16ch] font-display text-[clamp(2.3rem,5vw,4.2rem)] font-normal leading-[1.05] text-bordeaux">
-              Козметични процедури за лице
+              Процедури за{" "}
+              <span className="whitespace-nowrap">лице и тяло</span>
             </h1>
             <p className="mt-5 max-w-xl text-secondary-ink">
               Всяка процедура започва с анализ на кожата и завършва с план.

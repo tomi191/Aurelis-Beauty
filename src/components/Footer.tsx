@@ -61,9 +61,13 @@ export default function Footer() {
             <ul className="mt-4 space-y-3">
               {hours.map((h) => (
                 <li key={h.days} className="flex items-baseline text-[0.92rem]">
-                  <span className="text-paper/70">{h.days}</span>
+                  <span className="whitespace-nowrap text-paper/70">
+                    {h.short}
+                  </span>
                   <span className="dot-leader opacity-40" />
-                  <span className="text-paper/90">{h.time}</span>
+                  <span className="tnum whitespace-nowrap text-paper/90">
+                    {h.time}
+                  </span>
                 </li>
               ))}
             </ul>

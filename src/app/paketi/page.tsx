@@ -110,8 +110,19 @@ export default function PaketiPage() {
           })}
         </div>
 
+        <Reveal delay={0.08}>
+          <div className="mt-8 flex flex-wrap items-center gap-5">
+            <CtaSolid href={contact.phoneHref} external>
+              Запази час · {contact.phone}
+            </CtaSolid>
+            <p className="text-[0.88rem] text-tertiary-ink">
+              Ще изберем програмата заедно, според кожата ви.
+            </p>
+          </div>
+        </Reveal>
+
         <Reveal delay={0.1}>
-          <Card className="mt-5 p-7">
+          <Card className="mt-8 p-7">
             <div className="flex flex-wrap items-baseline justify-between gap-4">
               <div>
                 <h3 className="font-display text-xl font-semibold text-bordeaux">

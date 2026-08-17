@@ -107,7 +107,7 @@ export default async function CategoryPage({
                     ]}
                   />
                   <div className="rounded-[1.5rem] bg-paper-soft/70 px-6 py-5 md:px-7">
-                    <p className="font-display text-lg font-semibold text-bordeaux">
+                    <p className="text-[1.02rem] font-semibold text-bordeaux">
                       Цени
                     </p>
                     <div className="mt-2">
@@ -124,12 +124,12 @@ export default async function CategoryPage({
                         {proc.note}
                       </p>
                     )}
-                  </div>
-                  <div className="mt-auto flex flex-wrap gap-3">
-                    <CtaSolid href={contact.phoneHref} external>
-                      Запази час
-                    </CtaSolid>
-                    <CtaGhost href="/konsultatsia">Консултация</CtaGhost>
+                    <div className="mt-5 flex flex-wrap gap-3 border-t hairline pt-5">
+                      <CtaSolid href={contact.phoneHref} external>
+                        Запази час
+                      </CtaSolid>
+                      <CtaGhost href="/konsultatsia">Консултация</CtaGhost>
+                    </div>
                   </div>
                 </div>
               </article>
