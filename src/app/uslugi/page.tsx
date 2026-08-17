@@ -1,78 +1,120 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
-import { categories } from "@/lib/data";
+import { Card, Chip } from "@/components/ui";
+import { categories, laserZones } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "Услуги и процедури за лице",
+  title: "Процедури за лице Варна · Цени",
   description:
-    "Козметични процедури в AURÈLIS Beauty Atelier, Варна: медицинско почистване, BioRePeel, специални терапии, high-tech процедури, LED фотобиомодулация и дизайн на вежди.",
+    "Всички процедури за лице в AURÈLIS Варна: почистване, химичен пилинг BioRePeel, микронидлинг, LED терапия, терапии за акне и против стареене. Виж цените.",
 };
 
+function fromPrice(prices: { price: string }[]): string {
+  const nums = prices
+    .map((p) => parseInt(p.price, 10))
+    .filter((n) => !Number.isNaN(n));
+  return nums.length ? `от ${Math.min(...nums)} €` : "по запитване";
+}
+
 export default function UslugiPage() {
+  const zoneCount = laserZones.reduce((s, g) => s + g.zones.length, 0);
+
   return (
     <>
-      <section className="border-b hairline">
-        <div className="mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-24">
+      <section className="relative overflow-hidden">
+        <div
+          className="blob -top-24 right-[5%] h-80 w-80 bg-gold/20"
+          aria-hidden="true"
+        />
+        <div className="relative mx-auto max-w-6xl px-5 pb-4 pt-8 md:px-8 md:pt-12">
           <Reveal>
-            <h1 className="max-w-[16ch] font-display text-[clamp(2.4rem,6vw,4.6rem)] font-medium leading-[1.05] text-bordeaux">
-              Процедури, подбрани за вашата кожа
+            <Chip>Услуги и цени</Chip>
+            <h1 className="mt-6 max-w-[16ch] font-display text-[clamp(2.3rem,5vw,4.2rem)] font-normal leading-[1.05] text-bordeaux">
+              Козметични процедури за лице
             </h1>
-            <p className="mt-6 max-w-xl text-secondary-ink">
-              Всяка терапия започва с диагностика и завършва с план. Разгледайте
-              категориите или започнете с консултация, за да изберем заедно
-              правилния протокол.
+            <p className="mt-5 max-w-xl text-secondary-ink">
+              Всяка процедура започва с анализ на кожата и завършва с план.
+              Разгледайте категориите или започнете с консултация, за да
+              изберем заедно.
             </p>
           </Reveal>
         </div>
       </section>
 
-      {/* Каталожно съдържание — като страница „съдържание" на печатен каталог */}
-      <section>
-        <div className="mx-auto max-w-6xl px-5 py-14 md:px-8 md:py-20">
-          <ol className="divide-y hairline border-y hairline">
-            {categories.map((cat, i) => (
-              <Reveal key={cat.slug} delay={i * 0.05} as="li">
-                <Link
-                  href={`/uslugi/${cat.slug}`}
-                  className="group grid gap-2 py-7 md:grid-cols-12 md:items-baseline md:gap-6"
-                >
-                  <span className="font-display text-[clamp(1.6rem,3vw,2.4rem)] leading-tight text-primary-ink transition-colors duration-300 group-hover:text-bordeaux md:col-span-6">
-                    {cat.name}
-                  </span>
-                  <span className="text-[0.95rem] text-tertiary-ink md:col-span-5">
-                    {cat.intro}
-                  </span>
-                  <span
-                    aria-hidden="true"
-                    className="hidden text-right font-display text-xl text-gold opacity-0 transition-opacity duration-300 group-hover:opacity-100 md:col-span-1 md:block"
-                  >
-                    →
-                  </span>
-                </Link>
-              </Reveal>
-            ))}
-          </ol>
-
-          <Reveal delay={0.2}>
-            <Link
-              href="/lazerna-epilatsia"
-              className="group mt-14 block border hairline bg-bordeaux-deep p-8 text-paper transition-colors duration-500 md:p-10"
+      <section className="mx-auto max-w-6xl px-5 py-12 md:px-8 md:py-16">
+        <div className="grid gap-5 md:grid-cols-3">
+          {categories.map((cat, i) => (
+            <Reveal
+              key={cat.slug}
+              delay={(i % 3) * 0.07}
+              className={i === 0 || i === 3 || i === 5 ? "md:col-span-2" : ""}
             >
-              <div className="grid gap-3 md:grid-cols-12 md:items-baseline md:gap-6">
-                <span className="font-display text-[clamp(1.7rem,3.2vw,2.6rem)] leading-tight md:col-span-6">
-                  Лазерна епилация
-                </span>
-                <span className="text-[0.95rem] text-paper/60 md:col-span-5">
-                  Зони и цени за жени и мъже: от междувеждие до цели крака, с
-                  пакети за постоянство.
-                </span>
-                <span
+              <Link href={`/uslugi/${cat.slug}`} className="group block h-full">
+                <Card className="hover-lift flex h-full flex-col justify-between p-7">
+                  <div>
+                    <div className="flex flex-wrap items-start justify-between gap-3">
+                      <h2 className="max-w-[18ch] font-display text-[1.55rem] font-medium leading-snug text-bordeaux">
+                        {cat.name}
+                      </h2>
+                      <span className="rounded-full bg-paper-soft px-3.5 py-1 text-[0.8rem] text-tertiary-ink">
+                        {cat.procedures.length}{" "}
+                        {cat.procedures.length === 1
+                          ? "процедура"
+                          : "процедури"}
+                      </span>
+                    </div>
+                    <p className="mt-3 text-[0.93rem] text-secondary-ink">
+                      {cat.intro}
+                    </p>
+                    <ul className="mt-4 flex flex-wrap gap-2">
+                      {cat.procedures.map((p) => (
+                        <li
+                          key={p.slug}
+                          className="rounded-full border hairline px-3 py-1 text-[0.8rem] text-tertiary-ink"
+                        >
+                          {p.name}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="mt-6 flex items-center justify-between">
+                    <span className="rounded-full bg-paper-soft px-4 py-1.5 text-[0.85rem] text-secondary-ink">
+                      {fromPrice(cat.procedures.flatMap((p) => p.prices))}
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      className="flex h-10 w-10 items-center justify-center rounded-full border hairline text-gold transition-all duration-300 group-hover:border-gold group-hover:bg-gold group-hover:text-paper"
+                    >
+                      →
+                    </span>
+                  </div>
+                </Card>
+              </Link>
+            </Reveal>
+          ))}
+
+          <Reveal className="md:col-span-3">
+            <Link href="/lazerna-epilatsia" className="group block">
+              <div className="hover-lift relative overflow-hidden rounded-[1.75rem] bg-bordeaux-deep p-8 text-paper shadow-soft md:p-10">
+                <div
+                  className="blob -right-16 -top-28 h-80 w-80 bg-gold/20"
                   aria-hidden="true"
-                  className="hidden text-right font-display text-xl text-gold md:col-span-1 md:block"
-                >
-                  →
-                </span>
+                />
+                <div className="relative flex flex-wrap items-end justify-between gap-6">
+                  <div>
+                    <h2 className="font-display text-[clamp(1.7rem,3vw,2.4rem)] font-medium leading-tight">
+                      Лазерна епилация
+                    </h2>
+                    <p className="mt-3 max-w-md text-[0.95rem] text-paper/65">
+                      {zoneCount} зони за жени и мъже. Курс от процедури носи
+                      до −15%, а при две или повече зони получавате още −5%.
+                    </p>
+                  </div>
+                  <span className="inline-flex items-center gap-2 rounded-full bg-paper px-6 py-3 text-[0.92rem] text-bordeaux transition-transform duration-300 group-hover:-translate-y-0.5">
+                    Зони и цени →
+                  </span>
+                </div>
               </div>
             </Link>
           </Reveal>

@@ -2,14 +2,27 @@ import Link from "next/link";
 import SunRays from "@/components/SunRays";
 import { contact, hours } from "@/lib/data";
 
+const nav = [
+  { href: "/konsultatsia", label: "Консултация" },
+  { href: "/uslugi", label: "Услуги" },
+  { href: "/lazerna-epilatsia", label: "Лазерна епилация" },
+  { href: "/paketi", label: "Пакети" },
+  { href: "/marki", label: "Марки" },
+  { href: "/kontakti", label: "Контакти" },
+];
+
 export default function Footer() {
   return (
-    <footer className="bg-bordeaux-deep text-paper">
-      <div className="passepartout mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-20">
-        <div className="grid gap-12 md:grid-cols-12">
-          <div className="md:col-span-5">
-            <SunRays half className="w-14 text-gold" />
-            <p className="mt-4 font-display text-3xl font-medium tracking-[0.06em]">
+    <footer className="relative mt-20 overflow-hidden rounded-t-[2.5rem] bg-bordeaux-deep text-paper">
+      <div
+        className="blob -top-24 right-[10%] h-96 w-96 bg-gold/15"
+        aria-hidden="true"
+      />
+      <div className="relative mx-auto max-w-6xl px-6 pb-28 pt-16 md:px-8 md:pt-20 lg:pb-12">
+        <div className="grid gap-12 lg:grid-cols-12">
+          <div className="lg:col-span-5">
+            <SunRays half className="w-14 text-gold-soft" />
+            <p className="mt-4 font-display text-4xl font-medium tracking-[0.06em]">
               AURÈLIS
             </p>
             <p className="mt-1 text-[0.62rem] uppercase tracking-[0.42em] text-paper/50">
@@ -19,10 +32,32 @@ export default function Footer() {
               Истинската грижа започва там, където човекът е по-важен от
               процедурата.
             </p>
+            <a
+              href={contact.phoneHref}
+              className="mt-8 inline-flex items-center gap-2 rounded-full bg-paper px-6 py-3 text-[0.95rem] text-bordeaux transition-all duration-300 hover:-translate-y-0.5"
+            >
+              Запази час · {contact.phone}
+            </a>
           </div>
 
-          <div className="md:col-span-4">
-            <p className="font-display text-xl text-paper/90">Работно време</p>
+          <div className="lg:col-span-3">
+            <p className="text-[0.8rem] text-paper/45">Навигация</p>
+            <ul className="mt-4 space-y-2.5">
+              {nav.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className="text-[0.95rem] text-paper/80 transition-colors duration-300 hover:text-gold-soft"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="lg:col-span-4">
+            <p className="text-[0.8rem] text-paper/45">Работно време</p>
             <ul className="mt-4 space-y-3">
               {hours.map((h) => (
                 <li key={h.days} className="flex items-baseline text-[0.92rem]">
@@ -32,35 +67,18 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
-
-          <div className="md:col-span-3">
-            <p className="font-display text-xl text-paper/90">Контакти</p>
-            <address className="mt-4 space-y-2 text-[0.92rem] not-italic text-paper/70">
+            <p className="mt-6 text-[0.8rem] text-paper/45">Адрес</p>
+            <address className="mt-2 space-y-1 text-[0.92rem] not-italic text-paper/80">
               <p>{contact.addressFull}</p>
               <p>
                 <a
-                  href={contact.phoneHref}
-                  className="transition-colors duration-300 hover:text-gold"
-                >
-                  {contact.phone}
-                </a>
-              </p>
-              <p>
-                <a
                   href={`mailto:${contact.email}`}
-                  className="break-all transition-colors duration-300 hover:text-gold"
+                  className="break-all transition-colors duration-300 hover:text-gold-soft"
                 >
                   {contact.email}
                 </a>
               </p>
             </address>
-            <Link
-              href="/kontakti"
-              className="mt-5 inline-block border-b border-gold/60 pb-0.5 text-[0.9rem] text-paper/90 transition-colors duration-300 hover:text-gold"
-            >
-              Всички контакти
-            </Link>
           </div>
         </div>
 

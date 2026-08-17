@@ -1,7 +1,46 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 
-/** Ред „услуга … цена" с точков водач — езикът на печатния ценоразпис. */
+/** Заоблена карта — основната повърхност на v2 дизайна. */
+export function Card({
+  children,
+  className = "",
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <div
+      className={`rounded-[1.75rem] border border-white/70 bg-card shadow-soft ${className}`}
+    >
+      {children}
+    </div>
+  );
+}
+
+/** Chip — малък pill етикет със златна точка (sentence case, не uppercase). */
+export function Chip({
+  children,
+  dark = false,
+}: {
+  children: ReactNode;
+  dark?: boolean;
+}) {
+  return (
+    <span
+      className={`inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-[0.85rem] ${
+        dark
+          ? "hairline-cream bg-white/5 text-paper/80"
+          : "hairline bg-card/70 text-secondary-ink"
+      }`}
+    >
+      <span className="h-1.5 w-1.5 rounded-full bg-gold" />
+      {children}
+    </span>
+  );
+}
+
+/** Ред „услуга … цена" с точков водач — наследство от печатния ценоразпис. */
 export function PriceRow({
   label,
   price,
@@ -28,8 +67,9 @@ export function PriceRow({
           {strike}
         </span>
       )}
+      {/* Цените са в Golos с tabular-nums: тънкият сериф се разпада под 22px */}
       <span
-        className={`font-display text-[1.15em] font-semibold tracking-wide ${
+        className={`tnum text-[1.02em] font-semibold ${
           dark ? "text-paper" : "text-bordeaux"
         }`}
       >
@@ -39,7 +79,7 @@ export function PriceRow({
   );
 }
 
-/** Плътен бордо бутон — основното действие. */
+/** Плътен pill бутон — основното действие. */
 export function CtaSolid({
   href,
   children,
@@ -50,7 +90,7 @@ export function CtaSolid({
   external?: boolean;
 }) {
   const cls =
-    "inline-block bg-bordeaux px-7 py-3.5 text-[0.95rem] text-paper transition-colors duration-300 hover:bg-bordeaux-deep";
+    "inline-flex items-center justify-center gap-2 rounded-full bg-bordeaux px-7 py-3.5 text-[0.95rem] text-paper shadow-pill transition-all duration-300 hover:-translate-y-0.5 hover:bg-wine";
   return external ? (
     <a href={href} className={cls}>
       {children}
@@ -62,7 +102,7 @@ export function CtaSolid({
   );
 }
 
-/** Контурен бутон — второстепенно действие. */
+/** Контурен pill бутон — второстепенно действие. */
 export function CtaGhost({
   href,
   children,
@@ -74,10 +114,10 @@ export function CtaGhost({
   external?: boolean;
   dark?: boolean;
 }) {
-  const cls = `inline-block border px-7 py-3.5 text-[0.95rem] transition-colors duration-300 ${
+  const cls = `inline-flex items-center justify-center gap-2 rounded-full border px-7 py-3.5 text-[0.95rem] transition-all duration-300 hover:-translate-y-0.5 ${
     dark
-      ? "hairline-cream text-paper hover:border-gold hover:text-gold"
-      : "hairline text-bordeaux hover:border-bordeaux"
+      ? "hairline-cream text-paper hover:border-gold-soft hover:text-gold-soft"
+      : "hairline bg-card/60 text-bordeaux hover:border-bordeaux"
   }`;
   return external ? (
     <a href={href} className={cls}>
@@ -90,24 +130,23 @@ export function CtaGhost({
   );
 }
 
-/** Мета ред за процедура (времетраене, възстановяване…) с hairline разделители. */
-export function MetaList({
+/** Спецификации на процедура — мини клетки в заоблена лента. */
+export function MetaStrip({
   items,
 }: {
   items: { term: string; value: string }[];
 }) {
+  const filtered = items.filter((i) => i.value && i.value !== "—");
   return (
-    <dl className="divide-y hairline border-y hairline">
-      {items
-        .filter((i) => i.value && i.value !== "—")
-        .map((i) => (
-          <div key={i.term} className="flex items-baseline gap-4 py-2.5">
-            <dt className="w-44 shrink-0 text-[0.85rem] text-tertiary-ink">
-              {i.term}
-            </dt>
-            <dd className="text-[0.95rem] text-secondary-ink">{i.value}</dd>
-          </div>
-        ))}
-    </dl>
+    <div className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl bg-ink/8 sm:grid-cols-4">
+      {filtered.map((i) => (
+        <div key={i.term} className="bg-paper-soft/80 px-4 py-3.5">
+          <p className="text-[0.75rem] text-tertiary-ink">{i.term}</p>
+          <p className="mt-1 text-[0.92rem] leading-snug text-primary-ink">
+            {i.value}
+          </p>
+        </div>
+      ))}
+    </div>
   );
 }

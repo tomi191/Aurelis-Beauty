@@ -1,97 +1,133 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
-import { CtaGhost, CtaSolid } from "@/components/ui";
-import { contact, laserZones } from "@/lib/data";
+import { Card, Chip, CtaGhost, CtaSolid } from "@/components/ui";
+import { contact, laserPackages, laserZones } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "Лазерна епилация · Варна",
+  title: "Лазерна епилация Варна · Цени за жени и мъже",
   description:
-    "Лазерна епилация за жени и мъже в AURÈLIS Beauty Atelier, Варна. Пълен ценоразпис по зони: лице, тяло и интимна зона, с пакети и отстъпки за курс.",
+    "Лазерна епилация във Варна с цени по зони за жени и мъже: подмишници, цели крака, интимна зона, лице, гръб. Трайно обезкосмяване с пакетни цени и отстъпки.",
 };
 
 export default function LaserPage() {
   return (
     <>
-      <section className="bg-bordeaux-deep text-paper">
-        <div className="passepartout mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
-          <Reveal>
-            <h1 className="max-w-[16ch] font-display text-[clamp(2.4rem,6vw,4.6rem)] font-medium leading-[1.05]">
-              Гладката кожа обича постоянството
-            </h1>
-            <p className="mt-6 max-w-xl text-paper/70">
-              Лазерна епилация за жени и мъже, по зони или в пакет. Курс от
-              процедури носи до −15% отстъпка, а при 2+ зони получавате
-              допълнителни −5%.
-            </p>
-            <div className="mt-9 flex flex-wrap gap-4">
-              <CtaSolid href={contact.phoneHref} external>
-                Запазете час · {contact.phone}
-              </CtaSolid>
-              <CtaGhost href="/paketi" dark>
-                Пакети и отстъпки
-              </CtaGhost>
+      <section className="mx-auto max-w-6xl px-5 md:px-8">
+        <Reveal>
+          <div className="relative overflow-hidden rounded-[2.5rem] bg-bordeaux-deep px-6 py-14 text-paper md:px-14 md:py-20">
+            <div
+              className="blob -right-20 -top-28 h-96 w-96 bg-gold/20"
+              aria-hidden="true"
+            />
+            <div
+              className="blob -bottom-32 left-[-10%] h-80 w-80 bg-wine/30"
+              aria-hidden="true"
+            />
+            <div className="relative">
+              <Chip dark>Трайно обезкосмяване · жени и мъже</Chip>
+              <h1 className="mt-6 max-w-[16ch] font-display text-[clamp(2.3rem,5vw,4.2rem)] font-normal leading-[1.05]">
+                Лазерна епилация във Варна
+              </h1>
+              <p className="mt-4 font-display text-[1.35rem] italic text-gold-soft">
+                Гладката кожа обича постоянството
+              </p>
+              <p className="mt-5 max-w-xl text-paper/70">
+                По зони или в пакет, с цени, обявени предварително. Курс от
+                процедури носи до −15% отстъпка, а при две или повече зони
+                получавате още −5%.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-4">
+                <CtaSolid href={contact.phoneHref} external>
+                  Запази час · {contact.phone}
+                </CtaSolid>
+                <CtaGhost href="/paketi" dark>
+                  Пакети и отстъпки
+                </CtaGhost>
+              </div>
             </div>
-          </Reveal>
-        </div>
+          </div>
+        </Reveal>
       </section>
 
-      <section>
-        <div className="mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-24">
-          <Reveal>
-            <div className="flex items-baseline justify-between gap-6">
-              <h2 className="font-display text-[clamp(1.9rem,3.5vw,2.9rem)] font-medium text-bordeaux">
-                Зони и цени
-              </h2>
-              <p className="hidden text-[0.85rem] text-tertiary-ink md:block">
-                Ж = жени · М = мъже
-              </p>
+      <section className="mx-auto max-w-6xl px-5 py-14 md:px-8 md:py-20">
+        <Reveal>
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <h2 className="font-display text-[clamp(1.9rem,3.6vw,2.9rem)] font-medium text-bordeaux">
+              Зони и цени
+            </h2>
+            <div className="mb-1 flex gap-2">
+              <span className="rounded-full bg-bordeaux/10 px-3.5 py-1 text-[0.8rem] text-bordeaux">
+                Ж = жени
+              </span>
+              <span className="rounded-full bg-taupe/20 px-3.5 py-1 text-[0.8rem] text-secondary-ink">
+                М = мъже
+              </span>
             </div>
-          </Reveal>
+          </div>
+        </Reveal>
 
-          <div className="mt-10 grid gap-x-16 gap-y-14 md:grid-cols-2">
-            {laserZones.map((group, gi) => (
-              <Reveal key={group.group} delay={gi * 0.06}>
-                <h3 className="flex items-baseline justify-between border-b-2 border-bordeaux pb-3 font-display text-xl text-bordeaux">
-                  {group.group}
-                  <span className="flex gap-8 text-[0.75rem] font-normal tracking-wide text-tertiary-ink">
+        <div className="mt-8 grid gap-5 lg:grid-cols-2">
+          {laserZones.map((group, gi) => (
+            <Reveal key={group.group} delay={(gi % 2) * 0.07}>
+              <Card className="h-full p-7">
+                <div className="flex items-baseline justify-between border-b-2 border-bordeaux/80 pb-3">
+                  <h3 className="font-display text-xl font-semibold text-bordeaux">
+                    {group.group}
+                  </h3>
+                  <span className="flex gap-6 text-[0.75rem] tracking-wide text-tertiary-ink">
                     <span className="w-12 text-right">Ж</span>
                     <span className="w-12 text-right">М</span>
                   </span>
-                </h3>
+                </div>
                 <ul className="divide-y hairline">
                   {group.zones.map((z) => (
                     <li
                       key={z.zone}
                       className="flex items-baseline justify-between gap-4 py-2.5"
                     >
-                      <span className="text-secondary-ink">{z.zone}</span>
-                      <span className="flex shrink-0 gap-8">
-                        <span className="w-12 text-right font-display text-[1.05rem] font-semibold text-bordeaux">
+                      <span className="text-[0.95rem] text-secondary-ink">
+                        {z.zone}
+                      </span>
+                      <span className="flex shrink-0 gap-6">
+                        <span className="tnum w-12 text-right text-[0.95rem] font-semibold text-bordeaux">
                           {z.f}
                         </span>
-                        <span className="w-12 text-right font-display text-[1.05rem] text-taupe">
+                        <span className="tnum w-12 text-right text-[0.95rem] text-secondary-ink">
                           {z.m}
                         </span>
                       </span>
                     </li>
                   ))}
                 </ul>
-              </Reveal>
+              </Card>
+            </Reveal>
+          ))}
+        </div>
+
+        <Reveal delay={0.1}>
+          <div className="mt-10 grid gap-5 md:grid-cols-3">
+            {laserPackages.courses.map((c) => (
+              <Card key={c.name} className="hover-lift p-6 text-center">
+                <p className="font-display text-xl font-semibold text-bordeaux">
+                  {c.name}
+                </p>
+                <p className="mt-1 text-[0.88rem] text-tertiary-ink">
+                  {c.label}
+                </p>
+                <p className="mt-3 font-display text-3xl font-semibold text-gold">
+                  {c.discount}
+                </p>
+              </Card>
             ))}
           </div>
-
-          <Reveal delay={0.15}>
-            <p className="mt-14 border-t hairline pt-6 text-[0.95rem] text-tertiary-ink">
-              Курс от 3, 6 или 8 процедури носи от −5% до −15% отстъпка, а
-              комбинациите от 2+ зони: допълнителни −5%.{" "}
-              <Link href="/paketi" className="link-ink">
-                Вижте пакетите
-              </Link>
-              .
-            </p>
-          </Reveal>
-        </div>
+          <p className="mt-6 text-center text-[0.9rem] text-tertiary-ink">
+            {laserPackages.extra}{" "}
+            <Link href="/paketi" className="link-ink">
+              Вижте комбо пакетите
+            </Link>
+          </p>
+        </Reveal>
       </section>
     </>
   );
