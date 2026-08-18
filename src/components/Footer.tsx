@@ -3,7 +3,8 @@ import SunRays from "@/components/SunRays";
 import { contact, hours } from "@/lib/data";
 
 const nav = [
-  { href: "/konsultatsia", label: "Консултация" },
+  { href: "/za-nas", label: "За нас" },
+  { href: "/konsultatsia", label: "Консултации" },
   { href: "/uslugi", label: "Услуги" },
   { href: "/lazerna-epilatsia", label: "Лазерна епилация" },
   { href: "/paketi", label: "Пакети" },

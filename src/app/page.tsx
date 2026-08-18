@@ -392,37 +392,19 @@ export default function Home() {
                 </p>
               </Card>
             </Reveal>
+            <Reveal delay={0.2}>
+              <Link
+                href="/za-nas"
+                className="link-ink inline-block text-[0.95rem]"
+              >
+                Защо се казваме AURÈLIS и кои сме ние
+              </Link>
+            </Reveal>
           </div>
         </div>
       </section>
 
-      {/* ——— А защо AURÈLIS? ——— */}
-      <section className="mx-auto max-w-6xl px-5 md:px-8">
-        <Reveal>
-          <div className="relative overflow-hidden rounded-[2.5rem] bg-bordeaux-deep px-6 py-16 text-paper md:px-16 md:py-24">
-            <div
-              className="blob -top-24 left-1/2 h-80 w-80 -translate-x-1/2 bg-gold/20"
-              aria-hidden="true"
-            />
-            <div className="relative mx-auto max-w-2xl text-center">
-              <SunRays className="mx-auto w-16 text-gold-soft" />
-              <h2 className="mt-7 font-display text-[clamp(2rem,4vw,3.1rem)] font-medium leading-tight">
-                А защо AURÈLIS?
-              </h2>
-              <div className="mt-8 space-y-5 text-left text-[1rem] leading-relaxed text-paper/75">
-                {about.whyName.map((p, i) => (
-                  <p key={i}>{p}</p>
-                ))}
-              </div>
-              <p className="mx-auto mt-12 max-w-xl font-display text-[1.45rem] leading-snug text-paper md:text-[1.7rem]">
-                {about.closing}
-              </p>
-            </div>
-          </div>
-        </Reveal>
-      </section>
-
-      {/* ——— Йоана ——— */}
+      {/* ——— Йоана (визитка, пълната история е в /za-nas) ——— */}
       <section className="mx-auto grid max-w-6xl items-center gap-12 px-5 py-14 md:px-8 md:py-20 lg:grid-cols-12">
         <div className="lg:col-span-6">
           <Reveal>
@@ -441,13 +423,20 @@ export default function Home() {
               ))}
             </div>
           </Reveal>
-          <div className="mt-7 space-y-4 text-[0.98rem] text-secondary-ink">
-            {[...founder.story, ...founder.whyCreated].map((p, i) => (
-              <Reveal key={i} delay={0.12 + i * 0.05} as="div">
-                <p>{p}</p>
-              </Reveal>
-            ))}
-          </div>
+          <Reveal delay={0.14}>
+            <p className="mt-7 text-[0.98rem] text-secondary-ink">
+              {founder.story[0]}
+            </p>
+            <p className="mt-4 text-[0.98rem] text-secondary-ink">
+              {founder.story[1]}
+            </p>
+            <Link
+              href="/za-nas"
+              className="link-ink mt-6 inline-block text-[0.95rem]"
+            >
+              Моята история и защо създадох AURÈLIS
+            </Link>
+          </Reveal>
         </div>
         <Reveal delay={0.1} className="lg:col-span-5 lg:col-start-8">
           {/* Портрет: очаква фотосесия — тонален arch placeholder */}

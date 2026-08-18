@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import ContactForm from "@/components/ContactForm";
 import Reveal from "@/components/Reveal";
 import { Card, Chip, CtaGhost, CtaSolid } from "@/components/ui";
 import { contact, hours } from "@/lib/data";
@@ -114,6 +115,21 @@ export default function KontaktiPage() {
         </div>
 
         <Reveal delay={0.1}>
+          <Card className="mt-5 p-7 md:p-9">
+            <h2 className="font-display text-[clamp(1.6rem,2.8vw,2.2rem)] font-medium leading-tight text-bordeaux">
+              Пишете ни направо оттук
+            </h2>
+            <p className="mt-2 max-w-xl text-[0.92rem] text-tertiary-ink">
+              Оставете име, телефон и какво ви трябва: ще се чуем за
+              свободните часове.
+            </p>
+            <div className="mt-7 max-w-2xl">
+              <ContactForm />
+            </div>
+          </Card>
+        </Reveal>
+
+        <Reveal delay={0.12}>
           <div className="mt-5 overflow-hidden rounded-[1.75rem] border border-white/70 shadow-soft">
             <iframe
               title="AURÈLIS Beauty Atelier на картата"
