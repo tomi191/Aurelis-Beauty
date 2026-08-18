@@ -1,4 +1,7 @@
 import Link from "next/link";
+import Faq from "@/components/Faq";
+import HomeHero from "@/components/HomeHero";
+import Marquee from "@/components/Marquee";
 import Reveal from "@/components/Reveal";
 import SunRays from "@/components/SunRays";
 import { Card, Chip, CtaGhost, CtaSolid } from "@/components/ui";
@@ -101,97 +104,8 @@ export default function Home() {
 
   return (
     <>
-      {/* ——— Hero ——— */}
-      <section className="relative overflow-hidden">
-        <div
-          className="blob -top-20 right-[-5%] h-[28rem] w-[28rem] bg-gold/25"
-          aria-hidden="true"
-        />
-        <div
-          className="blob bottom-[-30%] left-[-10%] h-[30rem] w-[30rem] bg-wine/15"
-          aria-hidden="true"
-        />
-        <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-5 pb-14 pt-8 md:px-8 md:pt-14 lg:grid-cols-12 lg:gap-8">
-          <div className="lg:col-span-7">
-            <Reveal>
-              <Chip>Козметично студио във Варна</Chip>
-            </Reveal>
-            <Reveal delay={0.08}>
-              <h1 className="mt-6 max-w-[16ch] font-display text-[clamp(2.5rem,5.6vw,4.9rem)] font-normal leading-[1.05] tracking-[-0.01em] text-bordeaux">
-                Истинската грижа започва там, където{" "}
-                <em>човекът</em> е по-важен от процедурата.
-              </h1>
-            </Reveal>
-            <Reveal delay={0.16}>
-              <p className="mt-6 max-w-lg text-[1.05rem] leading-relaxed text-secondary-ink">
-                Процедури за лице и лазерна епилация от медицински козметик
-                Йоана Здравкова. Започваме с анализ на кожата, после план,
-                съобразен с вас.
-              </p>
-            </Reveal>
-            <Reveal delay={0.22}>
-              <div className="mt-9 flex flex-wrap items-center gap-4">
-                <CtaSolid href={contact.phoneHref} external>
-                  Запази час
-                </CtaSolid>
-                <CtaGhost href="/uslugi">Разгледай процедурите</CtaGhost>
-              </div>
-              <p className="mt-6 text-[0.88rem] text-tertiary-ink">
-                {contact.addressFull}
-              </p>
-            </Reveal>
-          </div>
-
-          {/* Арка вместо снимка: очаква фотосесия от клиента (shot-list във
-              vault). Никаква стокова заместителна фотография. */}
-          <Reveal delay={0.15} className="relative lg:col-span-5">
-            <div className="arch relative mx-auto flex aspect-[4/5] max-w-sm items-center justify-center overflow-hidden bg-gradient-to-b from-wine via-bordeaux to-bordeaux-deep">
-              <div
-                className="blob left-1/2 top-8 h-48 w-48 -translate-x-1/2 bg-gold/30"
-                aria-hidden="true"
-              />
-              <SunRays className="relative w-40 text-gold-soft/90" />
-            </div>
-            <Card className="hover-lift absolute -left-2 bottom-16 hidden px-5 py-4 md:-left-8 md:block">
-              <p className="font-display text-xl font-semibold text-bordeaux">
-                Консултация · {consultation.price}
-              </p>
-              <p className="mt-0.5 text-[0.8rem] text-tertiary-ink">
-                приспада се от първата процедура
-              </p>
-            </Card>
-            <Card className="hover-lift absolute -right-1 top-10 hidden px-5 py-4 md:-right-4 md:block">
-              <p className="font-display text-xl font-semibold text-bordeaux">
-                LED терапия подарък
-              </p>
-              <p className="mt-0.5 text-[0.8rem] text-tertiary-ink">
-                към всяка пакетна програма за лице
-              </p>
-            </Card>
-          </Reveal>
-        </div>
-
-        {/* Доверие в един ред: само проверими факти */}
-        <div className="mx-auto max-w-6xl px-5 pb-6 md:px-8">
-          <Reveal>
-            <ul className="grid grid-cols-2 gap-x-8 gap-y-3 border-t hairline pt-6 md:grid-cols-4">
-              {[
-                "Медицински козметик",
-                "Индивидуален протокол след анализ на кожата",
-                `${brands.length} професионални марки`,
-                "Цени без изненади, обявени предварително",
-              ].map((f) => (
-                <li
-                  key={f}
-                  className="text-[0.9rem] leading-snug text-tertiary-ink"
-                >
-                  {f}
-                </li>
-              ))}
-            </ul>
-          </Reveal>
-        </div>
-      </section>
+      {/* ——— Hero (client, motion каскада + live работно време) ——— */}
+      <HomeHero />
 
       {/* ——— Процедури (bento) ——— */}
       <section className="mx-auto max-w-6xl px-5 py-14 md:px-8 md:py-20">
@@ -439,9 +353,15 @@ export default function Home() {
           </Reveal>
         </div>
         <Reveal delay={0.1} className="lg:col-span-5 lg:col-start-8">
-          {/* Портрет: очаква фотосесия — тонален arch placeholder */}
-          <div className="arch relative mx-auto flex aspect-[4/5] max-w-sm items-center justify-center overflow-hidden bg-gradient-to-b from-taupe/45 to-paper-soft">
-            <SunRays className="w-28 text-taupe/80" />
+          {/* Портрет: очаква фотосесия — тонален arch placeholder с offset слой */}
+          <div className="relative mx-auto max-w-sm">
+            <div
+              aria-hidden="true"
+              className="arch absolute inset-x-6 -bottom-4 top-10 -z-10 bg-gold/20"
+            />
+            <div className="arch relative flex aspect-[4/5] items-center justify-center overflow-hidden bg-gradient-to-b from-taupe/45 to-paper-soft">
+              <SunRays className="w-28 text-taupe/80" />
+            </div>
           </div>
         </Reveal>
       </section>
@@ -504,18 +424,19 @@ export default function Home() {
           </div>
         </Reveal>
         <Reveal delay={0.08}>
-          <ul className="mt-8 flex flex-wrap items-baseline gap-x-9 gap-y-4">
-            {brands.map((b) => (
-              <li key={b.name}>
+          <div className="mt-8">
+            <Marquee>
+              {brands.map((b) => (
                 <Link
+                  key={b.name}
                   href="/marki"
-                  className="font-display text-[clamp(1.35rem,2.4vw,1.9rem)] text-bordeaux/80 underline decoration-gold/40 decoration-1 underline-offset-8 transition-colors duration-300 hover:text-bordeaux hover:decoration-bordeaux"
+                  className="font-display text-[clamp(1.5rem,2.6vw,2.1rem)] whitespace-nowrap text-bordeaux/80 transition-colors duration-300 hover:text-bordeaux"
                 >
                   {b.name}
                 </Link>
-              </li>
-            ))}
-          </ul>
+              ))}
+            </Marquee>
+          </div>
         </Reveal>
       </section>
 
@@ -531,24 +452,9 @@ export default function Home() {
             </p>
           </Reveal>
           <div className="lg:col-span-7 lg:col-start-6">
-            {faq.map((f, i) => (
-              <Reveal key={f.q} delay={i * 0.05}>
-                <details className="group border-b hairline py-5">
-                  <summary className="flex cursor-pointer list-none items-baseline justify-between gap-4 text-[1.05rem] font-semibold text-primary-ink">
-                    {f.q}
-                    <span
-                      aria-hidden="true"
-                      className="text-gold transition-transform duration-300 group-open:rotate-45"
-                    >
-                      +
-                    </span>
-                  </summary>
-                  <p className="mt-3 max-w-xl text-[0.95rem] text-secondary-ink">
-                    {f.a}
-                  </p>
-                </details>
-              </Reveal>
-            ))}
+            <Reveal delay={0.08}>
+              <Faq items={faq} />
+            </Reveal>
           </div>
         </div>
       </section>

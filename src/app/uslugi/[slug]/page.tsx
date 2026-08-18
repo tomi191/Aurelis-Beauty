@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import BlurTitle from "@/components/BlurTitle";
 import Reveal from "@/components/Reveal";
 import {
   Card,
@@ -51,9 +52,10 @@ export default async function CategoryPage({
             <Link href="/uslugi" className="link-ink text-[0.9rem]">
               ← Всички услуги
             </Link>
-            <h1 className="mt-5 max-w-[18ch] font-display text-[clamp(2.1rem,4.6vw,3.8rem)] font-normal leading-[1.05] text-bordeaux">
-              {cat.name}
-            </h1>
+            <BlurTitle
+              text={cat.name}
+              className="mt-5 max-w-[18ch] font-display text-[clamp(2.1rem,4.6vw,3.8rem)] font-normal leading-[1.05] text-bordeaux"
+            />
             <p className="mt-4 max-w-xl text-secondary-ink">{cat.intro}</p>
           </Reveal>
         </div>

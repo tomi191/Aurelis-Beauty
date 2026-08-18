@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import BlurTitle from "@/components/BlurTitle";
 import Reveal from "@/components/Reveal";
 import { Card, Chip } from "@/components/ui";
 import { categories, laserZones } from "@/lib/data";
@@ -30,10 +31,10 @@ export default function UslugiPage() {
         <div className="relative mx-auto max-w-6xl px-5 pb-4 pt-8 md:px-8 md:pt-12">
           <Reveal>
             <Chip>Услуги и цени</Chip>
-            <h1 className="mt-6 max-w-[16ch] font-display text-[clamp(2.3rem,5vw,4.2rem)] font-normal leading-[1.05] text-bordeaux">
-              Процедури за{" "}
-              <span className="whitespace-nowrap">лице и тяло</span>
-            </h1>
+            <BlurTitle
+              text="Процедури за лице и тяло"
+              className="mt-6 max-w-[14ch] font-display text-[clamp(2.3rem,5vw,4.2rem)] font-normal leading-[1.05] text-bordeaux"
+            />
             <p className="mt-5 max-w-xl text-secondary-ink">
               Всяка процедура започва с анализ на кожата и завършва с план.
               Разгледайте категориите или започнете с консултация, за да

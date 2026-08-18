@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { Mail, MapPin, Phone } from "lucide-react";
+import BlurTitle from "@/components/BlurTitle";
 import ContactForm from "@/components/ContactForm";
 import Reveal from "@/components/Reveal";
 import { Card, Chip, CtaGhost, CtaSolid } from "@/components/ui";
@@ -21,9 +23,10 @@ export default function KontaktiPage() {
         <div className="relative mx-auto max-w-6xl px-5 pb-4 pt-8 md:px-8 md:pt-12">
           <Reveal>
             <Chip>Контакти</Chip>
-            <h1 className="mt-6 max-w-[16ch] font-display text-[clamp(2.3rem,5vw,4.2rem)] font-normal leading-[1.05] text-bordeaux">
-              Заповядайте в ателието
-            </h1>
+            <BlurTitle
+              text="Заповядайте в ателието"
+              className="mt-6 max-w-[16ch] font-display text-[clamp(2.3rem,5vw,4.2rem)] font-normal leading-[1.05] text-bordeaux"
+            />
             <p className="mt-5 max-w-xl text-secondary-ink">
               Обадете се, за да си запазите час, или ни пишете: отговаряме
               още същия ден.
@@ -37,41 +40,58 @@ export default function KontaktiPage() {
           <Reveal className="lg:col-span-7">
             <Card className="h-full p-7 md:p-9">
               <dl className="space-y-7">
-                <div>
-                  <dt className="text-[0.85rem] text-tertiary-ink">Адрес</dt>
-                  <dd className="mt-1.5 font-display text-[1.5rem] leading-snug text-primary-ink">
-                    {contact.addressFull}
-                  </dd>
-                  <a
-                    href="https://www.google.com/maps/search/?api=1&query=ул.+Дунавски+лебед+14,+Варна"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="link-ink mt-2 inline-block text-[0.9rem]"
-                  >
-                    Отвори в Google Maps
-                  </a>
-                </div>
-                <div>
-                  <dt className="text-[0.85rem] text-tertiary-ink">Телефон</dt>
-                  <dd className="mt-1.5">
+                <div className="flex gap-4">
+                  <span className="mt-1 grid size-10 shrink-0 place-items-center rounded-full bg-gold/15 text-bordeaux">
+                    <MapPin className="size-4" strokeWidth={1.6} />
+                  </span>
+                  <div>
+                    <dt className="text-[0.85rem] text-tertiary-ink">Адрес</dt>
+                    <dd className="mt-1 font-display text-[1.5rem] leading-snug text-primary-ink">
+                      {contact.addressFull}
+                    </dd>
                     <a
-                      href={contact.phoneHref}
-                      className="tnum font-display text-[1.5rem] text-bordeaux underline decoration-gold/50 decoration-1 underline-offset-8 transition-colors duration-300 hover:text-wine"
+                      href="https://www.google.com/maps/search/?api=1&query=ул.+Дунавски+лебед+14,+Варна"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="link-ink mt-2 inline-block text-[0.9rem]"
                     >
-                      {contact.phone}
+                      Отвори в Google Maps
                     </a>
-                  </dd>
+                  </div>
                 </div>
-                <div>
-                  <dt className="text-[0.85rem] text-tertiary-ink">Имейл</dt>
-                  <dd className="mt-1.5">
-                    <a
-                      href={`mailto:${contact.email}`}
-                      className="link-ink break-all text-[1.05rem]"
-                    >
-                      {contact.email}
-                    </a>
-                  </dd>
+                <div className="flex gap-4">
+                  <span className="mt-1 grid size-10 shrink-0 place-items-center rounded-full bg-taupe/20 text-bordeaux">
+                    <Phone className="size-4" strokeWidth={1.6} />
+                  </span>
+                  <div>
+                    <dt className="text-[0.85rem] text-tertiary-ink">
+                      Телефон
+                    </dt>
+                    <dd className="mt-1">
+                      <a
+                        href={contact.phoneHref}
+                        className="tnum font-display text-[1.5rem] text-bordeaux underline decoration-gold/50 decoration-1 underline-offset-8 transition-colors duration-300 hover:text-wine"
+                      >
+                        {contact.phone}
+                      </a>
+                    </dd>
+                  </div>
+                </div>
+                <div className="flex gap-4">
+                  <span className="mt-1 grid size-10 shrink-0 place-items-center rounded-full bg-bordeaux/10 text-bordeaux">
+                    <Mail className="size-4" strokeWidth={1.6} />
+                  </span>
+                  <div>
+                    <dt className="text-[0.85rem] text-tertiary-ink">Имейл</dt>
+                    <dd className="mt-1">
+                      <a
+                        href={`mailto:${contact.email}`}
+                        className="link-ink break-all text-[1.05rem]"
+                      >
+                        {contact.email}
+                      </a>
+                    </dd>
+                  </div>
                 </div>
               </dl>
               <div className="mt-8 flex flex-wrap gap-4">

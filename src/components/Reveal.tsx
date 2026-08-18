@@ -1,48 +1,45 @@
 "use client";
 
-import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
+import { motion, useReducedMotion } from "motion/react";
+import type { ReactNode } from "react";
+
+const tags = {
+  div: motion.div,
+  section: motion.section,
+  li: motion.li,
+  article: motion.article,
+  span: motion.span,
+} as const;
 
 /**
- * Плавно появяване при скрол: веднъж, 0.9s, custom easing (в globals.css).
- * При prefers-reduced-motion съдържанието просто си стои видимо.
+ * Плавно появяване при скрол (motion): веднъж, с изразителния easing
+ * от референтния проект. При prefers-reduced-motion съдържанието стои видимо.
  */
 export default function Reveal({
   children,
   delay = 0,
   className = "",
-  as: Tag = "div",
+  as = "div",
 }: {
   children: ReactNode;
   delay?: number;
   className?: string;
-  as?: "div" | "section" | "li" | "article" | "span";
+  as?: keyof typeof tags;
 }) {
-  const ref = useRef<HTMLElement | null>(null);
+  const reduce = useReducedMotion();
+  const Tag = tags[as];
 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-            observer.unobserve(entry.target);
-          }
-        }
-      },
-      { threshold: 0.06, rootMargin: "0px 0px -20px 0px" }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+  if (reduce) {
+    return <Tag className={className}>{children}</Tag>;
+  }
 
   return (
     <Tag
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      ref={ref as any}
-      className={`reveal ${className}`}
-      style={{ "--reveal-delay": `${delay}s` } as CSSProperties}
+      initial={{ opacity: 0, y: 26 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "0px 0px -60px 0px" }}
+      transition={{ duration: 0.9, delay, ease: [0.22, 1, 0.36, 1] }}
+      className={className}
     >
       {children}
     </Tag>

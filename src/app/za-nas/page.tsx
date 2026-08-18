@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import BlurTitle from "@/components/BlurTitle";
 import Reveal from "@/components/Reveal";
 import SunRays from "@/components/SunRays";
 import { Card, Chip, CtaGhost, CtaSolid } from "@/components/ui";
@@ -22,9 +23,10 @@ export default function ZaNasPage() {
         <div className="relative mx-auto max-w-6xl px-5 pb-4 pt-8 md:px-8 md:pt-12">
           <Reveal>
             <Chip>За нас</Chip>
-            <h1 className="mt-6 max-w-[16ch] font-display text-[clamp(2.3rem,5vw,4.2rem)] font-normal leading-[1.05] text-bordeaux">
-              За AURÈLIS
-            </h1>
+            <BlurTitle
+              text="За AURÈLIS"
+              className="mt-6 max-w-[16ch] font-display text-[clamp(2.3rem,5vw,4.2rem)] font-normal leading-[1.05] text-bordeaux"
+            />
             <p className="mt-6 max-w-2xl font-display text-[clamp(1.35rem,2.4vw,1.8rem)] leading-snug text-primary-ink">
               {about.intro}
             </p>
@@ -122,9 +124,15 @@ export default function ZaNasPage() {
           </Reveal>
         </div>
         <Reveal delay={0.1} className="lg:col-span-5 lg:col-start-8">
-          {/* Портрет: очаква фотосесия — тонален arch placeholder */}
-          <div className="arch relative mx-auto flex aspect-[4/5] max-w-sm items-center justify-center overflow-hidden bg-gradient-to-b from-taupe/45 to-paper-soft">
-            <SunRays className="w-28 text-taupe/80" />
+          {/* Портрет: очаква фотосесия — тонален arch placeholder с offset слой */}
+          <div className="relative mx-auto max-w-sm">
+            <div
+              aria-hidden="true"
+              className="arch absolute inset-x-6 -bottom-4 top-10 -z-10 bg-gold/20"
+            />
+            <div className="arch relative flex aspect-[4/5] items-center justify-center overflow-hidden bg-gradient-to-b from-taupe/45 to-paper-soft">
+              <SunRays className="w-28 text-taupe/80" />
+            </div>
           </div>
         </Reveal>
       </section>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import BlurTitle from "@/components/BlurTitle";
 import Reveal from "@/components/Reveal";
 import { Card, Chip } from "@/components/ui";
 import { brands } from "@/lib/data";
@@ -20,9 +21,10 @@ export default function MarkiPage() {
         <div className="relative mx-auto max-w-6xl px-5 pb-4 pt-8 md:px-8 md:pt-12">
           <Reveal>
             <Chip>Професионална козметика</Chip>
-            <h1 className="mt-6 max-w-[17ch] font-display text-[clamp(2.3rem,5vw,4.2rem)] font-normal leading-[1.05] text-bordeaux">
-              Марките, с които работим
-            </h1>
+            <BlurTitle
+              text="Марките, с които работим"
+              className="mt-6 max-w-[17ch] font-display text-[clamp(2.3rem,5vw,4.2rem)] font-normal leading-[1.05] text-bordeaux"
+            />
             <p className="mt-5 max-w-xl text-secondary-ink">
               Качествената грижа започва с качествения избор. Всяка марка в
               ателието е избрана с причина: патент, формула или технология,

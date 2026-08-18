@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import BlurTitle from "@/components/BlurTitle";
 import Reveal from "@/components/Reveal";
 import { Card, Chip, CtaGhost, CtaSolid } from "@/components/ui";
 import { contact, laserPackages, laserZones } from "@/lib/data";
@@ -26,9 +27,10 @@ export default function LaserPage() {
             />
             <div className="relative">
               <Chip dark>Трайно обезкосмяване · жени и мъже</Chip>
-              <h1 className="mt-6 max-w-[16ch] font-display text-[clamp(2.3rem,5vw,4.2rem)] font-normal leading-[1.05]">
-                Лазерна епилация във Варна
-              </h1>
+              <BlurTitle
+                text="Лазерна епилация във Варна"
+                className="mt-6 max-w-[16ch] font-display text-[clamp(2.3rem,5vw,4.2rem)] font-normal leading-[1.05]"
+              />
               <p className="mt-4 font-display text-[1.35rem] italic text-gold-soft">
                 Гладката кожа обича постоянството
               </p>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import BlurTitle from "@/components/BlurTitle";
 import Reveal from "@/components/Reveal";
 import { Card, Chip, CtaGhost, CtaSolid, PriceRow } from "@/components/ui";
 import { contact, facePackages, laserPackages } from "@/lib/data";
@@ -20,9 +21,10 @@ export default function PaketiPage() {
         <div className="relative mx-auto max-w-6xl px-5 pb-4 pt-8 md:px-8 md:pt-12">
           <Reveal>
             <Chip>Пакети</Chip>
-            <h1 className="mt-6 max-w-[16ch] font-display text-[clamp(2.3rem,5vw,4.2rem)] font-normal leading-[1.05] text-bordeaux">
-              Здравата кожа обича постоянството
-            </h1>
+            <BlurTitle
+              text="Здравата кожа обича постоянството"
+              className="mt-6 max-w-[16ch] font-display text-[clamp(2.3rem,5vw,4.2rem)] font-normal leading-[1.05] text-bordeaux"
+            />
             <p className="mt-5 max-w-xl text-secondary-ink">
               Видимите резултати идват с курс от процедури. Пакетите правят
               курса по-изгоден: колкото по-дълга е програмата, толкова по-голяма

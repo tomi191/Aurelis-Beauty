@@ -8,7 +8,7 @@ const BASE = process.argv[2] || "http://localhost:4173";
 
 const CHECKS = [
   { path: "/", markers: ["Истинската грижа", "Запази час", "088 981 6905"] },
-  { path: "/za-nas", markers: ["За AURÈLIS", "А защо AURÈLIS?", "Йоана Здравкова"] },
+  { path: "/za-nas", markers: ["Моята история", "А защо AURÈLIS?", "Йоана Здравкова"] },
   { path: "/konsultatsia", markers: ["20 €", "приспада", "Анализ на кожата"] },
   { path: "/uslugi", markers: ["Почистване на лице", "Лазерна епилация", "от 40 €"] },
   { path: "/uslugi/pochistvane-na-lice", markers: ["45 €", "Водно дермабразио", "90–100 мин."] },

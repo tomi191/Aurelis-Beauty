@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import BlurTitle from "@/components/BlurTitle";
 import Reveal from "@/components/Reveal";
 import SunRays from "@/components/SunRays";
 import { Card, Chip, CtaGhost, CtaSolid, MetaStrip } from "@/components/ui";
@@ -22,9 +23,10 @@ export default function KonsultatsiaPage() {
           <div className="lg:col-span-7">
             <Reveal>
               <Chip>Първата стъпка</Chip>
-              <h1 className="mt-6 max-w-[15ch] font-display text-[clamp(2.3rem,5vw,4.2rem)] font-normal leading-[1.05] text-bordeaux">
-                Консултация с козметик и анализ на кожата
-              </h1>
+              <BlurTitle
+                text="Консултация с козметик и анализ на кожата"
+                className="mt-6 max-w-[15ch] font-display text-[clamp(2.3rem,5vw,4.2rem)] font-normal leading-[1.05] text-bordeaux"
+              />
               <p className="mt-5 max-w-xl text-secondary-ink">
                 Консултацията е първата и най-важна стъпка към здрава и
                 балансирана кожа. Разглеждаме кожата ви отблизо, говорим за
