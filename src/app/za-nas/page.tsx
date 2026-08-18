@@ -116,6 +116,9 @@ export default function ZaNasPage() {
             <blockquote className="mt-8 border-l-2 border-gold pl-6 font-display text-[1.4rem] leading-snug text-bordeaux">
               „{founder.quote}“
             </blockquote>
+            <p className="mt-6 text-[0.98rem] text-secondary-ink">
+              {founder.closing}
+            </p>
           </Reveal>
         </div>
         <Reveal delay={0.1} className="lg:col-span-5 lg:col-start-8">

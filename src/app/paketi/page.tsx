@@ -191,7 +191,7 @@ export default function PaketiPage() {
                   <ul className="mt-3 divide-y hairline-cream">
                     {laserPackages.combos.map((combo) => (
                       <li
-                        key={combo.name}
+                        key={`${combo.name}-${combo.price}`}
                         className="grid gap-1 py-4 md:grid-cols-12 md:items-baseline"
                       >
                         <span className="font-display text-[1.2rem] text-paper md:col-span-4">

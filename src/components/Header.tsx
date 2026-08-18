@@ -35,13 +35,14 @@ export default function Header() {
           backdrop-filter тук би станал containing block за fixed панела. */}
       <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 md:px-6 md:pt-5">
         <div className="mx-auto flex max-w-6xl items-center justify-between rounded-full border border-white/60 bg-paper/80 py-2 pl-5 pr-2 shadow-soft backdrop-blur-xl md:pl-7">
-          <Link href="/" className="flex flex-col leading-none py-1.5">
-            <span className="font-display text-[1.35rem] font-semibold tracking-[0.08em] text-bordeaux">
-              AURÈLIS
-            </span>
-            <span className="mt-0.5 text-[0.55rem] uppercase tracking-[0.4em] text-tertiary-ink">
-              Beauty Atelier
-            </span>
+          <Link href="/" className="flex items-center py-1">
+            {/* Векторизирано от клиентския лого.pdf (public/logo.svg) */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/logo.svg"
+              alt="AURÈLIS Beauty Atelier"
+              className="h-11 w-auto md:h-12"
+            />
           </Link>
 
           <nav className="hidden items-center gap-1 lg:flex">

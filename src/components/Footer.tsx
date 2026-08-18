@@ -1,5 +1,4 @@
 import Link from "next/link";
-import SunRays from "@/components/SunRays";
 import { contact, hours } from "@/lib/data";
 
 const nav = [
@@ -22,13 +21,13 @@ export default function Footer() {
       <div className="relative mx-auto max-w-6xl px-6 pb-28 pt-16 md:px-8 md:pt-20 lg:pb-12">
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
-            <SunRays half className="w-14 text-gold-soft" />
-            <p className="mt-4 font-display text-4xl font-medium tracking-[0.06em]">
-              AURÈLIS
-            </p>
-            <p className="mt-1 text-[0.62rem] uppercase tracking-[0.42em] text-paper/50">
-              Beauty Atelier
-            </p>
+            {/* Векторизирано от клиентския лого.pdf, кремав вариант */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/logo-cream.svg"
+              alt="AURÈLIS Beauty Atelier"
+              className="h-24 w-auto opacity-90"
+            />
             <p className="mt-6 max-w-xs text-[0.95rem] leading-relaxed text-paper/70">
               Истинската грижа започва там, където човекът е по-важен от
               процедурата.
