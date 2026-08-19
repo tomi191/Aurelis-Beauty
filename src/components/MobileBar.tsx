@@ -11,17 +11,17 @@ export default function MobileBar() {
   if (pathname === "/kontakti" || pathname === "/konsultatsia") return null;
 
   return (
-    <div className="fixed inset-x-4 bottom-4 z-40 lg:hidden">
-      <div className="flex gap-2 rounded-full border border-white/70 bg-paper/95 p-2 shadow-lift backdrop-blur-xl">
+    <div className="fixed inset-x-4 bottom-[calc(env(safe-area-inset-bottom)+1rem)] z-40 lg:hidden">
+      <div className="flex gap-2 rounded-full border border-white/70 bg-paper/95 p-2 shadow-lift backdrop-blur-md">
         <a
           href={contact.phoneHref}
-          className="flex-1 rounded-full bg-bordeaux py-3 text-center text-[0.95rem] text-paper"
+          className="flex-1 rounded-full bg-bordeaux py-3 text-center text-[0.95rem] text-paper transition-transform duration-200 active:scale-[0.97]"
         >
           Запази час
         </a>
         <Link
           href="/konsultatsia"
-          className="flex-1 rounded-full py-3 text-center text-[0.95rem] text-bordeaux"
+          className="flex-1 rounded-full py-3 text-center text-[0.95rem] text-bordeaux transition-transform duration-200 active:scale-[0.97]"
         >
           Консултация
         </Link>

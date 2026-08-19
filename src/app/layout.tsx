@@ -1,9 +1,14 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Golos_Text } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import JsonLd from "@/components/JsonLd";
 import MobileBar from "@/components/MobileBar";
+import { contact, hours } from "@/lib/data";
 import "./globals.css";
+
+// Домейнът още не е избран: една env смяна (NEXT_PUBLIC_SITE_URL) при deploy
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["cyrillic", "latin"],
@@ -20,13 +25,61 @@ const golos = Golos_Text({
   display: "swap",
 });
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
     default: "Козметично студио Варна · AURÈLIS Beauty Atelier",
     template: "%s · AURÈLIS Beauty Atelier",
   },
   description:
     "Процедури за лице, медицинско почистване, лазерна епилация и оформяне на вежди във Варна. Започваме с консултация и анализ на кожата, после план за грижа.",
+  alternates: { canonical: "/" },
+  openGraph: {
+    siteName: "AURÈLIS Beauty Atelier",
+    locale: "bg_BG",
+    type: "website",
+  },
+  twitter: { card: "summary_large_image" },
+};
+
+/* Работното време от data.ts → schema.org (почивните дни се пропускат) */
+const openingHoursSpecification = [
+  { dayOfWeek: ["Tuesday", "Thursday", "Saturday"], time: hours[0].time },
+  { dayOfWeek: ["Wednesday", "Friday"], time: hours[1].time },
+].map(({ dayOfWeek, time }) => {
+  const [opens, closes] = time.split(" – ");
+  return { "@type": "OpeningHoursSpecification", dayOfWeek, opens, closes };
+});
+
+const salonSchema = {
+  "@context": "https://schema.org",
+  "@type": "BeautySalon",
+  name: "AURÈLIS Beauty Atelier",
+  url: siteUrl,
+  telephone: contact.phoneHref.replace("tel:", ""),
+  email: contact.email,
+  priceRange: "€€",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: contact.address,
+    addressLocality: contact.city,
+    postalCode: "9004",
+    addressCountry: "BG",
+  },
+  // Улично ниво по OpenStreetMap
+  geo: { "@type": "GeoCoordinates", latitude: 43.2164, longitude: 27.9019 },
+  founder: {
+    "@type": "Person",
+    name: contact.owner,
+    jobTitle: "Медицински козметик",
+  },
+  openingHoursSpecification,
 };
 
 export default function RootLayout({
@@ -37,6 +90,7 @@ export default function RootLayout({
   return (
     <html lang="bg" className={`${cormorant.variable} ${golos.variable}`}>
       <body className="bg-paper text-ink antialiased">
+        <JsonLd data={salonSchema} />
         <Header />
         <main className="pt-20 md:pt-24">{children}</main>
         <Footer />

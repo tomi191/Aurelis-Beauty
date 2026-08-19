@@ -20,6 +20,9 @@
   --taupe: #ae9483;
   --gold: #b98d52;
   --gold-soft: #d9b98a;
+
+  /* Motion токени: една entrance крива за целия сайт */
+  --ease-brand: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @theme inline {
@@ -37,8 +40,6 @@
   --font-display: var(--font-cormorant), "Georgia", serif;
   --font-body: var(--font-golos), "Segoe UI", sans-serif;
 
-  --animate-marquee: marquee 42s linear infinite;
-
   --shadow-soft: 0 1px 2px rgba(43, 26, 24, 0.04),
     0 10px 30px -12px rgba(94, 33, 41, 0.14);
   --shadow-lift: 0 2px 6px rgba(43, 26, 24, 0.05),
@@ -46,8 +47,28 @@
   --shadow-pill: 0 6px 20px -6px rgba(94, 33, 41, 0.45);
 }
 
-html {
-  scroll-behavior: smooth;
+/* Плавният скрол е движение — гейтнат зад reduced-motion */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* iOS Safari зумва при фокус върху поле под 16px — никога под 1rem */
+input,
+textarea,
+select {
+  font-size: max(1rem, 1em);
+}
+
+/* По-мек rag на заглавията, без сираци в параграфите */
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+p {
+  text-wrap: pretty;
 }
 
 body {
@@ -68,7 +89,7 @@ body {
 /* Текстова стълба */
 .text-primary-ink { color: color-mix(in srgb, var(--ink) 95%, transparent); }
 .text-secondary-ink { color: color-mix(in srgb, var(--ink) 68%, transparent); }
-.text-tertiary-ink { color: color-mix(in srgb, var(--ink) 44%, transparent); }
+.text-tertiary-ink { color: color-mix(in srgb, var(--ink) 62%, transparent); } /* ~4.6:1 върху крем — WCAG AA за дребен текст */
 
 /* Hairline разделители (покрива и divide-y децата) */
 .hairline,
@@ -80,12 +101,16 @@ body {
   border-color: color-mix(in srgb, #f6efe6 22%, transparent);
 }
 
-/* Мек radial glow — злато/вино, зад hero и тъмните секции */
+/* Мек radial glow — злато/вино, зад hero и тъмните секции.
+   Радиален mask вместо filter: blur(90px): blur-ът се композира на GPU при
+   всеки кадър и даваше рендер timeout-и; mask-ът маскира background-color-а
+   от bg-* utility-то до същото меко петно с нулев товар. */
 .blob {
   position: absolute;
   border-radius: 9999px;
-  filter: blur(90px);
   pointer-events: none;
+  -webkit-mask-image: radial-gradient(closest-side, #000, transparent);
+  mask-image: radial-gradient(closest-side, #000, transparent);
 }
 
 /* Арка — модерният бюти мотив, отзвук на изгряващото слънце от логото */
@@ -102,12 +127,13 @@ body {
   transform: translateY(-0.3em);
 }
 
-/* Hover повдигане на карти; уважава reduced-motion */
-@media (prefers-reduced-motion: no-preference) {
+/* Hover повдигане на карти: само при реален hover вход (не touch),
+   с уважение към reduced-motion. 0.22s — hover-ът е честа интеракция. */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
   .hover-lift {
     transition:
-      transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-      box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      transform 0.22s var(--ease-brand),
+      box-shadow 0.22s var(--ease-brand);
   }
   .hover-lift:hover {
     transform: translateY(-4px);
@@ -121,16 +147,20 @@ body {
   text-decoration-line: underline;
   text-decoration-color: color-mix(in srgb, var(--gold) 70%, transparent);
   text-decoration-thickness: 1px;
-  transition: color 0.3s ease, text-decoration-color 0.3s ease;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
 }
 .link-ink:hover {
   color: var(--bordeaux);
   text-decoration-color: var(--bordeaux);
 }
 
+/* Фокус индикатор с контраст ≥3:1 върху крем; златен върху тъмните секции */
 :focus-visible {
-  outline: 2px solid var(--gold);
+  outline: 2px solid var(--bordeaux);
   outline-offset: 3px;
+}
+.bg-bordeaux-deep :focus-visible {
+  outline-color: var(--gold-soft);
 }
 
 /* Изравнени цифри за цени и таблици */
@@ -138,10 +168,103 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
-/* Marquee — чист CSS, дублирано съдържание */
+/* Marquee — чист CSS, дублирано съдържание; движи се само при желание за
+   motion (при reduced-motion лентата стои статична), пауза при hover */
 @keyframes marquee {
   from { transform: translateX(0); }
   to { transform: translateX(calc(-100% - var(--gap, 3rem))); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .marquee-track {
+    animation: marquee 42s linear infinite;
+  }
+  .marquee:hover .marquee-track,
+  .marquee:focus-within .marquee-track {
+    animation-play-state: paused;
+  }
+}
+
+/* Плавно появяване при скрол — чист CSS scroll-driven анимация, без JS и
+   hydration: съдържанието никога не е opacity:0 в HTML-а. Без браузърна
+   поддръжка или при reduced-motion елементът е просто видим. */
+@keyframes reveal-in {
+  from { opacity: 0.0001; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: reveal-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 40%;
+    }
+  }
+}
+
+/* Каскадно появяване на думите в заглавие (BlurTitle) — чист CSS, без
+   filter: blur (JS per-word blur(12px) даваше празни първи кадри) и без
+   hydration зависимост: текстът е в HTML-а от сървъра. */
+@keyframes word-in {
+  from { opacity: 0.0001; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .word-in {
+    animation: word-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+}
+
+/* Меко влизане на runtime състояния (форма success/error, менюто) */
+@keyframes fade-up {
+  from { opacity: 0.0001; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .fade-up {
+    animation: fade-up 0.35s var(--ease-brand) both;
+  }
+}
+
+/* По-тих пулс за индикатора „Днес сме отворени" (вместо animate-ping 1s) */
+@keyframes soft-ping {
+  0% { transform: scale(1); opacity: 0.7; }
+  70%, 100% { transform: scale(1.9); opacity: 0; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .soft-ping {
+    animation: soft-ping 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+}
+
+/* Слънцето „изгрява" при скрол: плътните лъчи се изчертават, пунктираните
+   и кръгът избледняват. Начални скрити стойности има САМО в guard блока —
+   при стар браузър или reduced-motion SVG-то е статично видимо. */
+@keyframes ray-draw {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes ray-appear {
+  to { opacity: 1; }
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .sun-draw {
+      view-timeline: --sun block;
+    }
+    .sun-draw .ray-solid {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+      animation: ray-draw linear both;
+      animation-timeline: --sun;
+      animation-range: entry calc(20% + var(--i, 0) * 1.4%)
+        entry calc(55% + var(--i, 0) * 1.4%);
+    }
+    .sun-draw .ray-fade {
+      opacity: 0.0001;
+      animation: ray-appear linear both;
+      animation-timeline: --sun;
+      animation-range: entry 40% entry 75%;
+    }
+  }
 }
 
 /* Radix accordion — плавно отваряне по измерената височина */

@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   title: "Контакти и работно време",
   description:
     "AURÈLIS Beauty Atelier: гр. Варна, ул. „Дунавски лебед“ 14. Телефон 088 981 6905. Работно време: вторник, четвъртък и събота 08:00–16:00; сряда и петък 12:00–20:00.",
+  alternates: { canonical: "/kontakti" },
 };
 
 export default function KontaktiPage() {
@@ -155,7 +156,7 @@ export default function KontaktiPage() {
               title="AURÈLIS Beauty Atelier на картата"
               src="https://www.google.com/maps?q=ул.%20Дунавски%20лебед%2014%2C%20Варна&output=embed"
               className="h-[400px] w-full"
-              loading="eager"
+              loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             />
           </div>

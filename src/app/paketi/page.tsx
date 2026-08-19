@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "Пакетни цени за процедури · Варна",
   description:
     "Пакетни цени за курс от процедури в AURÈLIS Варна: програми за лице Acne Clear, Skin Renewal и VIP Skin Rejuvenation, плюс пакети за лазерна епилация с отстъпка.",
+  alternates: { canonical: "/paketi" },
 };
 
 export default function PaketiPage() {
@@ -190,29 +191,43 @@ export default function PaketiPage() {
 
                 <div className="lg:col-span-7 lg:col-start-6">
                   <p className="text-[0.85rem] text-paper/50">Комбо пакети</p>
-                  <ul className="mt-3 divide-y hairline-cream">
-                    {laserPackages.combos.map((combo) => (
-                      <li
-                        key={`${combo.name}-${combo.price}`}
-                        className="grid gap-1 py-4 md:grid-cols-12 md:items-baseline"
-                      >
-                        <span className="font-display text-[1.2rem] text-paper md:col-span-4">
-                          {combo.name}
-                        </span>
-                        <span className="text-[0.88rem] text-paper/55 md:col-span-5">
-                          {combo.items.join(" · ")}
-                        </span>
-                        <span className="md:col-span-3 md:text-right">
-                          <span className="mr-3 text-[0.85rem] text-paper/40 line-through decoration-1">
-                            {combo.oldPrice}
-                          </span>
-                          <span className="font-display text-[1.35rem] font-semibold text-paper">
-                            {combo.price}
-                          </span>
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
+                  {/* Комбо групите са по пол, както в ценоразписа */}
+                  {[
+                    {
+                      title: "Пакети за жени",
+                      combos: laserPackages.combosWomen,
+                    },
+                    { title: "Пакети за мъже", combos: laserPackages.combosMen },
+                  ].map((group, gi) => (
+                    <div key={group.title} className={gi > 0 ? "mt-8" : "mt-3"}>
+                      <h3 className="font-display text-[1.05rem] font-medium text-gold-soft">
+                        {group.title}
+                      </h3>
+                      <ul className="mt-2 divide-y hairline-cream">
+                        {group.combos.map((combo) => (
+                          <li
+                            key={combo.name}
+                            className="grid gap-1 py-4 md:grid-cols-12 md:items-baseline"
+                          >
+                            <span className="font-display text-[1.2rem] text-paper md:col-span-4">
+                              {combo.name}
+                            </span>
+                            <span className="text-[0.88rem] text-paper/55 md:col-span-5">
+                              {combo.items.join(" · ")}
+                            </span>
+                            <span className="md:col-span-3 md:text-right">
+                              <span className="mr-3 text-[0.85rem] text-paper/40 line-through decoration-1">
+                                {combo.oldPrice}
+                              </span>
+                              <span className="font-display text-[1.35rem] font-semibold text-paper">
+                                {combo.price}
+                              </span>
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
                 </div>
               </div>
 

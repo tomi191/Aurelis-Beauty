@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "Консултация с козметик Варна · Анализ на кожата",
   description:
     "Консултация с козметик във Варна: преглед и анализ на кожата, обсъждаме проблемите и целите, получавате личен план за грижа. Цена 20 евро, приспада се при процедура.",
+  alternates: { canonical: "/konsultatsia" },
 };
 
 export default function KonsultatsiaPage() {

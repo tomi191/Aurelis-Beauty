@@ -18,7 +18,7 @@ export default function Footer() {
         className="blob -top-24 right-[10%] h-96 w-96 bg-gold/15"
         aria-hidden="true"
       />
-      <div className="relative mx-auto max-w-6xl px-6 pb-28 pt-16 md:px-8 md:pt-20 lg:pb-12">
+      <div className="relative mx-auto max-w-6xl px-6 pb-[calc(env(safe-area-inset-bottom)+7rem)] pt-16 md:px-8 md:pt-20 lg:pb-12">
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
             {/* Векторизирано от клиентския лого.pdf, кремав вариант */}
@@ -41,13 +41,13 @@ export default function Footer() {
           </div>
 
           <div className="lg:col-span-3">
-            <p className="text-[0.8rem] text-paper/45">Навигация</p>
+            <p className="text-[0.8rem] text-paper/55">Навигация</p>
             <ul className="mt-4 space-y-2.5">
               {nav.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="text-[0.95rem] text-paper/80 transition-colors duration-300 hover:text-gold-soft"
+                    className="-my-1.5 inline-block py-1.5 text-[0.95rem] text-paper/80 transition-colors duration-300 hover:text-gold-soft"
                   >
                     {item.label}
                   </Link>
@@ -57,7 +57,7 @@ export default function Footer() {
           </div>
 
           <div className="lg:col-span-4">
-            <p className="text-[0.8rem] text-paper/45">Работно време</p>
+            <p className="text-[0.8rem] text-paper/55">Работно време</p>
             <ul className="mt-4 space-y-3">
               {hours.map((h) => (
                 <li key={h.days} className="flex items-baseline text-[0.92rem]">
@@ -71,7 +71,7 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-            <p className="mt-6 text-[0.8rem] text-paper/45">Адрес</p>
+            <p className="mt-6 text-[0.8rem] text-paper/55">Адрес</p>
             <address className="mt-2 space-y-1 text-[0.92rem] not-italic text-paper/80">
               <p>{contact.addressFull}</p>
               <p>
@@ -86,9 +86,15 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col gap-2 border-t hairline-cream pt-6 text-[0.78rem] text-paper/40 md:flex-row md:justify-between">
+        <div className="mt-14 flex flex-col gap-2 border-t hairline-cream pt-6 text-[0.78rem] text-paper/60 md:flex-row md:justify-between">
           <p>
-            {contact.company} · ЕИК {contact.eik}
+            {contact.company} · ЕИК {contact.eik} ·{" "}
+            <Link
+              href="/poveritelnost"
+              className="transition-colors duration-300 hover:text-gold-soft"
+            >
+              Поверителност
+            </Link>
           </p>
           <p>© {new Date().getFullYear()} AURÈLIS Beauty Atelier</p>
         </div>

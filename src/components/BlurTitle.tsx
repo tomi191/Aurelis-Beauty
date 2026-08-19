@@ -1,10 +1,9 @@
-"use client";
-
-import { motion, useReducedMotion } from "motion/react";
-
 /**
- * Заглавие с per-word blur reveal (по референтния проект):
- * всяка дума идва от blur(12px) с каскадно закъснение.
+ * Заглавие с каскадно per-word появяване. Server компонент, чист CSS:
+ * текстът е в SSR HTML-а (opacity .001 само в keyframes, никога в markup-а),
+ * анимацията не чака hydration и не ползва filter: blur — JS-управляваният
+ * per-word blur(12px) даваше рендер timeout-и и празни първи кадри.
+ * При prefers-reduced-motion думите са просто видими (гейтът е в globals.css).
  */
 export default function BlurTitle({
   text,
@@ -15,12 +14,7 @@ export default function BlurTitle({
   className?: string;
   delay?: number;
 }) {
-  const reduce = useReducedMotion();
   const words = text.split(/(\s+)/);
-
-  if (reduce) {
-    return <h1 className={className}>{text}</h1>;
-  }
 
   return (
     <h1 className={className}>
@@ -28,19 +22,13 @@ export default function BlurTitle({
         /^\s+$/.test(w) ? (
           <span key={i}> </span>
         ) : (
-          <motion.span
+          <span
             key={i}
-            className="inline-block"
-            initial={{ opacity: 0, filter: "blur(12px)", y: 12 }}
-            animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
-            transition={{
-              duration: 0.7,
-              delay: delay + i * 0.045,
-              ease: [0.22, 1, 0.36, 1],
-            }}
+            className="word-in inline-block"
+            style={{ animationDelay: `${delay + i * 0.045}s` }}
           >
             {w}
-          </motion.span>
+          </span>
         )
       )}
     </h1>

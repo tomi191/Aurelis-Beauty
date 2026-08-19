@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "Процедури за лице Варна · Цени",
   description:
     "Всички процедури за лице в AURÈLIS Варна: почистване, химичен пилинг BioRePeel, микронидлинг, LED терапия, терапии за акне и против стареене. Виж цените.",
+  alternates: { canonical: "/uslugi" },
 };
 
 function fromPrice(prices: { price: string }[]): string {

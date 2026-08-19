@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "Лазерна епилация Варна · Цени за жени и мъже",
   description:
     "Лазерна епилация във Варна с цени по зони за жени и мъже: подмишници, цели крака, интимна зона, лице, гръб. Трайно обезкосмяване с пакетни цени и отстъпки.",
+  alternates: { canonical: "/lazerna-epilatsia" },
 };
 
 export default function LaserPage() {

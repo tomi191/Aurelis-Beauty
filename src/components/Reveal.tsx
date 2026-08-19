@@ -1,46 +1,23 @@
-"use client";
-
-import { motion, useReducedMotion } from "motion/react";
 import type { ReactNode } from "react";
 
-const tags = {
-  div: motion.div,
-  section: motion.section,
-  li: motion.li,
-  article: motion.article,
-  span: motion.span,
-} as const;
-
 /**
- * Плавно появяване при скрол (motion): веднъж, с изразителния easing
- * от референтния проект. При prefers-reduced-motion съдържанието стои видимо.
+ * Плавно появяване при скрол — чист CSS (.reveal, scroll-driven анимация в
+ * globals.css), без JS/hydration: съдържанието никога не е opacity:0 в HTML-а.
+ * `delay` остава в интерфейса за съвместимост със страниците, но се игнорира:
+ * scroll-driven анимацията се води по позицията на елемента, не по време.
  */
 export default function Reveal({
   children,
-  delay = 0,
   className = "",
-  as = "div",
+  as: Tag = "div",
 }: {
   children: ReactNode;
   delay?: number;
   className?: string;
-  as?: keyof typeof tags;
+  as?: "div" | "section" | "li" | "article" | "span";
 }) {
-  const reduce = useReducedMotion();
-  const Tag = tags[as];
-
-  if (reduce) {
-    return <Tag className={className}>{children}</Tag>;
-  }
-
   return (
-    <Tag
-      initial={{ opacity: 0, y: 26 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "0px 0px -60px 0px" }}
-      transition={{ duration: 0.9, delay, ease: [0.22, 1, 0.36, 1] }}
-      className={className}
-    >
+    <Tag className={className ? `reveal ${className}` : "reveal"}>
       {children}
     </Tag>
   );

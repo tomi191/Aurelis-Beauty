@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "За нас · Козметично студио AURÈLIS Варна",
   description:
     "AURÈLIS Beauty Atelier е козметично студио във Варна, създадено от медицинския козметик Йоана Здравкова. Историята на ателието, името и философията ни за грижа за кожата.",
+  alternates: { canonical: "/za-nas" },
 };
 
 export default function ZaNasPage() {
@@ -131,7 +132,7 @@ export default function ZaNasPage() {
               className="arch absolute inset-x-6 -bottom-4 top-10 -z-10 bg-gold/20"
             />
             <div className="arch relative flex aspect-[4/5] items-center justify-center overflow-hidden bg-gradient-to-b from-taupe/45 to-paper-soft">
-              <SunRays className="w-28 text-taupe/80" />
+              <SunRays draw className="w-28 text-taupe/80" />
             </div>
           </div>
         </Reveal>

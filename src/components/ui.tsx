@@ -90,7 +90,7 @@ export function CtaSolid({
   external?: boolean;
 }) {
   const cls =
-    "inline-flex items-center justify-center gap-2 rounded-full bg-bordeaux px-7 py-3.5 text-[0.95rem] text-paper shadow-pill transition-all duration-300 hover:-translate-y-0.5 hover:bg-wine";
+    "inline-flex items-center justify-center gap-2 rounded-full bg-bordeaux px-7 py-3.5 text-[0.95rem] text-paper shadow-pill transition-[transform,background-color,border-color,color] duration-200 active:scale-[0.97] motion-safe:hover:-translate-y-0.5 hover:bg-wine";
   return external ? (
     <a href={href} className={cls}>
       {children}
@@ -114,7 +114,7 @@ export function CtaGhost({
   external?: boolean;
   dark?: boolean;
 }) {
-  const cls = `inline-flex items-center justify-center gap-2 rounded-full border px-7 py-3.5 text-[0.95rem] transition-all duration-300 hover:-translate-y-0.5 ${
+  const cls = `inline-flex items-center justify-center gap-2 rounded-full border px-7 py-3.5 text-[0.95rem] transition-[transform,background-color,border-color,color] duration-200 active:scale-[0.97] motion-safe:hover:-translate-y-0.5 ${
     dark
       ? "hairline-cream text-paper hover:border-gold-soft hover:text-gold-soft"
       : "hairline bg-card/60 text-bordeaux hover:border-bordeaux"

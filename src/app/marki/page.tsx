@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "Марките, с които работим",
   description:
     "Професионалната козметика в AURÈLIS Beauty Atelier: Collagena, BioRePeel, Casmara, NOON Aesthetics, Fusion Meso и SQT Bio-Microneedling. Историята и патентите зад всяка марка.",
+  alternates: { canonical: "/marki" },
 };
 
 export default function MarkiPage() {

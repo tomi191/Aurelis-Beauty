@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Faq from "@/components/Faq";
 import HomeHero from "@/components/HomeHero";
+import JsonLd from "@/components/JsonLd";
 import Marquee from "@/components/Marquee";
 import Reveal from "@/components/Reveal";
 import SunRays from "@/components/SunRays";
@@ -104,6 +105,19 @@ export default function Home() {
 
   return (
     <>
+      {/* FAQPage schema от същите въпроси в секцията по-долу */}
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: faq.map((f) => ({
+            "@type": "Question",
+            name: f.q,
+            acceptedAnswer: { "@type": "Answer", text: f.a },
+          })),
+        }}
+      />
+
       {/* ——— Hero (client, motion каскада + live работно време) ——— */}
       <HomeHero />
 
@@ -267,7 +281,7 @@ export default function Home() {
       <section className="mx-auto grid max-w-6xl items-center gap-12 px-5 py-14 md:px-8 md:py-20 lg:grid-cols-12">
         <Reveal className="relative lg:col-span-5">
           <div className="arch relative mx-auto flex aspect-[4/5] max-w-sm items-end justify-center overflow-hidden bg-gradient-to-b from-taupe/50 via-taupe/30 to-paper-soft">
-            <SunRays half className="mb-16 w-32 text-taupe" />
+            <SunRays half draw className="mb-16 w-32 text-taupe" />
           </div>
           <Card className="absolute -bottom-6 left-1/2 w-[88%] max-w-sm -translate-x-1/2 px-6 py-5">
             <p className="font-display text-[1.4rem] leading-snug text-bordeaux">
@@ -360,7 +374,7 @@ export default function Home() {
               className="arch absolute inset-x-6 -bottom-4 top-10 -z-10 bg-gold/20"
             />
             <div className="arch relative flex aspect-[4/5] items-center justify-center overflow-hidden bg-gradient-to-b from-taupe/45 to-paper-soft">
-              <SunRays className="w-28 text-taupe/80" />
+              <SunRays draw className="w-28 text-taupe/80" />
             </div>
           </div>
         </Reveal>

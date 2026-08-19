@@ -28,6 +28,7 @@ export async function generateMetadata({
   return {
     title: cat.seoTitle,
     description: cat.seoDescription,
+    alternates: { canonical: `/uslugi/${cat.slug}` },
   };
 }
 
