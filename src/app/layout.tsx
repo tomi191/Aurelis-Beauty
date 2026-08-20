@@ -8,8 +8,11 @@ import MobileBar from "@/components/MobileBar";
 import { contact, hours } from "@/lib/data";
 import "./globals.css";
 
-// Домейнът още не е избран: една env смяна (NEXT_PUBLIC_SITE_URL) при deploy
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+// Домейнът още не е избран: една env смяна (NEXT_PUBLIC_SITE_URL) при deploy.
+// trim() пази new URL() от невидим CR/LF, промъкнал се при задаване на env-а.
+const siteUrl = (
+  process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
+).trim();
 
 const cormorant = Cormorant_Garamond({
   subsets: ["cyrillic", "latin"],
