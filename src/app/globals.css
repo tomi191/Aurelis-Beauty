@@ -176,6 +176,87 @@ body {
   }
 }
 
+/* ——— Pointer-живите ефекти (LiveEffects.tsx пише --sx/--sy и transform) ——— */
+
+/* Златен spotlight, следващ курсора по карта с клас .spot */
+.spot {
+  position: relative;
+}
+@media (hover: hover) and (pointer: fine) {
+  .spot::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    background: radial-gradient(
+      240px circle at var(--sx, 50%) var(--sy, 50%),
+      color-mix(in srgb, var(--gold) 17%, transparent),
+      transparent 65%
+    );
+  }
+  .spot:hover::after {
+    opacity: 1;
+  }
+}
+
+/* Магнитни CTA бутони: transform-ът идва inline от LiveEffects, тук е
+   само пружината на връщане/следване */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .magnet {
+    transition: transform 0.3s var(--ease-brand);
+    will-change: transform;
+  }
+}
+
+/* Рядък златен отблясък по основните бутони — веднъж на ~7 s */
+@keyframes sheen {
+  0% { transform: translateX(-130%) skewX(-18deg); }
+  16% { transform: translateX(260%) skewX(-18deg); }
+  100% { transform: translateX(260%) skewX(-18deg); }
+}
+.sheen {
+  position: relative;
+  overflow: hidden;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .sheen::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 45%;
+    pointer-events: none;
+    background: linear-gradient(
+      105deg,
+      transparent,
+      rgba(255, 236, 200, 0.3),
+      transparent
+    );
+    animation: sheen 7s linear infinite;
+    animation-delay: 2.5s;
+  }
+}
+
+/* Лек parallax на hero фона при скрол (scale дава headroom на cover кадъра) */
+@keyframes hero-drift {
+  from { transform: scale(1.07) translateY(0); }
+  to { transform: scale(1.07) translateY(3.5rem); }
+}
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-drift {
+      animation: hero-drift linear both;
+      animation-timeline: scroll();
+      animation-range: 0 120vh;
+    }
+  }
+}
+
 /* Линкове в текст. Вертикалният padding разширява tap зоната до ~40px:
    при inline елемент той не мести редовете, а при inline-block отрицателният
    margin го компенсира — нулева визуална промяна, само по-голяма мишена. */

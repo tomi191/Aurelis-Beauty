@@ -15,7 +15,7 @@ export default function MobileBar() {
       <div className="flex gap-2 rounded-full border border-white/70 bg-paper/95 p-2 shadow-lift backdrop-blur-md">
         <a
           href={contact.phoneHref}
-          className="flex-1 rounded-full bg-bordeaux py-3 text-center text-[0.95rem] text-paper transition-transform duration-200 active:scale-[0.97]"
+          className="sheen flex-1 rounded-full bg-bordeaux py-3 text-center text-[0.95rem] text-paper transition-transform duration-200 active:scale-[0.97]"
         >
           Запази час
         </a>

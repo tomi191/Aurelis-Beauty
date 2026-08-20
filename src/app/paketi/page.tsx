@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import BlurTitle from "@/components/BlurTitle";
+import CountUp from "@/components/CountUp";
 import Reveal from "@/components/Reveal";
 import { Card, Chip, CtaGhost, CtaSolid, PriceRow } from "@/components/ui";
 import { contact, facePackages, laserPackages } from "@/lib/data";
@@ -80,13 +81,14 @@ export default function PaketiPage() {
                       <span className="text-[0.95rem] text-paper/45 line-through decoration-1">
                         {prog.oldPrice}
                       </span>
-                      <span className="font-display text-[2rem] font-semibold text-gold-soft">
-                        {prog.price}
-                      </span>
+                      <CountUp
+                        value={prog.price}
+                        className="font-display text-[2rem] font-semibold text-gold-soft"
+                      />
                     </div>
                   </div>
                 ) : (
-                  <Card className="hover-lift flex h-full flex-col p-7">
+                  <Card className="spot hover-lift flex h-full flex-col p-7">
                     <h3 className="font-display text-[1.5rem] font-medium leading-snug text-bordeaux">
                       {prog.name}
                     </h3>
@@ -106,9 +108,10 @@ export default function PaketiPage() {
                       <span className="text-[0.95rem] text-tertiary-ink line-through decoration-1">
                         {prog.oldPrice}
                       </span>
-                      <span className="font-display text-[2rem] font-semibold text-bordeaux">
-                        {prog.price}
-                      </span>
+                      <CountUp
+                        value={prog.price}
+                        className="font-display text-[2rem] font-semibold text-bordeaux"
+                      />
                     </div>
                   </Card>
                 )}

@@ -42,7 +42,7 @@ export default function HomeHero() {
           alt=""
           loading="eager"
           fetchPriority="high"
-          className="h-full w-full object-cover"
+          className="hero-drift h-full w-full object-cover"
         />
         {/* Мобилно: почти плътен воал (текстът е върху цялата ширина) */}
         <div className="absolute inset-0 bg-gradient-to-b from-paper/90 via-paper/80 to-paper/90 md:hidden" />
@@ -72,7 +72,7 @@ export default function HomeHero() {
           <div className="mt-9 flex flex-wrap items-center gap-4">
             <Link
               href="/konsultatsia"
-              className="group inline-flex items-center gap-2.5 rounded-full bg-bordeaux px-7 py-3.5 text-[0.95rem] text-paper shadow-pill transition-[transform,background-color] duration-200 active:scale-[0.97] motion-safe:hover:-translate-y-0.5 hover:bg-wine"
+              className="sheen magnet group inline-flex items-center gap-2.5 rounded-full bg-bordeaux px-7 py-3.5 text-[0.95rem] text-paper shadow-pill transition-[transform,background-color] duration-200 active:scale-[0.97] motion-safe:hover:-translate-y-0.5 hover:bg-wine"
             >
               Запази консултация
               <ArrowRight className="size-4 text-gold-soft transition-transform duration-300 group-hover:translate-x-1" />

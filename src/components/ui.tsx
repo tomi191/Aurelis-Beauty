@@ -91,7 +91,7 @@ export function CtaSolid({
   external?: boolean;
 }) {
   const cls =
-    "inline-flex items-center justify-center gap-2 rounded-full bg-bordeaux px-7 py-3.5 text-[0.95rem] text-paper shadow-pill transition-[transform,background-color,border-color,color] duration-200 active:scale-[0.97] motion-safe:hover:-translate-y-0.5 hover:bg-wine";
+    "sheen magnet inline-flex items-center justify-center gap-2 rounded-full bg-bordeaux px-7 py-3.5 text-[0.95rem] text-paper shadow-pill transition-[transform,background-color,border-color,color] duration-200 active:scale-[0.97] motion-safe:hover:-translate-y-0.5 hover:bg-wine";
   return external ? (
     <a href={href} className={cls}>
       {children}

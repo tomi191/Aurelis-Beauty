@@ -3,6 +3,7 @@ import { Cormorant_Garamond, Golos_Text } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
+import LiveEffects from "@/components/LiveEffects";
 import MobileBar from "@/components/MobileBar";
 import { contact, hours } from "@/lib/data";
 import "./globals.css";
@@ -91,6 +92,7 @@ export default function RootLayout({
     <html lang="bg" className={`${cormorant.variable} ${golos.variable}`}>
       <body className="bg-paper text-ink antialiased">
         <JsonLd data={salonSchema} />
+        <LiveEffects />
         <Header />
         <main className="pt-20 md:pt-24">{children}</main>
         <Footer />

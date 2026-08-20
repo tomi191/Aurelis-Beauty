@@ -54,7 +54,7 @@ export default function UslugiPage() {
               className={i === 0 || i === 3 || i === 5 ? "md:col-span-2" : ""}
             >
               <Link href={`/uslugi/${cat.slug}`} className="group block h-full">
-                <Card className="hover-lift flex h-full flex-col justify-between p-7">
+                <Card className="spot hover-lift flex h-full flex-col justify-between p-7">
                   <div>
                     <div className="flex flex-wrap items-start justify-between gap-3">
                       <h2 className="max-w-[18ch] font-display text-[1.55rem] font-medium leading-snug text-bordeaux">
@@ -99,7 +99,7 @@ export default function UslugiPage() {
 
           <Reveal className="md:col-span-3">
             <Link href="/lazerna-epilatsia" className="group block">
-              <div className="hover-lift relative overflow-hidden rounded-[1.75rem] bg-bordeaux-deep p-8 text-paper shadow-soft md:p-10">
+              <div className="spot hover-lift relative overflow-hidden rounded-[1.75rem] bg-bordeaux-deep p-8 text-paper shadow-soft md:p-10">
                 <div
                   className="blob -right-16 -top-28 h-80 w-80 bg-gold/20"
                   aria-hidden="true"

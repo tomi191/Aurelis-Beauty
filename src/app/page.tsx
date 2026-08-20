@@ -1,4 +1,5 @@
 import Link from "next/link";
+import CountUp from "@/components/CountUp";
 import Faq from "@/components/Faq";
 import GoldDust from "@/components/GoldDust";
 import HomeHero from "@/components/HomeHero";
@@ -156,7 +157,7 @@ export default function Home() {
           {quickCategories.map((qc, i) => (
             <Reveal key={qc.title} delay={i * 0.05}>
               <Link href={qc.href} className="group block h-full">
-                <div className="hover-lift gold-frame-soft flex h-full flex-col overflow-hidden rounded-[1.75rem] bg-card shadow-soft">
+                <div className="spot hover-lift gold-frame-soft flex h-full flex-col overflow-hidden rounded-[1.75rem] bg-card shadow-soft">
                   <ImageSlot label={qc.photo} ratio="3 / 2" src={qc.img} />
                   <div className="flex flex-1 flex-col justify-between p-6">
                     <div>
@@ -305,7 +306,7 @@ export default function Home() {
                   href={`/uslugi/${cat.slug}`}
                   className="group block h-full"
                 >
-                  <Card className="hover-lift flex h-full flex-col overflow-hidden">
+                  <Card className="spot hover-lift flex h-full flex-col overflow-hidden">
                     <ImageSlot label={p.name} ratio="16 / 9" src={pop.img} />
                     <div className="flex flex-1 flex-col justify-between p-6">
                       <div>
@@ -332,7 +333,7 @@ export default function Home() {
           })}
           <Reveal delay={0.35}>
             <Link href="/lazerna-epilatsia" className="group block h-full">
-              <div className="hover-lift relative flex h-full flex-col justify-between overflow-hidden rounded-[1.75rem] bg-bordeaux text-paper shadow-soft">
+              <div className="spot hover-lift relative flex h-full flex-col justify-between overflow-hidden rounded-[1.75rem] bg-bordeaux text-paper shadow-soft">
                 <div
                   className="blob -right-10 -top-16 h-44 w-44 bg-gold/25"
                   aria-hidden="true"
@@ -387,8 +388,8 @@ export default function Home() {
                 <div
                   className={
                     vip
-                      ? "gold-frame relative flex h-full flex-col overflow-hidden rounded-[1.75rem] bg-bordeaux-deep p-7 text-paper shadow-soft"
-                      : "gold-frame-soft flex h-full flex-col rounded-[1.75rem] bg-card p-7 shadow-soft"
+                      ? "spot gold-frame relative flex h-full flex-col overflow-hidden rounded-[1.75rem] bg-bordeaux-deep p-7 text-paper shadow-soft"
+                      : "spot gold-frame-soft flex h-full flex-col rounded-[1.75rem] bg-card p-7 shadow-soft"
                   }
                 >
                   {vip && (
@@ -430,11 +431,10 @@ export default function Home() {
                     >
                       {prog.oldPrice}
                     </span>
-                    <span
+                    <CountUp
+                      value={prog.price}
                       className={`font-display text-[2rem] font-semibold ${vip ? "text-gold-soft" : "text-bordeaux"}`}
-                    >
-                      {prog.price}
-                    </span>
+                    />
                   </div>
                 </div>
               </Reveal>

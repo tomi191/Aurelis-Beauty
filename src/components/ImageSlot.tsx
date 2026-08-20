@@ -30,11 +30,12 @@ export default function ImageSlot({
         style={fill ? undefined : { aspectRatio: ratio }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
+        {/* Бавен zoom при hover върху кликаемата карта (group на линка) */}
         <img
           src={src}
           alt={label}
           loading="lazy"
-          className="absolute inset-0 h-full w-full object-cover"
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 motion-safe:group-hover:scale-[1.06]"
         />
       </div>
     );

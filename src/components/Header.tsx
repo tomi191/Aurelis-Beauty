@@ -221,7 +221,7 @@ export default function Header() {
           <div className="flex items-center gap-2">
             <a
               href={contact.phoneHref}
-              className="hidden items-center gap-2 rounded-full bg-bordeaux px-5 py-3 text-[0.9rem] text-paper shadow-pill transition-[transform,background-color] duration-200 active:scale-[0.97] motion-safe:hover:-translate-y-0.5 hover:bg-wine sm:flex"
+              className="magnet hidden items-center gap-2 rounded-full bg-bordeaux px-5 py-3 text-[0.9rem] text-paper shadow-pill transition-[transform,background-color] duration-200 active:scale-[0.97] motion-safe:hover:-translate-y-0.5 hover:bg-wine sm:flex"
             >
               Запази час
             </a>
