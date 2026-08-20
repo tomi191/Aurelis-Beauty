@@ -7,12 +7,13 @@ import * as Nav from "@radix-ui/react-navigation-menu";
 import { ChevronDown } from "lucide-react";
 import { categories, contact } from "@/lib/data";
 
-/* Навигацията следва дървото от клиентския план (Whimsical):
-   Услуги → Козметични процедури (категориите) + Лазерна епилация;
-   Пакети → програми за лице + лазерни пакети. */
+/* Навигацията следва дървото от клиентския план (Whimsical) 1:1:
+   Main page → За AURÈLIS; главен ред: Консултации · УСЛУГИ · Пакети ·
+   Марките · Контакти; УСЛУГИ → Козметични процедури + Лазерна епилация;
+   Пакети → пакети за процедури + пакети за лазерна. */
 
 const simpleLeft = [
-  { href: "/za-nas", label: "За нас" },
+  { href: "/za-nas", label: "За AURÈLIS" },
   { href: "/konsultatsia", label: "Консултации" },
 ];
 const simpleRight = [
@@ -244,8 +245,9 @@ export default function Header() {
               style={{ animationDelay: "0.05s" }}
               className="word-in border-b hairline-cream py-3.5 font-display text-[1.7rem] text-paper transition-colors duration-150 hover:text-gold-soft"
             >
-              За нас
+              За AURÈLIS
             </Link>
+
             <Link
               href="/konsultatsia"
               style={{ animationDelay: "0.1s" }}
