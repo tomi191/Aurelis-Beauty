@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { categories } from "@/lib/data";
+import { categories, facePackages } from "@/lib/data";
 
 // Домейнът още не е избран: една env смяна (NEXT_PUBLIC_SITE_URL) при deploy
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
@@ -14,6 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/lazerna-epilatsia",
     "/tsenorazpis",
     "/paketi",
+    ...facePackages.programs.map((p) => `/paketi/${p.slug}`),
     "/marki",
     "/kontakti",
   ];

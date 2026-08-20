@@ -385,11 +385,12 @@ export default function Home() {
             const vip = prog.name.startsWith("VIP");
             return (
               <Reveal key={prog.name} delay={i * 0.07}>
-                <div
+                <Link
+                  href={`/paketi/${prog.slug}`}
                   className={
                     vip
-                      ? "spot gold-frame relative flex h-full flex-col overflow-hidden rounded-[1.75rem] bg-bordeaux-deep p-7 text-paper shadow-soft"
-                      : "spot gold-frame-soft flex h-full flex-col rounded-[1.75rem] bg-card p-7 shadow-soft"
+                      ? "spot gold-frame hover-lift relative flex h-full flex-col overflow-hidden rounded-[1.75rem] bg-bordeaux-deep p-7 text-paper shadow-soft"
+                      : "spot gold-frame-soft hover-lift group flex h-full flex-col rounded-[1.75rem] bg-card p-7 shadow-soft"
                   }
                 >
                   {vip && (
@@ -436,7 +437,16 @@ export default function Home() {
                       className={`font-display text-[2rem] font-semibold ${vip ? "text-gold-soft" : "text-bordeaux"}`}
                     />
                   </div>
-                </div>
+                  <span
+                    className={`relative mt-4 text-[0.9rem] ${
+                      vip
+                        ? "text-gold-soft"
+                        : "text-secondary-ink transition-colors duration-200 group-hover:text-bordeaux"
+                    }`}
+                  >
+                    Виж програмата →
+                  </span>
+                </Link>
               </Reveal>
             );
           })}

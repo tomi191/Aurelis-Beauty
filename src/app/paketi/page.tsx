@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import BlurTitle from "@/components/BlurTitle";
 import CountUp from "@/components/CountUp";
 import Reveal from "@/components/Reveal";
@@ -57,7 +58,10 @@ export default function PaketiPage() {
             return (
               <Reveal key={prog.name} delay={(i % 3) * 0.07}>
                 {vip ? (
-                  <div className="hover-lift relative flex h-full flex-col overflow-hidden rounded-[1.75rem] bg-bordeaux-deep p-7 text-paper shadow-soft">
+                  <Link
+                    href={`/paketi/${prog.slug}`}
+                    className="spot hover-lift relative flex h-full flex-col overflow-hidden rounded-[1.75rem] bg-bordeaux-deep p-7 text-paper shadow-soft"
+                  >
                     <div
                       className="blob -right-16 -top-20 h-56 w-56 bg-gold/20"
                       aria-hidden="true"
@@ -86,9 +90,15 @@ export default function PaketiPage() {
                         className="font-display text-[2rem] font-semibold text-gold-soft"
                       />
                     </div>
-                  </div>
+                    <span className="relative mt-4 text-[0.9rem] text-gold-soft">
+                      Виж програмата →
+                    </span>
+                  </Link>
                 ) : (
-                  <Card className="spot hover-lift flex h-full flex-col p-7">
+                  <Link
+                    href={`/paketi/${prog.slug}`}
+                    className="spot hover-lift group flex h-full flex-col rounded-[1.75rem] border border-white/70 bg-card p-7 shadow-soft"
+                  >
                     <h3 className="font-display text-[1.5rem] font-medium leading-snug text-bordeaux">
                       {prog.name}
                     </h3>
@@ -113,7 +123,10 @@ export default function PaketiPage() {
                         className="font-display text-[2rem] font-semibold text-bordeaux"
                       />
                     </div>
-                  </Card>
+                    <span className="mt-4 text-[0.9rem] text-secondary-ink transition-colors duration-200 group-hover:text-bordeaux">
+                      Виж програмата →
+                    </span>
+                  </Link>
                 )}
               </Reveal>
             );
