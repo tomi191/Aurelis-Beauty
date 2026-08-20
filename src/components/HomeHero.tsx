@@ -37,17 +37,19 @@ export default function HomeHero() {
           overflow-hidden е задължителен: parallax-ът (hero-drift) мести
           кадъра надолу и без clip долният му ръб виси под секцията. */}
       <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
-        {/* Мобилно сваля 828w варианта, desktop пълния 2000w кадър */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/images/hero-bg.webp"
-          srcSet="/images/hero-bg-m.webp 828w, /images/hero-bg.webp 2000w"
-          sizes="100vw"
-          alt=""
-          loading="eager"
-          fetchPriority="high"
-          className="hero-drift h-full w-full object-cover"
-        />
+        {/* Art direction: телефонът получава портретен crop (828x1403),
+            desktop пълния 2000w пейзаж */}
+        <picture className="contents">
+          <source media="(max-width: 767px)" srcSet="/images/hero-bg-mob.webp" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/hero-bg.webp"
+            alt=""
+            loading="eager"
+            fetchPriority="high"
+            className="hero-drift h-full w-full object-cover"
+          />
+        </picture>
         {/* Мобилно: почти плътен воал (текстът е върху цялата ширина) */}
         <div className="absolute inset-0 bg-gradient-to-b from-paper/90 via-paper/80 to-paper/90 md:hidden" />
         {/* Desktop: текстът вляво на плътно, снимката диша вдясно */}

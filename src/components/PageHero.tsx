@@ -33,18 +33,23 @@ export default function PageHero({
   return (
     <section className="relative -mt-20 overflow-x-clip md:-mt-24">
       <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
-        {/* Мобилно сваля 828w варианта (-m.webp), desktop пълния кадър */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={img}
-          srcSet={`${img.replace(/\.webp$/, "-m.webp")} 828w, ${img} 2000w`}
-          sizes="100vw"
-          alt=""
-          loading="eager"
-          fetchPriority="high"
-          className="hero-drift h-full w-full object-cover"
-          style={objectPosition ? { objectPosition } : undefined}
-        />
+        {/* Art direction: телефонът получава ПОРТРЕТЕН crop в пълна острота
+            (-mob.webp), не смачкан пейзаж; desktop сваля пълния кадър */}
+        <picture className="contents">
+          <source
+            media="(max-width: 767px)"
+            srcSet={img.replace(/\.webp$/, "-mob.webp")}
+          />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={img}
+            alt=""
+            loading="eager"
+            fetchPriority="high"
+            className="hero-drift h-full w-full object-cover"
+            style={objectPosition ? { objectPosition } : undefined}
+          />
+        </picture>
         {/* Мобилно: почти плътен воал; desktop: плътно вляво, кадърът диша вдясно */}
         <div className="absolute inset-0 bg-gradient-to-b from-paper/90 via-paper/80 to-paper/90 md:hidden" />
         <div className="absolute inset-0 hidden bg-gradient-to-r from-paper via-paper/80 to-paper/15 md:block" />

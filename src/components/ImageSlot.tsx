@@ -31,15 +31,24 @@ export default function ImageSlot({
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         {/* Бавен zoom при hover върху кликаемата карта (group на линка).
-            Мобилно сваля 828w варианта; картите рядко са по-широки. */}
-        <img
-          src={src}
-          srcSet={`${src.replace(/\.webp$/, "-m.webp")} 828w, ${src} 1600w`}
-          sizes={fill ? "100vw" : "(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 82vw"}
-          alt={label}
-          loading="lazy"
-          className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 motion-safe:group-hover:scale-[1.06]"
-        />
+            Картите мобилно свалят 828w варианта (aspect-ът им съвпада);
+            fill фонът на телефон е портретен и взима -mob crop-а. */}
+        <picture className="contents">
+          {fill && (
+            <source
+              media="(max-width: 767px)"
+              srcSet={src.replace(/\.webp$/, "-mob.webp")}
+            />
+          )}
+          <img
+            src={src}
+            srcSet={`${src.replace(/\.webp$/, "-m.webp")} 828w, ${src} 1600w`}
+            sizes={fill ? "100vw" : "(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 82vw"}
+            alt={label}
+            loading="lazy"
+            className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 motion-safe:group-hover:scale-[1.06]"
+          />
+        </picture>
       </div>
     );
   }
