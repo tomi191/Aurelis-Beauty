@@ -36,8 +36,12 @@ export default function PaketiPage() {
       </section>
 
       {/* Програми за лице */}
-      <section className="mx-auto max-w-6xl px-5 py-12 md:px-8 md:py-16">
+      <section
+        id="litse"
+        className="mx-auto max-w-6xl scroll-mt-28 px-5 py-12 md:px-8 md:py-16"
+      >
         <Reveal>
+          <span className="gold-rule" aria-hidden="true" />
           <h2 className="font-display text-[clamp(1.8rem,3.2vw,2.6rem)] font-medium text-bordeaux">
             Програми за лице
           </h2>
@@ -153,7 +157,10 @@ export default function PaketiPage() {
       </section>
 
       {/* Лазерни пакети */}
-      <section className="mx-auto max-w-6xl px-5 pb-14 md:px-8 md:pb-20">
+      <section
+        id="lazer"
+        className="mx-auto max-w-6xl scroll-mt-28 px-5 pb-14 md:px-8 md:pb-20"
+      >
         <Reveal>
           <div className="relative overflow-hidden rounded-[2.5rem] bg-bordeaux-deep px-6 py-12 text-paper md:px-12 md:py-16">
             <div

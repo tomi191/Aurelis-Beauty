@@ -3,16 +3,73 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { contact } from "@/lib/data";
+import * as Nav from "@radix-ui/react-navigation-menu";
+import { ChevronDown } from "lucide-react";
+import { categories, contact } from "@/lib/data";
 
-const nav = [
+/* Навигацията следва дървото от клиентския план (Whimsical):
+   Услуги → Козметични процедури (категориите) + Лазерна епилация;
+   Пакети → програми за лице + лазерни пакети. */
+
+const simpleLeft = [
   { href: "/za-nas", label: "За нас" },
   { href: "/konsultatsia", label: "Консултации" },
-  { href: "/uslugi", label: "Услуги" },
-  { href: "/paketi", label: "Пакети" },
+];
+const simpleRight = [
   { href: "/marki", label: "Марки" },
   { href: "/kontakti", label: "Контакти" },
 ];
+
+const linkCls = (active: boolean) =>
+  `relative rounded-full px-4 py-2 text-[0.9rem] transition-colors duration-150 ${
+    active
+      ? "bg-bordeaux/10 text-bordeaux after:absolute after:-bottom-0.5 after:left-1/2 after:h-1 after:w-1 after:-translate-x-1/2 after:rounded-full after:bg-gold after:content-['']"
+      : "text-secondary-ink hover:bg-bordeaux/5 hover:text-bordeaux"
+  }`;
+
+function DropPanel({ children }: { children: React.ReactNode }) {
+  return (
+    <Nav.Content className="fade-up absolute left-1/2 top-full z-50 mt-3 w-[26rem] -translate-x-1/2 rounded-3xl border border-gold/30 bg-card p-3 shadow-lift">
+      {children}
+    </Nav.Content>
+  );
+}
+
+function DropLink({
+  href,
+  title,
+  note,
+}: {
+  href: string;
+  title: string;
+  note?: string;
+}) {
+  return (
+    <Nav.Link asChild>
+      <Link
+        href={href}
+        className="group flex items-baseline justify-between gap-3 rounded-2xl px-4 py-2.5 transition-colors duration-150 hover:bg-paper-soft/80"
+      >
+        <span>
+          <span className="block text-[0.92rem] text-primary-ink transition-colors duration-150 group-hover:text-bordeaux">
+            {title}
+          </span>
+          {note && (
+            <span className="block text-[0.78rem] text-tertiary-ink">
+              {note}
+            </span>
+          )}
+        </span>
+        <span
+          aria-hidden="true"
+          className="text-gold opacity-0 transition-all duration-150 group-hover:translate-x-0.5 group-hover:opacity-100"
+        >
+          →
+        </span>
+      </Link>
+    </Nav.Link>
+  );
+}
 
 export default function Header() {
   const [open, setOpen] = useState(false);
@@ -24,7 +81,6 @@ export default function Header() {
 
   useEffect(() => {
     document.documentElement.style.overflow = open ? "hidden" : "";
-    // Фонът извън менюто излиза от tab реда и a11y дървото
     const rest = document.querySelectorAll("main, footer");
     rest.forEach((el) =>
       open ? el.setAttribute("inert", "") : el.removeAttribute("inert")
@@ -39,6 +95,10 @@ export default function Header() {
       document.removeEventListener("keydown", onKey);
     };
   }, [open]);
+
+  const uslugiActive =
+    pathname.startsWith("/uslugi") || pathname.startsWith("/lazerna");
+  const paketiActive = pathname.startsWith("/paketi");
 
   return (
     <>
@@ -56,25 +116,92 @@ export default function Header() {
             />
           </Link>
 
-          <nav className="hidden items-center gap-1 lg:flex">
-            {nav.map((item) => {
-              const active =
-                item.href === pathname || pathname.startsWith(item.href + "/");
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`rounded-full px-4 py-2 text-[0.9rem] transition-colors duration-150 ${
-                    active
-                      ? "bg-bordeaux/10 text-bordeaux"
-                      : "text-secondary-ink hover:bg-bordeaux/5 hover:text-bordeaux"
-                  }`}
+          <Nav.Root className="relative hidden lg:block" delayDuration={80}>
+            <Nav.List className="flex items-center gap-1">
+              {simpleLeft.map((item) => (
+                <Nav.Item key={item.href}>
+                  <Nav.Link asChild>
+                    <Link
+                      href={item.href}
+                      className={linkCls(pathname.startsWith(item.href))}
+                    >
+                      {item.label}
+                    </Link>
+                  </Nav.Link>
+                </Nav.Item>
+              ))}
+
+              <Nav.Item className="relative">
+                <Nav.Trigger
+                  className={`group inline-flex items-center gap-1 ${linkCls(uslugiActive)}`}
                 >
-                  {item.label}
-                </Link>
-              );
-            })}
-          </nav>
+                  Услуги
+                  <ChevronDown
+                    className="size-3.5 text-gold transition-transform duration-200 group-data-[state=open]:rotate-180"
+                    strokeWidth={1.6}
+                  />
+                </Nav.Trigger>
+                <DropPanel>
+                  <p className="px-4 pb-1 pt-2 text-[0.75rem] text-tertiary-ink">
+                    Козметични процедури
+                  </p>
+                  {categories.map((c) => (
+                    <DropLink
+                      key={c.slug}
+                      href={`/uslugi/${c.slug}`}
+                      title={c.name}
+                    />
+                  ))}
+                  <div className="mx-4 my-2 h-px bg-gold/25" />
+                  <DropLink
+                    href="/lazerna-epilatsia"
+                    title="Лазерна епилация"
+                    note="зони и цени за жени и мъже"
+                  />
+                  <DropLink href="/uslugi" title="Всички услуги и цени" />
+                </DropPanel>
+              </Nav.Item>
+
+              <Nav.Item className="relative">
+                <Nav.Trigger
+                  className={`group inline-flex items-center gap-1 ${linkCls(paketiActive)}`}
+                >
+                  Пакети
+                  <ChevronDown
+                    className="size-3.5 text-gold transition-transform duration-200 group-data-[state=open]:rotate-180"
+                    strokeWidth={1.6}
+                  />
+                </Nav.Trigger>
+                <DropPanel>
+                  <DropLink
+                    href="/paketi#litse"
+                    title="Програми за лице"
+                    note="Acne Clear · Skin Renewal · VIP"
+                  />
+                  <DropLink
+                    href="/paketi#lazer"
+                    title="Лазерна епилация"
+                    note="курсове и комбо пакети"
+                  />
+                  <div className="mx-4 my-2 h-px bg-gold/25" />
+                  <DropLink href="/paketi" title="Всички пакети" />
+                </DropPanel>
+              </Nav.Item>
+
+              {simpleRight.map((item) => (
+                <Nav.Item key={item.href}>
+                  <Nav.Link asChild>
+                    <Link
+                      href={item.href}
+                      className={linkCls(pathname.startsWith(item.href))}
+                    >
+                      {item.label}
+                    </Link>
+                  </Nav.Link>
+                </Nav.Item>
+              ))}
+            </Nav.List>
+          </Nav.Root>
 
           <div className="flex items-center gap-2">
             <a
@@ -106,22 +233,96 @@ export default function Header() {
       </header>
 
       {open && (
-        <div className="fade-up fixed inset-0 z-40 flex flex-col justify-between overflow-y-auto bg-bordeaux-deep px-6 pb-10 pt-28 lg:hidden">
+        <div className="fade-up fixed inset-0 z-40 flex flex-col overflow-y-auto bg-bordeaux-deep px-6 pb-10 pt-28 lg:hidden">
           <div
             className="blob left-1/2 top-0 h-72 w-72 -translate-x-1/2 bg-gold/25"
             aria-hidden="true"
           />
           <nav className="relative flex flex-col">
-            {nav.map((item, i) => (
+            <Link
+              href="/za-nas"
+              style={{ animationDelay: "0.05s" }}
+              className="word-in border-b hairline-cream py-3.5 font-display text-[1.7rem] text-paper transition-colors duration-150 hover:text-gold-soft"
+            >
+              За нас
+            </Link>
+            <Link
+              href="/konsultatsia"
+              style={{ animationDelay: "0.1s" }}
+              className="word-in border-b hairline-cream py-3.5 font-display text-[1.7rem] text-paper transition-colors duration-150 hover:text-gold-soft"
+            >
+              Консултации
+            </Link>
+
+            <div
+              style={{ animationDelay: "0.15s" }}
+              className="word-in border-b hairline-cream py-3.5"
+            >
               <Link
-                key={item.href}
-                href={item.href}
-                style={{ animationDelay: `${0.05 + i * 0.05}s` }}
-                className="word-in border-b hairline-cream py-4 font-display text-[1.9rem] text-paper transition-colors duration-150 hover:text-gold-soft"
+                href="/uslugi"
+                className="font-display text-[1.7rem] text-paper transition-colors duration-150 hover:text-gold-soft"
               >
-                {item.label}
+                Услуги
               </Link>
-            ))}
+              <div className="mt-2.5 flex flex-col gap-2 border-l border-gold/40 pl-4">
+                {categories.map((c) => (
+                  <Link
+                    key={c.slug}
+                    href={`/uslugi/${c.slug}`}
+                    className="text-[1rem] text-paper/75 transition-colors duration-150 hover:text-gold-soft"
+                  >
+                    {c.name}
+                  </Link>
+                ))}
+                <Link
+                  href="/lazerna-epilatsia"
+                  className="text-[1rem] text-paper/75 transition-colors duration-150 hover:text-gold-soft"
+                >
+                  Лазерна епилация
+                </Link>
+              </div>
+            </div>
+
+            <div
+              style={{ animationDelay: "0.2s" }}
+              className="word-in border-b hairline-cream py-3.5"
+            >
+              <Link
+                href="/paketi"
+                className="font-display text-[1.7rem] text-paper transition-colors duration-150 hover:text-gold-soft"
+              >
+                Пакети
+              </Link>
+              <div className="mt-2.5 flex flex-col gap-2 border-l border-gold/40 pl-4">
+                <Link
+                  href="/paketi#litse"
+                  className="text-[1rem] text-paper/75 transition-colors duration-150 hover:text-gold-soft"
+                >
+                  Програми за лице
+                </Link>
+                <Link
+                  href="/paketi#lazer"
+                  className="text-[1rem] text-paper/75 transition-colors duration-150 hover:text-gold-soft"
+                >
+                  Лазерна епилация
+                </Link>
+              </div>
+            </div>
+
+            <Link
+              href="/marki"
+              style={{ animationDelay: "0.25s" }}
+              className="word-in border-b hairline-cream py-3.5 font-display text-[1.7rem] text-paper transition-colors duration-150 hover:text-gold-soft"
+            >
+              Марки
+            </Link>
+            <Link
+              href="/kontakti"
+              style={{ animationDelay: "0.3s" }}
+              className="word-in border-b hairline-cream py-3.5 font-display text-[1.7rem] text-paper transition-colors duration-150 hover:text-gold-soft"
+            >
+              Контакти
+            </Link>
           </nav>
           <div className="relative mt-8 flex flex-col gap-3">
             <a

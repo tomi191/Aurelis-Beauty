@@ -30,8 +30,8 @@ export function Chip({
     <span
       className={`inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-[0.85rem] ${
         dark
-          ? "hairline-cream bg-white/5 text-paper/80"
-          : "hairline bg-card/70 text-secondary-ink"
+          ? "border-gold/40 bg-white/5 text-paper/80"
+          : "border-gold/45 bg-card/70 text-secondary-ink"
       }`}
     >
       <span className="h-1.5 w-1.5 rounded-full bg-gold" />

@@ -125,10 +125,13 @@ export default function Home() {
       <section className="mx-auto max-w-6xl px-5 py-14 md:px-8 md:py-20">
         <Reveal>
           <div className="flex flex-wrap items-end justify-between gap-6">
-            <h2 className="max-w-[18ch] font-display text-[clamp(1.9rem,3.6vw,3rem)] font-medium leading-tight text-bordeaux">
-              Процедури за{" "}
-              <span className="whitespace-nowrap">лице и тяло</span>
-            </h2>
+            <div>
+              <span className="gold-rule" aria-hidden="true" />
+              <h2 className="max-w-[18ch] font-display text-[clamp(1.9rem,3.6vw,3rem)] font-medium leading-tight text-bordeaux">
+                Процедури за{" "}
+                <span className="whitespace-nowrap">лице и тяло</span>
+              </h2>
+            </div>
             <Link href="/uslugi" className="link-ink mb-2 text-[0.95rem]">
               Всички процедури и цени
             </Link>
@@ -209,6 +212,7 @@ export default function Home() {
       <section className="border-y hairline bg-paper-soft/50">
         <div className="mx-auto max-w-6xl px-5 py-14 md:px-8 md:py-20">
           <Reveal>
+            <span className="gold-rule" aria-hidden="true" />
             <h2 className="font-display text-[clamp(1.9rem,3.6vw,3rem)] font-medium leading-tight text-bordeaux">
               Как протича първото посещение
             </h2>
@@ -246,6 +250,7 @@ export default function Home() {
       {/* ——— По проблем ——— */}
       <section className="mx-auto max-w-6xl px-5 py-14 md:px-8 md:py-20">
         <Reveal>
+          <span className="gold-rule" aria-hidden="true" />
           <h2 className="max-w-[20ch] font-display text-[clamp(1.9rem,3.6vw,3rem)] font-medium leading-tight text-bordeaux">
             С какво да ви помогнем?
           </h2>
@@ -429,9 +434,12 @@ export default function Home() {
       <section className="mx-auto max-w-6xl px-5 py-14 md:px-8 md:py-20">
         <Reveal>
           <div className="flex flex-wrap items-baseline justify-between gap-4">
-            <h2 className="font-display text-[clamp(1.7rem,3vw,2.4rem)] font-medium text-bordeaux">
-              Марките, с които работим
-            </h2>
+            <div>
+              <span className="gold-rule" aria-hidden="true" />
+              <h2 className="font-display text-[clamp(1.7rem,3vw,2.4rem)] font-medium text-bordeaux">
+                Марките, с които работим
+              </h2>
+            </div>
             <Link href="/marki" className="link-ink text-[0.95rem]">
               Историята зад всяка марка
             </Link>
@@ -458,6 +466,7 @@ export default function Home() {
       <section className="border-t hairline">
         <div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 md:px-8 md:py-20 lg:grid-cols-12">
           <Reveal className="lg:col-span-4">
+            <span className="gold-rule" aria-hidden="true" />
             <h2 className="font-display text-[clamp(1.9rem,3.6vw,2.9rem)] font-medium leading-tight text-bordeaux">
               Чести въпроси
             </h2>
@@ -482,6 +491,7 @@ export default function Home() {
               aria-hidden="true"
             />
             <div className="relative">
+              <span className="gold-rule gold-rule-center" aria-hidden="true" />
               <h2 className="mx-auto max-w-2xl font-display text-[clamp(2rem,4vw,3.1rem)] font-medium leading-tight">
                 Всичко започва с едно обаждане
               </h2>

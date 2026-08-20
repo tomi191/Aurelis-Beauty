@@ -56,9 +56,12 @@ export default function LaserPage() {
       <section className="mx-auto max-w-6xl px-5 py-14 md:px-8 md:py-20">
         <Reveal>
           <div className="flex flex-wrap items-end justify-between gap-4">
-            <h2 className="font-display text-[clamp(1.9rem,3.6vw,2.9rem)] font-medium text-bordeaux">
-              Зони и цени
-            </h2>
+            <div>
+              <span className="gold-rule" aria-hidden="true" />
+              <h2 className="font-display text-[clamp(1.9rem,3.6vw,2.9rem)] font-medium text-bordeaux">
+                Зони и цени
+              </h2>
+            </div>
             <p className="mb-1 text-[0.88rem] text-tertiary-ink">
               Цените са на процедура, за жени и мъже
             </p>
