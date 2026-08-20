@@ -167,6 +167,14 @@ export default function PaketiPage() {
               className="blob -right-24 -top-28 h-96 w-96 bg-gold/15"
               aria-hidden="true"
             />
+            {/* Line-art силуетът от печатния ценоразпис на клиента */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/silhouette-m.svg"
+              alt=""
+              aria-hidden="true"
+              className="pointer-events-none absolute -right-2 top-0 hidden h-[70%] w-auto opacity-30 lg:block"
+            />
             <div className="relative">
               <h2 className="max-w-[20ch] font-display text-[clamp(1.8rem,3.2vw,2.6rem)] font-medium leading-tight">
                 Лазерна епилация: пакети и курсове

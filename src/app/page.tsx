@@ -5,80 +5,72 @@ import JsonLd from "@/components/JsonLd";
 import Marquee from "@/components/Marquee";
 import Reveal from "@/components/Reveal";
 import SunRays from "@/components/SunRays";
-import { Card, Chip, CtaGhost, CtaSolid } from "@/components/ui";
+import { Card, CtaGhost, CtaSolid } from "@/components/ui";
 import {
-  about,
   brands,
   categories,
   consultation,
   contact,
-  founder,
-  hours,
-  laserZones,
+  facePackages,
 } from "@/lib/data";
 
-function fromPrice(prices: { price: string }[]): string {
+function proc(catSlug: string, procSlug: string) {
+  const cat = categories.find((c) => c.slug === catSlug);
+  const p = cat?.procedures.find((pr) => pr.slug === procSlug);
+  return { cat, p };
+}
+
+function minPrice(prices: { price: string }[]): string {
   const nums = prices
     .map((p) => parseInt(p.price, 10))
     .filter((n) => !Number.isNaN(n));
-  return nums.length ? `от ${Math.min(...nums)} €` : "";
+  return nums.length ? `от ${Math.min(...nums)} €` : "по запитване";
 }
 
-/* Навигация по проблем: всяко съответствие идва от реалните описания
-   на процедурите в data.ts (нулева фабрикация). */
-const concerns = [
+/* Бързите категории следват четирите карти от плана на клиента. */
+const quickCategories = [
   {
-    label: "Акне, черни точки и разширени пори",
-    to: [
-      { name: "Почистване на лице", href: "/uslugi/pochistvane-na-lice" },
-      { name: "NOON Corrective Acne", href: "/uslugi/terapii-za-litse" },
-    ],
+    title: "Грижа за лице",
+    topics: ["почистване", "пилинги", "хидратация", "възстановяване"],
+    href: "/uslugi/pochistvane-na-lice",
   },
   {
-    label: "Пигментни петна и белези от акне",
-    to: [
-      { name: "BioRePeel", href: "/uslugi/biorepeel" },
-      { name: "SQT био-микронидлинг", href: "/uslugi/mikronidling" },
-    ],
+    title: "Терапии",
+    topics: ["BioRePeel", "Casmara", "NOON", "SQT", "карбокси"],
+    href: "/uslugi/terapii-za-litse",
   },
   {
-    label: "Първи бръчки и загуба на тонус",
-    to: [
-      { name: "Микронидлинг Fusion", href: "/uslugi/mikronidling" },
-      { name: "NOON Anti-Age", href: "/uslugi/terapii-za-litse" },
-    ],
+    title: "Лазерна епилация",
+    topics: ["лице", "тяло", "интимна зона", "пакети"],
+    href: "/lazerna-epilatsia",
   },
   {
-    label: "Дехидратирана и уморена кожа",
-    to: [
-      { name: "Протоколи Casmara", href: "/uslugi/terapii-za-litse" },
-      { name: "Карбокситерапия", href: "/uslugi/terapii-za-litse" },
-    ],
-  },
-  {
-    label: "Нежелано окосмяване",
-    to: [{ name: "Лазерна епилация", href: "/lazerna-epilatsia" }],
+    title: "Вежди",
+    topics: ["оформяне", "къна", "LED терапия"],
+    href: "/uslugi/vezhdi",
   },
 ];
 
-/* Стъпките идват от консултация.pdf и текста „първата среща" на клиента. */
-const steps = [
-  {
-    n: "1",
-    title: "Разговор и анализ на кожата",
-    text: "Започваме с консултация: разглеждаме кожата ви отблизо и говорим за навиците, нуждите и целите ви.",
-  },
-  {
-    n: "2",
-    title: "Процедура, подбрана за вас",
-    text: "Без готови схеми: избираме процедурата и марката според това, което кожата ви наистина иска.",
-  },
-  {
-    n: "3",
-    title: "План за домашна грижа",
-    text: "Тръгвате си с личен план за професионална и домашна грижа и ясна следваща стъпка.",
-  },
+/* Подходът: точките идват от консултация.pdf и работния процес на Йоана. */
+const approach = [
+  "Анализ на състоянието на кожата",
+  "Персонален план за професионална грижа",
+  "План и продукти за домашна грижа",
+  "Подбор на подходяща козметика",
+  "Проследяване на резултатите",
+  "Процедури според реалните нужди, не по шаблон",
 ];
+
+/* Популярните услуги: осемте от плана, с реалните цени от ценоразписа. */
+const popular = [
+  { cat: "pochistvane-na-lice", slug: "klasichesko-pochistvane" },
+  { cat: "pochistvane-na-lice", slug: "vodno-dermabrazio" },
+  { cat: "biorepeel", slug: "biorepeel" },
+  { cat: "terapii-za-litse", slug: "casmara" },
+  { cat: "terapii-za-litse", slug: "noon" },
+  { cat: "mikronidling", slug: "mikronidling-fusion" },
+  { cat: "mikronidling", slug: "sqt-bio-microneedling" },
+] as const;
 
 /* FAQ: отговорите са само от реалните данни на процедурите. */
 const faq = [
@@ -96,13 +88,11 @@ const faq = [
   },
   {
     q: "Как се записва час?",
-    a: "Обадете се на 088 981 6905 или ни пишете на имейл. Работим вторник, четвъртък и събота от 08:00 до 16:00, сряда и петък от 12:00 до 20:00.",
+    a: "Обадете се на 088 981 6905 или ни пишете през формата в Контакти. Работим вторник, четвъртък и събота от 08:00 до 16:00, сряда и петък от 12:00 до 20:00.",
   },
 ];
 
 export default function Home() {
-  const zoneCount = laserZones.reduce((s, g) => s + g.zones.length, 0);
-
   return (
     <>
       {/* FAQPage schema от същите въпроси в секцията по-долу */}
@@ -118,88 +108,211 @@ export default function Home() {
         }}
       />
 
-      {/* ——— Hero (client, motion каскада + live работно време) ——— */}
+      {/* ——— Hero ——— */}
       <HomeHero />
 
-      {/* ——— Процедури (bento) ——— */}
+      {/* ——— Бързи категории (4-те карти от плана) ——— */}
       <section className="mx-auto max-w-6xl px-5 py-14 md:px-8 md:py-20">
         <Reveal>
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
               <span className="gold-rule" aria-hidden="true" />
               <h2 className="max-w-[18ch] font-display text-[clamp(1.9rem,3.6vw,3rem)] font-medium leading-tight text-bordeaux">
-                Процедури за{" "}
-                <span className="whitespace-nowrap">лице и тяло</span>
+                С какво да започнем?
               </h2>
             </div>
-            <Link href="/uslugi" className="link-ink mb-2 text-[0.95rem]">
-              Всички процедури и цени
+            <Link href="/tsenorazpis" className="link-ink mb-2 text-[0.95rem]">
+              Пълен ценоразпис
             </Link>
           </div>
         </Reveal>
-        <div className="mt-10 grid gap-5 md:grid-cols-3">
-          {categories.map((cat, i) => (
-            <Reveal
-              key={cat.slug}
-              delay={(i % 3) * 0.07}
-              className={i === 0 || i === 3 || i === 5 ? "md:col-span-2" : ""}
-            >
-              <Link href={`/uslugi/${cat.slug}`} className="group block h-full">
-                <Card className="hover-lift flex h-full flex-col justify-between p-7">
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {quickCategories.map((qc, i) => (
+            <Reveal key={qc.title} delay={i * 0.05}>
+              <Link href={qc.href} className="group block h-full">
+                <div className="hover-lift gold-frame-soft flex h-full flex-col justify-between rounded-[1.75rem] bg-card p-6 shadow-soft">
                   <div>
-                    <h3 className="font-display text-[1.55rem] font-medium leading-snug text-bordeaux">
-                      {cat.name}
+                    <h3 className="font-display text-[1.45rem] font-medium leading-snug text-bordeaux">
+                      {qc.title}
                     </h3>
-                    <p className="mt-3 text-[0.93rem] text-secondary-ink">
-                      {cat.intro}
-                    </p>
-                    {(i === 0 || i === 3 || i === 5) && (
-                      <ul className="mt-4 flex flex-wrap gap-2">
-                        {cat.procedures.map((p) => (
-                          <li
-                            key={p.slug}
-                            className="rounded-full border hairline px-3 py-1 text-[0.8rem] text-tertiary-ink"
-                          >
-                            {p.name}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
+                    <ul className="mt-4 flex flex-wrap gap-1.5">
+                      {qc.topics.map((t) => (
+                        <li
+                          key={t}
+                          className="rounded-full bg-paper-soft px-3 py-1 text-[0.78rem] text-tertiary-ink"
+                        >
+                          {t}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <div className="mt-6 flex items-center justify-between">
-                    <span className="tnum rounded-full bg-paper-soft px-4 py-1.5 text-[0.85rem] text-secondary-ink">
-                      {fromPrice(cat.procedures.flatMap((p) => p.prices))}
-                    </span>
-                    <span
-                      aria-hidden="true"
-                      className="flex h-10 w-10 items-center justify-center rounded-full border hairline text-gold transition-all duration-300 group-hover:border-gold group-hover:bg-gold group-hover:text-paper"
-                    >
-                      →
-                    </span>
-                  </div>
-                </Card>
+                  <span
+                    aria-hidden="true"
+                    className="mt-6 flex h-9 w-9 items-center justify-center rounded-full border border-gold/45 text-gold-deep transition-all duration-200 group-hover:bg-gold group-hover:text-paper"
+                  >
+                    →
+                  </span>
+                </div>
               </Link>
             </Reveal>
           ))}
-          <Reveal className="md:col-span-3">
-            <Link href="/lazerna-epilatsia" className="group block">
-              <div className="hover-lift relative overflow-hidden rounded-[1.75rem] bg-bordeaux-deep p-8 text-paper shadow-soft md:p-10">
-                <div
-                  className="blob -right-10 -top-24 h-72 w-72 bg-gold/20"
-                  aria-hidden="true"
-                />
-                <div className="relative flex flex-wrap items-end justify-between gap-6">
+        </div>
+      </section>
+
+      {/* ——— Нашият подход (бежова секция като салона) ——— */}
+      <section className="bg-blush/50">
+        <div className="mx-auto grid max-w-6xl gap-12 px-5 py-16 md:px-8 md:py-24 lg:grid-cols-12">
+          <Reveal className="lg:col-span-5">
+            <span className="gold-rule" aria-hidden="true" />
+            <h2 className="font-display text-[clamp(1.9rem,3.6vw,3rem)] font-medium leading-tight text-bordeaux">
+              Грижата започва с разбиране
+            </h2>
+            <p className="mt-5 max-w-md text-[0.98rem] text-secondary-ink">
+              Услугите в ателието не са случаен списък. Първо гледаме кожата и
+              слушаме вас, чак после препоръчваме процедура. Затова резултатите
+              траят.
+            </p>
+            <div className="mt-7">
+              <CtaGhost href="/za-nas">Повече за нашия подход</CtaGhost>
+            </div>
+          </Reveal>
+          <div className="lg:col-span-6 lg:col-start-7">
+            <ul className="grid gap-x-8 gap-y-5 sm:grid-cols-2">
+              {approach.map((a, i) => (
+                <Reveal key={a} delay={i * 0.05} as="li">
+                  <div className="flex items-start gap-3">
+                    <span className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-gold/50 text-[0.7rem] text-gold-deep">
+                      ✓
+                    </span>
+                    <span className="text-[0.95rem] leading-snug text-secondary-ink">
+                      {a}
+                    </span>
+                  </div>
+                </Reveal>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* ——— Персонална консултация (тъмночервеният акцент) ——— */}
+      <section className="mx-auto max-w-6xl px-5 py-14 md:px-8 md:py-20">
+        <Reveal>
+          <div className="gold-frame relative overflow-hidden rounded-[2.5rem] bg-bordeaux-deep px-6 py-14 text-paper md:px-14 md:py-20">
+            <div
+              className="blob -right-24 -top-28 h-96 w-96 bg-gold/20"
+              aria-hidden="true"
+            />
+            <div className="relative grid gap-10 lg:grid-cols-12 lg:items-center">
+              <div className="lg:col-span-6">
+                <SunRays half className="w-16 text-gold-soft" />
+                <h2 className="mt-5 max-w-[16ch] font-display text-[clamp(2rem,4.2vw,3.4rem)] font-normal leading-[1.08]">
+                  Преоткрийте своята <em>истинска кожа</em>
+                </h2>
+                <p className="mt-5 max-w-md text-[0.98rem] text-paper/70">
+                  Всичко в ателието започва с персонална консултация с Йоана,
+                  посветена само на вашата кожа.
+                </p>
+                <div className="mt-8 flex flex-wrap items-center gap-5">
+                  <CtaSolid href="/konsultatsia">Запази консултация</CtaSolid>
                   <div>
-                    <h3 className="font-display text-[clamp(1.7rem,3vw,2.4rem)] font-medium leading-tight">
-                      Лазерна епилация
-                    </h3>
-                    <p className="mt-3 max-w-md text-[0.95rem] text-paper/65">
-                      {zoneCount} зони за жени и мъже, от междувеждие до цели
-                      крака. Курс от процедури носи до −15%.
+                    <p className="font-display text-[1.9rem] font-semibold leading-none text-gold-soft">
+                      {consultation.price}
+                    </p>
+                    <p className="mt-1 text-[0.8rem] text-paper/55">
+                      приспада се при последваща процедура
                     </p>
                   </div>
-                  <span className="inline-flex items-center gap-2 rounded-full bg-paper px-6 py-3 text-[0.92rem] text-bordeaux transition-transform duration-300 group-hover:-translate-y-0.5">
-                    Зони и цени →
+                </div>
+              </div>
+              <div className="lg:col-span-5 lg:col-start-8">
+                <ul className="space-y-3.5">
+                  {consultation.includes.map((inc) => (
+                    <li key={inc} className="flex items-start gap-3">
+                      <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gold/25 text-[0.65rem] text-gold-soft">
+                        ✓
+                      </span>
+                      <span className="text-[0.93rem] text-paper/80">
+                        {inc}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </Reveal>
+      </section>
+
+      {/* ——— Популярни услуги (8-те от плана) ——— */}
+      <section className="mx-auto max-w-6xl px-5 py-8 md:px-8 md:py-12">
+        <Reveal>
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <div>
+              <span className="gold-rule" aria-hidden="true" />
+              <h2 className="max-w-[18ch] font-display text-[clamp(1.9rem,3.6vw,3rem)] font-medium leading-tight text-bordeaux">
+                Най-търсените процедури
+              </h2>
+            </div>
+            <Link href="/uslugi" className="link-ink mb-2 text-[0.95rem]">
+              Всички услуги
+            </Link>
+          </div>
+        </Reveal>
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {popular.map((pop, i) => {
+            const { cat, p } = proc(pop.cat, pop.slug);
+            if (!cat || !p) return null;
+            return (
+              <Reveal key={p.slug} delay={(i % 4) * 0.05}>
+                <Link
+                  href={`/uslugi/${cat.slug}`}
+                  className="group block h-full"
+                >
+                  <Card className="hover-lift flex h-full flex-col justify-between p-6">
+                    <div>
+                      <h3 className="font-display text-[1.25rem] font-medium leading-snug text-bordeaux">
+                        {p.name}
+                      </h3>
+                      <p className="mt-2.5 text-[0.86rem] leading-relaxed text-tertiary-ink">
+                        {p.short}
+                      </p>
+                    </div>
+                    <div className="mt-5 flex items-center justify-between border-t hairline pt-4">
+                      <span className="tnum text-[0.95rem] font-semibold text-gold-deep">
+                        {minPrice(p.prices)}
+                      </span>
+                      <span className="text-[0.85rem] text-secondary-ink transition-colors duration-200 group-hover:text-bordeaux">
+                        Виж детайли →
+                      </span>
+                    </div>
+                  </Card>
+                </Link>
+              </Reveal>
+            );
+          })}
+          <Reveal delay={0.35}>
+            <Link href="/lazerna-epilatsia" className="group block h-full">
+              <div className="hover-lift relative flex h-full flex-col justify-between overflow-hidden rounded-[1.75rem] bg-bordeaux p-6 text-paper shadow-soft">
+                <div
+                  className="blob -right-10 -top-16 h-44 w-44 bg-gold/25"
+                  aria-hidden="true"
+                />
+                <div className="relative">
+                  <h3 className="font-display text-[1.25rem] font-medium leading-snug">
+                    Лазерна епилация
+                  </h3>
+                  <p className="mt-2.5 text-[0.86rem] leading-relaxed text-paper/65">
+                    Трайно гладка кожа за жени и мъже, по зони или в изгодни
+                    пакети.
+                  </p>
+                </div>
+                <div className="relative mt-5 flex items-center justify-between border-t hairline-cream pt-4">
+                  <span className="text-[0.95rem] font-semibold text-gold-soft">
+                    Цени по зони
+                  </span>
+                  <span className="text-[0.85rem] text-paper/70 transition-colors duration-200 group-hover:text-paper">
+                    Виж детайли →
                   </span>
                 </div>
               </div>
@@ -208,236 +321,101 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ——— Как протича посещението ——— */}
-      <section className="border-y hairline bg-paper-soft/50">
-        <div className="mx-auto max-w-6xl px-5 py-14 md:px-8 md:py-20">
-          <Reveal>
-            <span className="gold-rule" aria-hidden="true" />
-            <h2 className="font-display text-[clamp(1.9rem,3.6vw,3rem)] font-medium leading-tight text-bordeaux">
-              Как протича първото посещение
-            </h2>
-          </Reveal>
-          <div className="mt-10 grid gap-10 md:grid-cols-3 md:gap-8">
-            {steps.map((s, i) => (
-              <Reveal key={s.n} delay={i * 0.08}>
-                <div className={i === 1 ? "md:mt-10" : i === 2 ? "md:mt-20" : ""}>
-                  <p className="font-display text-[3.2rem] leading-none text-gold">
-                    {s.n}
-                  </p>
-                  <h3 className="mt-4 text-[1.05rem] font-semibold text-primary-ink">
-                    {s.title}
-                  </h3>
-                  <p className="mt-2 max-w-xs text-[0.93rem] text-secondary-ink">
-                    {s.text}
-                  </p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-          <Reveal delay={0.2}>
-            <div className="mt-12 flex flex-wrap items-center gap-5">
-              <CtaSolid href="/konsultatsia">
-                Консултация · {consultation.price}
-              </CtaSolid>
-              <p className="text-[0.88rem] text-tertiary-ink">
-                {consultation.note}
-              </p>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ——— По проблем ——— */}
+      {/* ——— Пакети и програми ——— */}
       <section className="mx-auto max-w-6xl px-5 py-14 md:px-8 md:py-20">
         <Reveal>
-          <span className="gold-rule" aria-hidden="true" />
-          <h2 className="max-w-[20ch] font-display text-[clamp(1.9rem,3.6vw,3rem)] font-medium leading-tight text-bordeaux">
-            С какво да ви помогнем?
-          </h2>
-        </Reveal>
-        <Reveal delay={0.08}>
-          <ul className="mt-8 divide-y hairline border-y hairline">
-            {concerns.map((c) => (
-              <li
-                key={c.label}
-                className="grid gap-2 py-5 md:grid-cols-12 md:items-baseline"
-              >
-                <p className="text-[1.05rem] text-primary-ink md:col-span-6">
-                  {c.label}
-                </p>
-                <p className="flex flex-wrap gap-x-5 gap-y-1 md:col-span-6">
-                  {c.to.map((t) => (
-                    <Link
-                      key={t.name}
-                      href={t.href}
-                      className="link-ink text-[0.95rem]"
-                    >
-                      {t.name}
-                    </Link>
-                  ))}
-                </p>
-              </li>
-            ))}
-          </ul>
-        </Reveal>
-      </section>
-
-      {/* ——— За AURÈLIS ——— */}
-      <section className="mx-auto grid max-w-6xl items-center gap-12 px-5 py-14 md:px-8 md:py-20 lg:grid-cols-12">
-        <Reveal className="relative lg:col-span-5">
-          <div className="arch relative mx-auto flex aspect-[4/5] max-w-sm items-end justify-center overflow-hidden bg-gradient-to-b from-taupe/50 via-taupe/30 to-paper-soft">
-            <SunRays half draw className="mb-16 w-32 text-taupe" />
-          </div>
-          <Card className="absolute -bottom-6 left-1/2 w-[88%] max-w-sm -translate-x-1/2 px-6 py-5">
-            <p className="font-display text-[1.4rem] leading-snug text-bordeaux">
-              „{founder.quote}“
-            </p>
-            <p className="mt-2 text-[0.8rem] text-tertiary-ink">
-              {founder.name}, {founder.role.toLowerCase()}
-            </p>
-          </Card>
-        </Reveal>
-        <div className="lg:col-span-6 lg:col-start-7">
-          <Reveal>
-            <Chip>За AURÈLIS</Chip>
-            <p className="mt-6 font-display text-[clamp(1.5rem,2.6vw,2.1rem)] leading-snug text-primary-ink">
-              {about.philosophy}
-            </p>
-          </Reveal>
-          <div className="mt-8 space-y-4">
-            <Reveal delay={0.08}>
-              <Card className="p-6">
-                <h3 className="text-[1.02rem] font-semibold text-bordeaux">
-                  Нашата мисия
-                </h3>
-                <p className="mt-2 text-[0.95rem] text-secondary-ink">
-                  {about.mission}
-                </p>
-              </Card>
-            </Reveal>
-            <Reveal delay={0.14} className="md:pl-10">
-              <Card className="p-6">
-                <h3 className="text-[1.02rem] font-semibold text-bordeaux">
-                  Нашата визия
-                </h3>
-                <p className="mt-2 text-[0.95rem] text-secondary-ink">
-                  {about.vision}
-                </p>
-              </Card>
-            </Reveal>
-            <Reveal delay={0.2}>
-              <Link
-                href="/za-nas"
-                className="link-ink inline-block text-[0.95rem]"
-              >
-                Защо се казваме AURÈLIS и кои сме ние
-              </Link>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      {/* ——— Йоана (визитка, пълната история е в /za-nas) ——— */}
-      <section className="mx-auto grid max-w-6xl items-center gap-12 px-5 py-14 md:px-8 md:py-20 lg:grid-cols-12">
-        <div className="lg:col-span-6">
-          <Reveal>
-            <Chip>Кой ще се грижи за кожата ви</Chip>
-            <h2 className="mt-6 font-display text-[clamp(1.9rem,3.6vw,3rem)] font-medium leading-tight text-bordeaux">
-              {founder.name}
+          <div>
+            <span className="gold-rule" aria-hidden="true" />
+            <h2 className="max-w-[20ch] font-display text-[clamp(1.9rem,3.6vw,3rem)] font-medium leading-tight text-bordeaux">
+              Пакети и програми
             </h2>
-            <p className="mt-2 text-[0.95rem] text-tertiary-ink">
-              {founder.role}
+            <p className="mt-3 max-w-xl text-[0.95rem] text-tertiary-ink">
+              {facePackages.gift}
             </p>
-          </Reveal>
-          <Reveal delay={0.08}>
-            <div className="mt-6 flex flex-wrap gap-2.5">
-              {founder.facts.map((f) => (
-                <Chip key={f}>{f}</Chip>
-              ))}
-            </div>
-          </Reveal>
-          <Reveal delay={0.14}>
-            <p className="mt-7 text-[0.98rem] text-secondary-ink">
-              {founder.story[0]}
-            </p>
-            <p className="mt-4 text-[0.98rem] text-secondary-ink">
-              {founder.story[1]}
-            </p>
-            <Link
-              href="/za-nas"
-              className="link-ink mt-6 inline-block text-[0.95rem]"
-            >
-              Моята история и защо създадох AURÈLIS
-            </Link>
-          </Reveal>
-        </div>
-        <Reveal delay={0.1} className="lg:col-span-5 lg:col-start-8">
-          {/* Портрет: очаква фотосесия — тонален arch placeholder с offset слой */}
-          <div className="relative mx-auto max-w-sm">
-            <div
-              aria-hidden="true"
-              className="arch absolute inset-x-6 -bottom-4 top-10 -z-10 bg-gold/20"
-            />
-            <div className="arch relative flex aspect-[4/5] items-center justify-center overflow-hidden bg-gradient-to-b from-taupe/45 to-paper-soft">
-              <SunRays draw className="w-28 text-taupe/80" />
-            </div>
           </div>
         </Reveal>
-      </section>
-
-      {/* ——— Консултация ——— */}
-      <section className="mx-auto max-w-6xl px-5 md:px-8">
-        <Reveal>
-          <Card className="grid gap-10 p-8 md:p-12 lg:grid-cols-2">
-            <div>
-              <Chip>Първата стъпка</Chip>
-              <h2 className="mt-6 max-w-[16ch] font-display text-[clamp(1.9rem,3.6vw,2.9rem)] font-medium leading-tight text-bordeaux">
-                Грижата за вас започва още с първата ни среща
-              </h2>
-              <p className="mt-5 max-w-md text-[0.98rem] text-secondary-ink">
-                {about.firstVisit}
-              </p>
-              <div className="mt-8 flex flex-wrap gap-4">
-                <CtaSolid href="/konsultatsia">
-                  Консултация · {consultation.price}
-                </CtaSolid>
-                <CtaGhost href={contact.phoneHref} external>
-                  {contact.phone}
-                </CtaGhost>
-              </div>
-            </div>
-            <div className="rounded-[1.5rem] bg-paper-soft/70 p-7 md:p-8">
-              <p className="font-display text-lg font-semibold text-bordeaux">
-                Какво включва
-              </p>
-              <ul className="mt-5 space-y-3">
-                {consultation.includes.map((item) => (
-                  <li key={item} className="flex items-start gap-3">
-                    <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gold/15 text-[0.7rem] text-gold">
-                      ✓
+        <div className="mt-10 grid gap-6 lg:grid-cols-3">
+          {facePackages.programs.map((prog, i) => {
+            const vip = prog.name.startsWith("VIP");
+            return (
+              <Reveal key={prog.name} delay={i * 0.07}>
+                <div
+                  className={
+                    vip
+                      ? "gold-frame relative flex h-full flex-col overflow-hidden rounded-[1.75rem] bg-bordeaux-deep p-7 text-paper shadow-soft"
+                      : "gold-frame-soft flex h-full flex-col rounded-[1.75rem] bg-card p-7 shadow-soft"
+                  }
+                >
+                  {vip && (
+                    <div
+                      className="blob -right-16 -top-20 h-56 w-56 bg-gold/20"
+                      aria-hidden="true"
+                    />
+                  )}
+                  <h3
+                    className={`relative font-display text-[1.45rem] font-medium leading-snug ${vip ? "" : "text-bordeaux"}`}
+                  >
+                    {prog.name}
+                  </h3>
+                  <ul className="relative mt-5 flex-1 space-y-2.5">
+                    {prog.items.map((item) => (
+                      <li key={item} className="flex items-start gap-2.5">
+                        <span
+                          className={`mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[0.65rem] ${
+                            vip
+                              ? "bg-gold/25 text-gold-soft"
+                              : "bg-gold/15 text-gold-deep"
+                          }`}
+                        >
+                          ✓
+                        </span>
+                        <span
+                          className={`text-[0.92rem] ${vip ? "text-paper/80" : "text-secondary-ink"}`}
+                        >
+                          {item}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                  <div
+                    className={`relative mt-6 flex items-baseline justify-between border-t pt-5 ${vip ? "hairline-cream" : "hairline"}`}
+                  >
+                    <span
+                      className={`text-[0.95rem] line-through decoration-1 ${vip ? "text-paper/45" : "text-tertiary-ink"}`}
+                    >
+                      {prog.oldPrice}
                     </span>
-                    <span className="text-[0.95rem] text-secondary-ink">
-                      {item}
+                    <span
+                      className={`font-display text-[2rem] font-semibold ${vip ? "text-gold-soft" : "text-bordeaux"}`}
+                    >
+                      {prog.price}
                     </span>
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-6 border-t hairline pt-4 text-[0.85rem] text-tertiary-ink">
-                {consultation.note}
-              </p>
-            </div>
-          </Card>
+                  </div>
+                </div>
+              </Reveal>
+            );
+          })}
+        </div>
+        <Reveal delay={0.1}>
+          <div className="mt-8 flex flex-wrap items-center gap-5">
+            <CtaSolid href={contact.phoneHref} external>
+              Попитай за пакет · {contact.phone}
+            </CtaSolid>
+            <Link href="/paketi" className="link-ink text-[0.95rem]">
+              Лазерните пакети и всички отстъпки
+            </Link>
+          </div>
         </Reveal>
       </section>
 
       {/* ——— Марките ——— */}
-      <section className="mx-auto max-w-6xl px-5 py-14 md:px-8 md:py-20">
+      <section className="mx-auto max-w-6xl px-5 py-14 md:px-8 md:py-16">
         <Reveal>
           <div className="flex flex-wrap items-baseline justify-between gap-4">
             <div>
               <span className="gold-rule" aria-hidden="true" />
               <h2 className="font-display text-[clamp(1.7rem,3vw,2.4rem)] font-medium text-bordeaux">
-                Марките, с които работим
+                Марките, на които се доверяваме
               </h2>
             </div>
             <Link href="/marki" className="link-ink text-[0.95rem]">
@@ -463,15 +441,18 @@ export default function Home() {
       </section>
 
       {/* ——— Чести въпроси ——— */}
-      <section className="border-t hairline">
-        <div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 md:px-8 md:py-20 lg:grid-cols-12">
+      <section className="mx-auto max-w-6xl px-5 py-14 md:px-8 md:py-20">
+        <div className="grid gap-10 lg:grid-cols-12">
           <Reveal className="lg:col-span-4">
             <span className="gold-rule" aria-hidden="true" />
             <h2 className="font-display text-[clamp(1.9rem,3.6vw,2.9rem)] font-medium leading-tight text-bordeaux">
               Чести въпроси
             </h2>
             <p className="mt-4 max-w-xs text-[0.95rem] text-secondary-ink">
-              Ако не намирате отговора тук, обадете се: {contact.phone}.
+              Ако не намирате отговора си тук, обадете се:{" "}
+              <a href={contact.phoneHref} className="link-ink tnum">
+                {contact.phone}
+              </a>
             </p>
           </Reveal>
           <div className="lg:col-span-7 lg:col-start-6">
@@ -482,38 +463,23 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ——— Финален CTA ——— */}
-      <section className="mx-auto max-w-6xl px-5 py-14 md:px-8 md:py-20">
+      {/* ——— Финален CTA (бежов, златни детайли) ——— */}
+      <section className="mx-auto max-w-6xl px-5 pb-16 md:px-8 md:pb-24">
         <Reveal>
-          <div className="relative overflow-hidden rounded-[2.5rem] bg-bordeaux-deep px-6 py-16 text-center text-paper md:py-20">
-            <div
-              className="blob -bottom-32 left-1/2 h-96 w-96 -translate-x-1/2 bg-gold/20"
-              aria-hidden="true"
-            />
-            <div className="relative">
-              <span className="gold-rule gold-rule-center" aria-hidden="true" />
-              <h2 className="mx-auto max-w-2xl font-display text-[clamp(2rem,4vw,3.1rem)] font-medium leading-tight">
-                Всичко започва с едно обаждане
-              </h2>
-              <p className="mx-auto mt-4 max-w-lg text-[0.98rem] text-paper/65">
-                Ще поговорим за вашата кожа и ще преценим заедно откъде да
-                започнем.
-              </p>
-              <a
-                href={contact.phoneHref}
-                className="tnum mt-8 inline-block font-display text-[clamp(1.9rem,4.5vw,3.4rem)] font-semibold text-gold-soft transition-colors duration-300 hover:text-paper"
-              >
-                {contact.phone}
-              </a>
-              <p className="mt-6 text-[0.9rem] text-paper/55">
-                {contact.addressFull} · {hours[0].days} {hours[0].time} ·{" "}
-                {hours[1].days} {hours[1].time}
-              </p>
-              <div className="mt-8 flex flex-wrap justify-center gap-4">
-                <CtaGhost href="/kontakti" dark>
-                  Контакти и работно време
-                </CtaGhost>
-              </div>
+          <div className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-b from-paper-soft to-blush/70 px-6 py-16 text-center md:py-20">
+            <SunRays half draw className="mx-auto w-24 text-gold" />
+            <h2 className="mx-auto mt-6 max-w-2xl font-display text-[clamp(2rem,4vw,3.1rem)] font-medium leading-tight text-bordeaux">
+              Готови ли сте да започнете персоналната си грижа?
+            </h2>
+            <p className="mx-auto mt-4 max-w-md text-[0.95rem] text-secondary-ink">
+              Обадете се или ни пишете: ще намерим удобен час и точната
+              процедура за вас.
+            </p>
+            <div className="mt-8 flex flex-wrap justify-center gap-4">
+              <CtaSolid href={contact.phoneHref} external>
+                Обади се · {contact.phone}
+              </CtaSolid>
+              <CtaGhost href="/kontakti">Пиши ни</CtaGhost>
             </div>
           </div>
         </Reveal>

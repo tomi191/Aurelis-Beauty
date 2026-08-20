@@ -26,6 +26,14 @@ export default function LaserPage() {
               className="blob -bottom-32 left-[-10%] h-80 w-80 bg-wine/30"
               aria-hidden="true"
             />
+            {/* Line-art силуетът от печатния ценоразпис на клиента */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/silhouette-f.svg"
+              alt=""
+              aria-hidden="true"
+              className="pointer-events-none absolute -right-4 bottom-0 hidden h-[115%] w-auto opacity-45 md:block"
+            />
             <div className="relative">
               <Chip dark>Трайно обезкосмяване · жени и мъже</Chip>
               <BlurTitle

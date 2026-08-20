@@ -1,17 +1,43 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { contact } from "@/lib/data";
+import { categories, contact } from "@/lib/data";
 
 type Status = "idle" | "sending" | "success" | "error";
+
+const SERVICE_OPTIONS = [
+  "Консултация и анализ",
+  ...categories.map((c) => c.name),
+  "Лазерна епилация",
+  "Друго",
+];
+
+const TIME_OPTIONS = [
+  "Без значение",
+  "Сутрин 08–12",
+  "Обед 12–16",
+  "Следобед 16–20",
+];
+
+/** "2026-08-21" → "21.08.2026" за четимост в писмото. */
+function formatDateBg(iso: string): string {
+  const [y, m, d] = iso.split("-");
+  return y && m && d ? `${d}.${m}.${y}` : iso;
+}
 
 /**
  * Форма за запитване: изпраща през /api/contact (Resend).
  * С honeypot против ботове и задължително съгласие по GDPR.
+ * Услуга/ден/час/имейл се сгъват в message: API договорът остава
+ * name/phone/message/consent/website.
  */
 export default function ContactForm() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [service, setService] = useState("");
+  const [preferredDate, setPreferredDate] = useState("");
+  const [preferredTime, setPreferredTime] = useState(TIME_OPTIONS[0]);
+  const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [consent, setConsent] = useState(false);
   // Honeypot: хората не виждат полето, ботовете го попълват
@@ -22,11 +48,28 @@ export default function ContactForm() {
     e.preventDefault();
     if (status === "sending") return;
     setStatus("sending");
+    const details = [
+      service ? `Услуга: ${service}` : null,
+      preferredDate ? `Предпочитан ден: ${formatDateBg(preferredDate)}` : null,
+      preferredTime !== "Без значение"
+        ? `Предпочитан час: ${preferredTime}`
+        : null,
+      email.trim() ? `Имейл: ${email.trim()}` : null,
+    ].filter(Boolean);
+    const fullMessage = details.length
+      ? `${message}\n\n${details.join("\n")}`
+      : message;
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, phone, message, consent, website }),
+        body: JSON.stringify({
+          name,
+          phone,
+          message: fullMessage,
+          consent,
+          website,
+        }),
       });
       const data = (await res.json().catch(() => null)) as {
         ok?: boolean;
@@ -90,6 +133,71 @@ export default function ContactForm() {
           />
         </label>
       </div>
+      <div className="grid gap-4 sm:grid-cols-2">
+        <label className="block">
+          <span className="mb-1.5 block text-[0.85rem] text-tertiary-ink">
+            Услуга
+          </span>
+          <select
+            name="service"
+            value={service}
+            onChange={(e) => setService(e.target.value)}
+            className={field}
+          >
+            <option value="">Изберете услуга (по избор)</option>
+            {SERVICE_OPTIONS.map((s) => (
+              <option key={s} value={s}>
+                {s}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label className="block">
+          <span className="mb-1.5 block text-[0.85rem] text-tertiary-ink">
+            Имейл (по избор)
+          </span>
+          <input
+            type="email"
+            name="email"
+            autoComplete="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="ime@primer.bg"
+            className={field}
+          />
+        </label>
+      </div>
+      <div className="grid gap-4 sm:grid-cols-2">
+        <label className="block">
+          <span className="mb-1.5 block text-[0.85rem] text-tertiary-ink">
+            Предпочитан ден (по избор)
+          </span>
+          <input
+            type="date"
+            name="preferredDate"
+            value={preferredDate}
+            onChange={(e) => setPreferredDate(e.target.value)}
+            className={field}
+          />
+        </label>
+        <label className="block">
+          <span className="mb-1.5 block text-[0.85rem] text-tertiary-ink">
+            Предпочитан час
+          </span>
+          <select
+            name="preferredTime"
+            value={preferredTime}
+            onChange={(e) => setPreferredTime(e.target.value)}
+            className={field}
+          >
+            {TIME_OPTIONS.map((t) => (
+              <option key={t} value={t}>
+                {t}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
       <label className="block">
         <span className="mb-1.5 block text-[0.85rem] text-tertiary-ink">
           С какво да ви помогнем?
@@ -132,7 +240,7 @@ export default function ContactForm() {
           className="mt-1 size-5 shrink-0 accent-bordeaux"
         />
         <span className="text-[0.85rem] leading-relaxed text-tertiary-ink">
-          Съгласен/на съм данните ми (име, телефон) да бъдат използвани само
+          Съгласен/на съм данните ми (име, телефон, имейл) да бъдат използвани само
           за връзка по запитването ми, съгласно{" "}
           <a
             href="/poveritelnost"

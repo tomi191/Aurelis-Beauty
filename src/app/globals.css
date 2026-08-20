@@ -12,14 +12,16 @@
 :root {
   --paper: #faf7f1;
   --paper-soft: #f3ece1;
+  --blush: #f3e4dc; /* мекото розово-бежово от плана на клиента */
   --card: #fffdf9;
   --ink: #2b1a18;
-  --bordeaux: #5e2129;
+  --bordeaux: #641f2a; /* точният бордо от векторизираното лого */
   --bordeaux-deep: #3d1218;
-  --wine: #7a3038;
+  --wine: #7d323c;
   --taupe: #ae9483;
   --gold: #b98d52;
   --gold-soft: #d9b98a;
+  --gold-deep: #9d7440;
 
   /* Motion токени: една entrance крива за целия сайт */
   --ease-brand: cubic-bezier(0.22, 1, 0.36, 1);
@@ -28,6 +30,7 @@
 @theme inline {
   --color-paper: var(--paper);
   --color-paper-soft: var(--paper-soft);
+  --color-blush: var(--blush);
   --color-card: var(--card);
   --color-ink: var(--ink);
   --color-bordeaux: var(--bordeaux);
@@ -36,6 +39,7 @@
   --color-taupe: var(--taupe);
   --color-gold: var(--gold);
   --color-gold-soft: var(--gold-soft);
+  --color-gold-deep: var(--gold-deep);
 
   --font-display: var(--font-cormorant), "Georgia", serif;
   --font-body: var(--font-golos), "Segoe UI", sans-serif;
@@ -126,6 +130,17 @@ body {
   margin: 0 0.75rem;
   border-bottom: 1px dotted color-mix(in srgb, var(--gold) 55%, transparent);
   transform: translateY(-0.3em);
+}
+
+/* Златна печатна рамка — двоен кант като върху луксозна кутия.
+   Ползва се пестеливо: пакетните карти и акцентни повърхности. */
+.gold-frame {
+  border: 1px solid color-mix(in srgb, var(--gold) 55%, transparent);
+  outline: 1px solid color-mix(in srgb, var(--gold) 28%, transparent);
+  outline-offset: 5px;
+}
+.gold-frame-soft {
+  border: 1px solid color-mix(in srgb, var(--gold) 38%, transparent);
 }
 
 /* Златна чертичка над секционно заглавие — системният „малък детайл" */

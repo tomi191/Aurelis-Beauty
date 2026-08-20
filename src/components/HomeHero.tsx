@@ -61,37 +61,42 @@ export default function HomeHero() {
             <Chip>Козметично студио във Варна</Chip>
           </div>
 
-          <h1 className="mt-6 max-w-[16ch] font-display text-[clamp(2.5rem,5.6vw,4.9rem)] font-normal leading-[1.05] tracking-[-0.01em] text-bordeaux">
-            Истинската грижа започва там, където <em>човекът</em> е по-важен от
-            процедурата.
+          <h1 className="mt-6 max-w-[13ch] font-display text-[clamp(2.6rem,6vw,5.2rem)] font-normal leading-[1.04] tracking-[-0.01em] text-bordeaux">
+            Красотата започва със <em>здрава кожа</em>.
           </h1>
 
           <p className="mt-6 max-w-lg text-[1.05rem] leading-relaxed text-secondary-ink">
-            Процедури за лице и лазерна епилация от медицински козметик Йоана
-            Здравкова. Започваме с анализ на кожата, после план, съобразен с
-            вас.
+            Персонализирана грижа за лице, тяло и гладка кожа от медицински
+            козметик Йоана Здравкова. Започваме с анализ, после план според
+            вашите нужди.
           </p>
 
           <div className="mt-9 flex flex-wrap items-center gap-4">
-            <a
-              href={contact.phoneHref}
-              className="group inline-flex items-center gap-2.5 rounded-full bg-bordeaux px-7 py-3.5 text-[0.95rem] text-paper shadow-pill transition-all duration-300 hover:-translate-y-0.5 hover:bg-wine"
+            <Link
+              href="/konsultatsia"
+              className="group inline-flex items-center gap-2.5 rounded-full bg-bordeaux px-7 py-3.5 text-[0.95rem] text-paper shadow-pill transition-[transform,background-color] duration-200 active:scale-[0.97] motion-safe:hover:-translate-y-0.5 hover:bg-wine"
             >
-              <Phone className="size-4" />
-              Запази час
-              <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
-            </a>
+              Запази консултация
+              <ArrowRight className="size-4 text-gold-soft transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
             <Link
               href="/uslugi"
               className="group inline-flex items-center gap-3 text-[0.95rem] text-bordeaux"
             >
-              <span className="grid size-11 place-items-center rounded-full border hairline bg-card/60 transition-colors duration-300 group-hover:border-gold group-hover:text-gold">
+              <span className="grid size-11 place-items-center rounded-full border border-gold/50 bg-card/60 text-gold-deep transition-colors duration-300 group-hover:bg-gold group-hover:text-paper">
                 <ArrowDown className="size-4" />
               </span>
-              <span className="border-b hairline pb-0.5">
-                Разгледай процедурите
+              <span className="border-b border-gold/50 pb-0.5">
+                Разгледай услугите
               </span>
             </Link>
+            <a
+              href={contact.phoneHref}
+              className="inline-flex items-center gap-2 text-[0.95rem] text-secondary-ink transition-colors duration-150 hover:text-bordeaux"
+            >
+              <Phone className="size-4 text-gold-deep" strokeWidth={1.6} />
+              {contact.phone}
+            </a>
           </div>
 
           <div className="mt-7 flex min-h-6 flex-wrap items-center gap-x-5 gap-y-2 text-[0.88rem] text-tertiary-ink">
@@ -130,7 +135,7 @@ export default function HomeHero() {
               })}
           className="relative lg:col-span-5"
         >
-          <div className="arch relative mx-auto flex aspect-[4/5] max-w-sm items-center justify-center overflow-hidden bg-gradient-to-b from-wine via-bordeaux to-bordeaux-deep">
+          <div className="arch gold-frame relative mx-auto flex aspect-[4/5] max-w-sm items-center justify-center overflow-hidden bg-gradient-to-b from-wine via-bordeaux to-bordeaux-deep">
             <div
               className="blob left-1/2 top-8 h-48 w-48 -translate-x-1/2 bg-gold/30"
               aria-hidden="true"

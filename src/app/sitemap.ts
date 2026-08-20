@@ -12,6 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/uslugi",
     ...categories.map((c) => `/uslugi/${c.slug}`),
     "/lazerna-epilatsia",
+    "/tsenorazpis",
     "/paketi",
     "/marki",
     "/kontakti",

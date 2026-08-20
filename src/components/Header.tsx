@@ -159,7 +159,12 @@ export default function Header() {
                     title="Лазерна епилация"
                     note="зони и цени за жени и мъже"
                   />
-                  <DropLink href="/uslugi" title="Всички услуги и цени" />
+                  <DropLink href="/uslugi" title="Всички услуги" />
+                  <DropLink
+                    href="/tsenorazpis"
+                    title="Пълен ценоразпис"
+                    note="всички цени на едно място"
+                  />
                 </DropPanel>
               </Nav.Item>
 

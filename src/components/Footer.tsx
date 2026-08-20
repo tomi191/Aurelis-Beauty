@@ -2,9 +2,10 @@ import Link from "next/link";
 import { contact, hours } from "@/lib/data";
 
 const nav = [
-  { href: "/za-nas", label: "За нас" },
+  { href: "/za-nas", label: "За AURÈLIS" },
   { href: "/konsultatsia", label: "Консултации" },
   { href: "/uslugi", label: "Услуги" },
+  { href: "/tsenorazpis", label: "Ценоразпис" },
   { href: "/lazerna-epilatsia", label: "Лазерна епилация" },
   { href: "/paketi", label: "Пакети" },
   { href: "/marki", label: "Марки" },

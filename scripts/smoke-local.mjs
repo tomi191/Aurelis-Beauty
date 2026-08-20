@@ -19,6 +19,7 @@ const CHECKS = [
   { path: "/uslugi/vezhdi", markers: ["8 €", "къна"] },
   { path: "/lazerna-epilatsia", markers: ["Цяло лице", "25 €", "Цели крака", "75 €", "Цял интим", "45 €"] },
   { path: "/paketi", markers: ["Acne Clear", "295 €", "Skin Renewal", "275 €", "550 €", "Full Body Premium", "150 €", "145 €"] },
+  { path: "/tsenorazpis", markers: ["45 €", "Жени", "Мъже", "20 €", "95 €"] },
   { path: "/marki", markers: ["Collagena", "BioRePeel", "Casmara", "NOON", "Fusion", "SQT"] },
   { path: "/kontakti", markers: ["Дунавски лебед", "088 981 6905", "yoanazdravkova1@gmail.com", "08:00 – 16:00", "Изпрати запитване"] },
   { path: "/logo.svg", markers: ["<svg", "font_8_374"] },
