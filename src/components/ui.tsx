@@ -54,22 +54,23 @@ export function PriceRow({
 }) {
   return (
     <div className="row-hover flex items-baseline px-2 py-2.5 -mx-2">
-      <span className={dark ? "text-paper/85" : "text-secondary-ink"}>
+      <span className={`min-w-0 ${dark ? "text-paper/85" : "text-secondary-ink"}`}>
         {label}
       </span>
       <span className="dot-leader" />
       {strike && (
         <span
-          className={`mr-3 text-[0.9em] line-through decoration-1 ${
+          className={`mr-3 whitespace-nowrap text-[0.9em] line-through decoration-1 ${
             dark ? "text-paper/40" : "text-tertiary-ink"
           }`}
         >
           {strike}
         </span>
       )}
-      {/* Цените са в Golos с tabular-nums: тънкият сериф се разпада под 22px */}
+      {/* Цените са в Golos с tabular-nums: тънкият сериф се разпада под 22px.
+          shrink-0 + nowrap: цената никога не се пренася — свива се етикетът */}
       <span
-        className={`tnum text-[1.02em] font-semibold ${
+        className={`tnum shrink-0 whitespace-nowrap text-[1.02em] font-semibold ${
           dark ? "text-paper" : "text-bordeaux"
         }`}
       >

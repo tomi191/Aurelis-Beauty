@@ -107,8 +107,12 @@ export default function Header() {
           containing block за fixed панела. Фонът на лентата се проявява при
           скрол (.header-veil), за да не „реже" секциите под нея. */}
       <header className="fixed inset-x-0 top-0 z-50">
+        {/* При отворено меню воалът се маха: header-ът плува върху тъмния
+            overlay, затова логото и X-ът минават в кремаво */}
         <div
-          className="header-veil absolute inset-0 border-b border-gold/25 bg-paper/92 backdrop-blur-md"
+          className={`header-veil absolute inset-0 border-b border-gold/25 bg-paper/92 backdrop-blur-md ${
+            open ? "hidden" : ""
+          }`}
           aria-hidden="true"
         />
         <div className="relative mx-auto flex h-[4.5rem] max-w-6xl items-center justify-between px-5 md:px-8">
@@ -116,7 +120,7 @@ export default function Header() {
             {/* Векторизирано от клиентския лого.pdf (public/logo.svg) */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/logo.svg"
+              src={open ? "/logo-cream.svg" : "/logo.svg"}
               alt="AURÈLIS Beauty Atelier"
               className="h-11 w-auto md:h-12"
             />
@@ -226,16 +230,22 @@ export default function Header() {
               aria-expanded={open}
               aria-label={open ? "Затвори менюто" : "Отвори менюто"}
               onClick={() => setOpen(!open)}
-              className="flex h-11 w-11 flex-col items-center justify-center gap-[5px] rounded-full border hairline lg:hidden"
+              className={`flex h-11 w-11 flex-col items-center justify-center gap-[5px] rounded-full border lg:hidden ${
+                open ? "border-paper/30" : "hairline"
+              }`}
             >
               <span
-                className={`h-[1.5px] w-5 rounded bg-bordeaux transition-transform duration-200 ${
-                  open ? "translate-y-[3.25px] rotate-45" : ""
+                className={`h-[1.5px] w-5 rounded transition-transform duration-200 ${
+                  open
+                    ? "translate-y-[3.25px] rotate-45 bg-paper"
+                    : "bg-bordeaux"
                 }`}
               />
               <span
-                className={`h-[1.5px] w-5 rounded bg-bordeaux transition-transform duration-200 ${
-                  open ? "-translate-y-[3.25px] -rotate-45" : ""
+                className={`h-[1.5px] w-5 rounded transition-transform duration-200 ${
+                  open
+                    ? "-translate-y-[3.25px] -rotate-45 bg-paper"
+                    : "bg-bordeaux"
                 }`}
               />
             </button>
@@ -276,19 +286,19 @@ export default function Header() {
               >
                 Услуги
               </Link>
-              <div className="mt-2.5 flex flex-col gap-2 border-l border-gold/40 pl-4">
+              <div className="mt-1.5 flex flex-col border-l border-gold/40 pl-4">
                 {categories.map((c) => (
                   <Link
                     key={c.slug}
                     href={`/uslugi/${c.slug}`}
-                    className="text-[1rem] text-paper/75 transition-colors duration-150 hover:text-gold-soft"
+                    className="py-2 text-[1rem] text-paper/75 transition-colors duration-150 hover:text-gold-soft"
                   >
                     {c.name}
                   </Link>
                 ))}
                 <Link
                   href="/lazerna-epilatsia"
-                  className="text-[1rem] text-paper/75 transition-colors duration-150 hover:text-gold-soft"
+                  className="py-2 text-[1rem] text-paper/75 transition-colors duration-150 hover:text-gold-soft"
                 >
                   Лазерна епилация
                 </Link>
@@ -305,16 +315,16 @@ export default function Header() {
               >
                 Пакети
               </Link>
-              <div className="mt-2.5 flex flex-col gap-2 border-l border-gold/40 pl-4">
+              <div className="mt-1.5 flex flex-col border-l border-gold/40 pl-4">
                 <Link
                   href="/paketi#litse"
-                  className="text-[1rem] text-paper/75 transition-colors duration-150 hover:text-gold-soft"
+                  className="py-2 text-[1rem] text-paper/75 transition-colors duration-150 hover:text-gold-soft"
                 >
                   Програми за лице
                 </Link>
                 <Link
                   href="/paketi#lazer"
-                  className="text-[1rem] text-paper/75 transition-colors duration-150 hover:text-gold-soft"
+                  className="py-2 text-[1rem] text-paper/75 transition-colors duration-150 hover:text-gold-soft"
                 >
                   Лазерна епилация
                 </Link>

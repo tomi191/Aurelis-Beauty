@@ -176,13 +176,17 @@ body {
   }
 }
 
-/* Линкове в текст */
+/* Линкове в текст. Вертикалният padding разширява tap зоната до ~40px:
+   при inline елемент той не мести редовете, а при inline-block отрицателният
+   margin го компенсира — нулева визуална промяна, само по-голяма мишена. */
 .link-ink {
   text-underline-offset: 4px;
   text-decoration-line: underline;
   text-decoration-color: color-mix(in srgb, var(--gold) 70%, transparent);
   text-decoration-thickness: 1px;
   transition: color 0.15s ease, text-decoration-color 0.15s ease;
+  padding-block: 0.55rem;
+  margin-block: -0.55rem;
 }
 .link-ink:hover {
   color: var(--bordeaux);

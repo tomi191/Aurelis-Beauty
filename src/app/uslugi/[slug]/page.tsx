@@ -50,7 +50,10 @@ export default async function CategoryPage({
         />
         <div className="relative mx-auto max-w-6xl px-5 pb-4 pt-8 md:px-8 md:pt-12">
           <Reveal>
-            <Link href="/uslugi" className="link-ink text-[0.9rem]">
+            <Link
+              href="/uslugi"
+              className="link-ink -my-2.5 inline-flex items-center py-2.5 pr-3 text-[0.9rem]"
+            >
               ← Всички услуги
             </Link>
             <BlurTitle

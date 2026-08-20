@@ -78,7 +78,7 @@ export default function Footer() {
               <p>
                 <a
                   href={`mailto:${contact.email}`}
-                  className="break-all transition-colors duration-300 hover:text-gold-soft"
+                  className="break-all py-2.5 transition-colors duration-300 hover:text-gold-soft"
                 >
                   {contact.email}
                 </a>
@@ -92,7 +92,7 @@ export default function Footer() {
             {contact.company} · ЕИК {contact.eik} ·{" "}
             <Link
               href="/poveritelnost"
-              className="transition-colors duration-300 hover:text-gold-soft"
+              className="-my-2 inline-block py-2 transition-colors duration-300 hover:text-gold-soft"
             >
               Поверителност
             </Link>

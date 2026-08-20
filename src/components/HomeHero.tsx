@@ -88,7 +88,7 @@ export default function HomeHero() {
             </Link>
             <a
               href={contact.phoneHref}
-              className="inline-flex items-center gap-2 text-[0.95rem] text-secondary-ink transition-colors duration-150 hover:text-bordeaux"
+              className="-my-3 inline-flex items-center gap-2 py-3 text-[0.95rem] text-secondary-ink transition-colors duration-150 hover:text-bordeaux"
             >
               <Phone className="size-4 text-gold-deep" strokeWidth={1.6} />
               {contact.phone}

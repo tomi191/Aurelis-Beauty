@@ -26,7 +26,7 @@ export default function ImageSlot({
   if (src) {
     return (
       <div
-        className={`relative overflow-hidden ${fill ? "absolute inset-0" : ""} ${className}`}
+        className={`overflow-hidden ${fill ? "absolute inset-0" : "relative"} ${className}`}
         style={fill ? undefined : { aspectRatio: ratio }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -42,9 +42,9 @@ export default function ImageSlot({
   return (
     <div
       aria-hidden="true"
-      className={`relative overflow-hidden bg-gradient-to-b ${
+      className={`overflow-hidden bg-gradient-to-b ${
         dark ? "from-wine/70 to-bordeaux-deep" : "from-taupe/35 to-paper-soft"
-      } ${fill ? "absolute inset-0" : ""} ${className}`}
+      } ${fill ? "absolute inset-0" : "relative"} ${className}`}
       style={fill ? undefined : { aspectRatio: ratio }}
     >
       {/* Диагонални водачи — четат се като макетно поле, не като дефект */}

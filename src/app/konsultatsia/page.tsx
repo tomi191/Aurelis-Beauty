@@ -102,11 +102,16 @@ export default function KonsultatsiaPage() {
               <ul className="mt-3 divide-y hairline">
                 {hours.map((h) => (
                   <li key={h.days} className="flex items-baseline py-2.5">
-                    <span className="text-[0.92rem] text-secondary-ink">
+                    {/* Дългите имена на дните не се събират на 390px до
+                        dot-leader-а — на мобилно показваме краткия запис */}
+                    <span className="text-[0.92rem] text-secondary-ink sm:hidden">
+                      {h.short}
+                    </span>
+                    <span className="hidden text-[0.92rem] text-secondary-ink sm:inline">
                       {h.days}
                     </span>
                     <span className="dot-leader" />
-                    <span className="text-[0.95rem] text-primary-ink">
+                    <span className="shrink-0 whitespace-nowrap text-[0.95rem] text-primary-ink">
                       {h.time}
                     </span>
                   </li>
