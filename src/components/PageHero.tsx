@@ -33,9 +33,12 @@ export default function PageHero({
   return (
     <section className="relative -mt-20 overflow-x-clip md:-mt-24">
       <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
+        {/* Мобилно сваля 828w варианта (-m.webp), desktop пълния кадър */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={img}
+          srcSet={`${img.replace(/\.webp$/, "-m.webp")} 828w, ${img} 2000w`}
+          sizes="100vw"
           alt=""
           loading="eager"
           fetchPriority="high"

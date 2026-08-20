@@ -205,6 +205,8 @@ export default function Home() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/images/interior-wide.webp"
+                srcSet="/images/interior-wide-m.webp 828w, /images/interior-wide.webp 1600w"
+                sizes="(min-width: 1024px) 40vw, 100vw"
                 alt="Интериорът на ателието"
                 loading="lazy"
                 className="absolute inset-0 h-full w-full object-cover"

@@ -37,9 +37,12 @@ export default function HomeHero() {
           overflow-hidden е задължителен: parallax-ът (hero-drift) мести
           кадъра надолу и без clip долният му ръб виси под секцията. */}
       <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
+        {/* Мобилно сваля 828w варианта, desktop пълния 2000w кадър */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/images/hero-bg.webp"
+          srcSet="/images/hero-bg-m.webp 828w, /images/hero-bg.webp 2000w"
+          sizes="100vw"
           alt=""
           loading="eager"
           fetchPriority="high"

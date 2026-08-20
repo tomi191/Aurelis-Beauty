@@ -127,6 +127,8 @@ export default function ZaNasPage() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/images/about-workspace.webp"
+                srcSet="/images/about-workspace-m.webp 828w, /images/about-workspace.webp 1600w"
+                sizes="(min-width: 1024px) 33vw, 100vw"
                 alt="Работното място в ателието"
                 loading="lazy"
                 className="absolute inset-0 h-full w-full object-cover"

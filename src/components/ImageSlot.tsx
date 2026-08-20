@@ -30,9 +30,12 @@ export default function ImageSlot({
         style={fill ? undefined : { aspectRatio: ratio }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        {/* Бавен zoom при hover върху кликаемата карта (group на линка) */}
+        {/* Бавен zoom при hover върху кликаемата карта (group на линка).
+            Мобилно сваля 828w варианта; картите рядко са по-широки. */}
         <img
           src={src}
+          srcSet={`${src.replace(/\.webp$/, "-m.webp")} 828w, ${src} 1600w`}
+          sizes={fill ? "100vw" : "(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 82vw"}
           alt={label}
           loading="lazy"
           className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 motion-safe:group-hover:scale-[1.06]"
