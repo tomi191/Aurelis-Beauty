@@ -1,13 +1,20 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import BlurTitle from "@/components/BlurTitle";
 import CountUp from "@/components/CountUp";
+import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import { Card, CtaGhost, CtaSolid, MetaStrip } from "@/components/ui";
 import { consultation, contact, facePackages } from "@/lib/data";
 
 type Params = { slug: string };
+
+/* Hero кадър по програма — единната брандинг линия на всяка страница */
+const PROGRAM_HERO: Record<string, string> = {
+  "acne-clear": "/images/proc-classic.webp",
+  "skin-renewal": "/images/proc-biorepeel.webp",
+  "vip-skin-rejuvenation": "/images/proc-sqt.webp",
+};
 
 export function generateStaticParams(): Params[] {
   return facePackages.programs.map((p) => ({ slug: p.slug }));
@@ -50,45 +57,36 @@ export default async function ProgramPage({
 
   return (
     <>
-      <section className="relative overflow-x-clip">
-        <div
-          className="blob -top-24 right-[5%] h-80 w-80 bg-gold/20"
-          aria-hidden="true"
-        />
-        <div className="relative mx-auto max-w-6xl px-5 pb-4 pt-8 md:px-8 md:pt-12">
-          <Reveal>
-            <Link
-              href="/paketi"
-              className="link-ink -my-2.5 inline-flex items-center py-2.5 pr-3 text-[0.9rem]"
-            >
-              ← Всички пакети
-            </Link>
-            <span className="gold-rule mt-6 block" aria-hidden="true" />
-            <BlurTitle
-              text={prog.name}
-              className="mt-6 max-w-[18ch] font-display text-[clamp(2.2rem,4.6vw,3.8rem)] font-normal leading-[1.06] text-bordeaux"
+      <PageHero
+        img={PROGRAM_HERO[prog.slug] ?? "/images/interior-wide.webp"}
+        title={prog.name}
+        titleClassName="mt-6 max-w-[18ch] font-display text-[clamp(2.2rem,4.6vw,3.8rem)] font-normal leading-[1.06] text-bordeaux"
+        sub={prog.tagline}
+        eyebrow={
+          <Link
+            href="/paketi"
+            className="link-ink -my-2.5 inline-flex items-center py-2.5 pr-3 text-[0.9rem]"
+          >
+            ← Всички пакети
+          </Link>
+        }
+      >
+        <Reveal delay={0.1}>
+          <div className="mt-8 max-w-3xl">
+            <MetaStrip
+              items={[
+                { term: "Процедури", value: `${totalCount} посещения` },
+                { term: "Подарък", value: "LED терапия към всяка процедура" },
+                {
+                  term: "Спестявате",
+                  value: savings(prog.oldPrice, prog.price),
+                },
+                { term: "Графикът", value: "планира се на консултацията" },
+              ]}
             />
-            <p className="mt-4 max-w-xl text-[1.05rem] text-secondary-ink">
-              {prog.tagline}
-            </p>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <div className="mt-8">
-              <MetaStrip
-                items={[
-                  { term: "Процедури", value: `${totalCount} посещения` },
-                  { term: "Подарък", value: "LED терапия към всяка процедура" },
-                  {
-                    term: "Спестявате",
-                    value: savings(prog.oldPrice, prog.price),
-                  },
-                  { term: "Графикът", value: "планира се на консултацията" },
-                ]}
-              />
-            </div>
-          </Reveal>
-        </div>
-      </section>
+          </div>
+        </Reveal>
+      </PageHero>
 
       <section className="mx-auto max-w-6xl px-5 py-12 md:px-8 md:py-16">
         <div className="grid gap-10 lg:grid-cols-12">

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import BlurTitle from "@/components/BlurTitle";
+import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import { Chip } from "@/components/ui";
 import { contact } from "@/lib/data";
@@ -22,25 +22,11 @@ const bullet = (
 export default function PoveritelnostPage() {
   return (
     <>
-      <section className="relative overflow-x-clip">
-        <div
-          className="blob -top-24 right-[5%] h-80 w-80 bg-gold/20"
-          aria-hidden="true"
-        />
-        <div className="relative mx-auto max-w-6xl px-5 pb-4 pt-8 md:px-8 md:pt-12">
-          <Reveal>
-            <span className="gold-rule" aria-hidden="true" />
-            <BlurTitle
-              text="Политика за поверителност"
-              className="mt-6 max-w-[16ch] font-display text-[clamp(2.3rem,5vw,4.2rem)] font-normal leading-[1.05] text-bordeaux"
-            />
-            <p className="mt-5 max-w-xl text-secondary-ink">
-              Този сайт събира възможно най-малко данни. Тук описваме честно
-              кои са те, за какво се използват и какви права имате.
-            </p>
-          </Reveal>
-        </div>
-      </section>
+      <PageHero
+        img="/images/interior-wide.webp"
+        title="Политика за поверителност"
+        sub="Този сайт събира възможно най-малко данни. Тук описваме честно кои са те, за какво се използват и какви права имате."
+      />
 
       <section className="mx-auto max-w-3xl px-5 py-10 md:px-8 md:py-14">
         <Reveal as="div">

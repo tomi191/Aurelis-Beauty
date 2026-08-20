@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import BlurTitle from "@/components/BlurTitle";
+import PageHero from "@/components/PageHero";
 import CountUp from "@/components/CountUp";
 import Reveal from "@/components/Reveal";
 import { Card, Chip, CtaGhost, CtaSolid, PriceRow } from "@/components/ui";
@@ -16,26 +16,12 @@ export const metadata: Metadata = {
 export default function PaketiPage() {
   return (
     <>
-      <section className="relative overflow-x-clip">
-        <div
-          className="blob -top-24 right-[5%] h-80 w-80 bg-gold/20"
-          aria-hidden="true"
-        />
-        <div className="relative mx-auto max-w-6xl px-5 pb-4 pt-8 md:px-8 md:pt-12">
-          <Reveal>
-            <span className="gold-rule" aria-hidden="true" />
-            <BlurTitle
-              text="Здравата кожа обича постоянството"
-              className="mt-6 max-w-[16ch] font-display text-[clamp(2.3rem,5vw,4.2rem)] font-normal leading-[1.05] text-bordeaux"
-            />
-            <p className="mt-5 max-w-xl text-secondary-ink">
-              Видимите резултати идват с курс от процедури. Пакетите правят
-              курса по-изгоден: колкото по-дълга е програмата, толкова по-голяма
-              е отстъпката.
-            </p>
-          </Reveal>
-        </div>
-      </section>
+      <PageHero
+        img="/images/interior-wide.webp"
+        objectPosition="center 35%"
+        title="Здравата кожа обича постоянството"
+        sub="Видимите резултати идват с курс от процедури. Пакетите правят курса по-изгоден: колкото по-дълга е програмата, толкова по-голяма е отстъпката."
+      />
 
       {/* Програми за лице */}
       <section

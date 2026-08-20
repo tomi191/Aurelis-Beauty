@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import BlurTitle from "@/components/BlurTitle";
+import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import { Card, Chip, CtaGhost, CtaSolid } from "@/components/ui";
 import { contact, laserPackages, laserZones } from "@/lib/data";
@@ -15,51 +15,25 @@ export const metadata: Metadata = {
 export default function LaserPage() {
   return (
     <>
-      <section className="mx-auto max-w-6xl px-5 md:px-8">
-        <Reveal>
-          <div className="relative overflow-hidden rounded-[2.5rem] bg-bordeaux-deep px-6 py-14 text-paper md:px-14 md:py-20">
-            <div
-              className="blob -right-20 -top-28 h-96 w-96 bg-gold/20"
-              aria-hidden="true"
-            />
-            <div
-              className="blob -bottom-32 left-[-10%] h-80 w-80 bg-wine/30"
-              aria-hidden="true"
-            />
-            {/* Line-art силуетът от печатния ценоразпис на клиента */}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/silhouette-f.svg"
-              alt=""
-              aria-hidden="true"
-              className="pointer-events-none absolute -right-4 bottom-0 hidden h-[115%] w-auto opacity-45 md:block"
-            />
-            <div className="relative">
-              <span className="gold-rule" aria-hidden="true" />
-              <BlurTitle
-                text="Лазерна епилация във Варна"
-                className="mt-6 max-w-[16ch] font-display text-[clamp(2.3rem,5vw,4.2rem)] font-normal leading-[1.05]"
-              />
-              <p className="mt-4 font-display text-[1.35rem] italic text-gold-soft">
-                Гладката кожа обича постоянството
-              </p>
-              <p className="mt-5 max-w-xl text-paper/70">
-                По зони или в пакет, с цени, обявени предварително. Курс от
-                процедури носи до −15% отстъпка, а при две или повече зони
-                получавате още −5%.
-              </p>
-              <div className="mt-8 flex flex-wrap gap-4">
-                <CtaSolid href={contact.phoneHref} external>
-                  Запази час · {contact.phone}
-                </CtaSolid>
-                <CtaGhost href="/paketi" dark>
-                  Пакети и отстъпки
-                </CtaGhost>
-              </div>
-            </div>
+      <PageHero
+        img="/images/cat-laser.webp"
+        title="Лазерна епилация във Варна"
+        sub="По зони или в пакет, с цени, обявени предварително. Курс от процедури носи до −15% отстъпка, а при две или повече зони получавате още −5%."
+      >
+        <Reveal delay={0.08}>
+          <p className="mt-4 font-display text-[1.35rem] italic text-gold-deep">
+            Гладката кожа обича постоянството
+          </p>
+        </Reveal>
+        <Reveal delay={0.14}>
+          <div className="mt-8 flex flex-wrap gap-4">
+            <CtaSolid href={contact.phoneHref} external>
+              Запази час · {contact.phone}
+            </CtaSolid>
+            <CtaGhost href="/paketi">Пакети и отстъпки</CtaGhost>
           </div>
         </Reveal>
-      </section>
+      </PageHero>
 
       <section className="mx-auto max-w-6xl px-5 py-14 md:px-8 md:py-20">
         <Reveal>

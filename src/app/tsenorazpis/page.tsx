@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import BlurTitle from "@/components/BlurTitle";
+import PageHero from "@/components/PageHero";
 import LaserPriceToggle from "@/components/LaserPriceToggle";
 import Reveal from "@/components/Reveal";
 import { Card, Chip, CtaSolid, PriceRow } from "@/components/ui";
@@ -17,25 +17,11 @@ export default function TsenorazpisPage() {
   return (
     <>
       {/* Херо */}
-      <section className="relative overflow-x-clip">
-        <div
-          className="blob -top-24 right-[0%] h-96 w-96 bg-gold/20"
-          aria-hidden="true"
-        />
-        <div className="relative mx-auto max-w-6xl px-5 pb-4 pt-8 md:px-8 md:pt-12">
-          <Reveal>
-            <span className="gold-rule" aria-hidden="true" />
-            <BlurTitle
-              text="Всички цени на едно място"
-              className="mt-6 max-w-[15ch] font-display text-[clamp(2.3rem,5vw,4.2rem)] font-normal leading-[1.05] text-bordeaux"
-            />
-            <p className="mt-5 max-w-xl text-secondary-ink">
-              Цените са крайни, в евро, и ги обявяваме предварително: и в
-              студиото, и тук. Това, което виждате, е това, което плащате.
-            </p>
-          </Reveal>
-        </div>
-      </section>
+      <PageHero
+        img="/images/cta-atelier-bg.webp"
+        title="Всички цени на едно място"
+        sub="Цените са крайни, в евро, и ги обявяваме предварително: и в студиото, и тук. Това, което виждате, е това, което плащате."
+      />
 
       {/* Консултация */}
       <section className="mx-auto max-w-6xl px-5 pt-10 md:px-8 md:pt-14">

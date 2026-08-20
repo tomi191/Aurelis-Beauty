@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import BlurTitle from "@/components/BlurTitle";
+import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import { Card, Chip } from "@/components/ui";
 import { categories, laserZones } from "@/lib/data";
@@ -24,26 +24,11 @@ export default function UslugiPage() {
 
   return (
     <>
-      <section className="relative overflow-x-clip">
-        <div
-          className="blob -top-24 right-[5%] h-80 w-80 bg-gold/20"
-          aria-hidden="true"
-        />
-        <div className="relative mx-auto max-w-6xl px-5 pb-4 pt-8 md:px-8 md:pt-12">
-          <Reveal>
-            <span className="gold-rule" aria-hidden="true" />
-            <BlurTitle
-              text="Процедури за лице и тяло"
-              className="mt-6 max-w-[14ch] font-display text-[clamp(2.3rem,5vw,4.2rem)] font-normal leading-[1.05] text-bordeaux"
-            />
-            <p className="mt-5 max-w-xl text-secondary-ink">
-              Всяка процедура започва с анализ на кожата и завършва с план.
-              Разгледайте категориите или започнете с консултация, за да
-              изберем заедно.
-            </p>
-          </Reveal>
-        </div>
-      </section>
+      <PageHero
+        img="/images/uslugi-hub-hero.webp"
+        title="Процедури за лице и тяло"
+        sub="Всяка процедура започва с анализ на кожата и завършва с план. Разгледайте категориите или започнете с консултация, за да изберем заедно."
+      />
 
       <section className="mx-auto max-w-6xl px-5 py-12 md:px-8 md:py-16">
         <div className="grid gap-5 md:grid-cols-3">

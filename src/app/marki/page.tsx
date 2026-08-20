@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import BlurTitle from "@/components/BlurTitle";
+import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import { Card, Chip } from "@/components/ui";
 import { brands } from "@/lib/data";
@@ -14,26 +14,12 @@ export const metadata: Metadata = {
 export default function MarkiPage() {
   return (
     <>
-      <section className="relative overflow-x-clip">
-        <div
-          className="blob -top-24 right-[5%] h-80 w-80 bg-gold/20"
-          aria-hidden="true"
-        />
-        <div className="relative mx-auto max-w-6xl px-5 pb-4 pt-8 md:px-8 md:pt-12">
-          <Reveal>
-            <span className="gold-rule" aria-hidden="true" />
-            <BlurTitle
-              text="Марките, с които работим"
-              className="mt-6 max-w-[17ch] font-display text-[clamp(2.3rem,5vw,4.2rem)] font-normal leading-[1.05] text-bordeaux"
-            />
-            <p className="mt-5 max-w-xl text-secondary-ink">
-              Качествената грижа започва с качествения избор. Всяка марка в
-              ателието е избрана с причина: патент, формула или технология,
-              чийто ефект се вижда в резултата.
-            </p>
-          </Reveal>
-        </div>
-      </section>
+      <PageHero
+        img="/images/about-workspace.webp"
+        objectPosition="center 60%"
+        title="Марките, с които работим"
+        sub="Качествената грижа започва с качествения избор. Всяка марка в ателието е избрана с причина: патент, формула или технология, чийто ефект се вижда в резултата."
+      />
 
       <section className="mx-auto max-w-6xl px-5 py-12 md:px-8 md:py-16">
         <div className="grid gap-5 md:grid-cols-2">

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import BlurTitle from "@/components/BlurTitle";
+import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import {
   Card,
@@ -12,6 +12,16 @@ import {
   PriceRow,
 } from "@/components/ui";
 import { categories, contact } from "@/lib/data";
+
+/* Hero кадър по категория — единната брандинг линия на всяка страница */
+const CATEGORY_HERO: Record<string, string> = {
+  "pochistvane-na-lice": "/images/cat-cleansing.webp",
+  biorepeel: "/images/proc-biorepeel.webp",
+  "terapii-za-litse": "/images/cat-therapy.webp",
+  mikronidling: "/images/proc-needling.webp",
+  "led-terapia": "/images/led-hero.webp",
+  vezhdi: "/images/cat-brows.webp",
+};
 
 export function generateStaticParams() {
   return categories.map((c) => ({ slug: c.slug }));
@@ -43,27 +53,20 @@ export default async function CategoryPage({
 
   return (
     <>
-      <section className="relative overflow-x-clip">
-        <div
-          className="blob -top-24 right-[5%] h-72 w-72 bg-gold/20"
-          aria-hidden="true"
-        />
-        <div className="relative mx-auto max-w-6xl px-5 pb-4 pt-8 md:px-8 md:pt-12">
-          <Reveal>
-            <Link
-              href="/uslugi"
-              className="link-ink -my-2.5 inline-flex items-center py-2.5 pr-3 text-[0.9rem]"
-            >
-              ← Всички услуги
-            </Link>
-            <BlurTitle
-              text={cat.name}
-              className="mt-5 max-w-[18ch] font-display text-[clamp(2.1rem,4.6vw,3.8rem)] font-normal leading-[1.05] text-bordeaux"
-            />
-            <p className="mt-4 max-w-xl text-secondary-ink">{cat.intro}</p>
-          </Reveal>
-        </div>
-      </section>
+      <PageHero
+        img={CATEGORY_HERO[cat.slug] ?? "/images/uslugi-hub-hero.webp"}
+        title={cat.name}
+        titleClassName="mt-5 max-w-[18ch] font-display text-[clamp(2.1rem,4.6vw,3.8rem)] font-normal leading-[1.05] text-bordeaux"
+        sub={cat.intro}
+        eyebrow={
+          <Link
+            href="/uslugi"
+            className="link-ink -my-2.5 inline-flex items-center py-2.5 pr-3 text-[0.9rem]"
+          >
+            ← Всички услуги
+          </Link>
+        }
+      />
 
       <section className="mx-auto max-w-6xl space-y-8 px-5 py-12 md:px-8 md:py-16">
         {cat.procedures.map((proc, i) => (

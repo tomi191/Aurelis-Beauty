@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import BlurTitle from "@/components/BlurTitle";
+import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import SunRays from "@/components/SunRays";
 import { Card, Chip, CtaGhost, CtaSolid } from "@/components/ui";
@@ -16,27 +17,16 @@ export default function ZaNasPage() {
   return (
     <>
       {/* ——— За AURÈLIS ——— */}
-      <section className="relative overflow-x-clip">
-        <div
-          className="blob -top-24 right-[0%] h-96 w-96 bg-gold/20"
-          aria-hidden="true"
-        />
-        <div className="relative mx-auto max-w-6xl px-5 pb-4 pt-8 md:px-8 md:pt-12">
-          <Reveal>
-            <span className="gold-rule" aria-hidden="true" />
-            <BlurTitle
-              text="За AURÈLIS"
-              className="mt-6 max-w-[16ch] font-display text-[clamp(2.3rem,5vw,4.2rem)] font-normal leading-[1.05] text-bordeaux"
-            />
-            <p className="mt-6 max-w-2xl font-display text-[clamp(1.35rem,2.4vw,1.8rem)] leading-snug text-primary-ink">
-              {about.intro}
-            </p>
-            <p className="mt-5 max-w-2xl text-secondary-ink">
-              {about.philosophy}
-            </p>
-          </Reveal>
-        </div>
-      </section>
+      <PageHero img="/images/hero-atelier.webp" title="За AURÈLIS">
+        <Reveal delay={0.08}>
+          <p className="mt-6 max-w-2xl font-display text-[clamp(1.35rem,2.4vw,1.8rem)] leading-snug text-primary-ink">
+            {about.intro}
+          </p>
+          <p className="mt-5 max-w-2xl text-secondary-ink">
+            {about.philosophy}
+          </p>
+        </Reveal>
+      </PageHero>
 
       <section className="mx-auto max-w-6xl px-5 py-12 md:px-8 md:py-16">
         <div className="grid gap-5 md:grid-cols-2">
