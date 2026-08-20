@@ -43,7 +43,7 @@ export default async function CategoryPage({
 
   return (
     <>
-      <section className="relative overflow-hidden">
+      <section className="relative overflow-x-clip">
         <div
           className="blob -top-24 right-[5%] h-72 w-72 bg-gold/20"
           aria-hidden="true"

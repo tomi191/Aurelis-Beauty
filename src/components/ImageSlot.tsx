@@ -1,9 +1,10 @@
 import SunRays from "@/components/SunRays";
 
 /**
- * Явно обозначено място за клиентска снимка (нулева фабрикация: без стокови
- * изображения). Етикетът казва какъв кадър се очаква — той е и брифът за
- * фотосесията. При получаване на снимките всеки слот се заменя с next/image.
+ * Място за снимка. Без src: явно обозначен placeholder (нулева фабрикация —
+ * етикетът е и брифът за фотосесията). Със src: рендва изображението в същата
+ * рамка (object-cover), etикетът отпада. Визуализациите са временни AI кадри
+ * (kie.ai GPT IMAGE 2) до реалната фотосесия — виж docs/shot-list.
  *
  * fill: запълва родителя (за фонови изображения) вместо собствен aspect.
  */
@@ -13,13 +14,31 @@ export default function ImageSlot({
   className = "",
   dark = false,
   fill = false,
+  src,
 }: {
   label: string;
   ratio?: string;
   className?: string;
   dark?: boolean;
   fill?: boolean;
+  src?: string;
 }) {
+  if (src) {
+    return (
+      <div
+        className={`relative overflow-hidden ${fill ? "absolute inset-0" : ""} ${className}`}
+        style={fill ? undefined : { aspectRatio: ratio }}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={src}
+          alt={label}
+          loading="lazy"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+      </div>
+    );
+  }
   return (
     <div
       aria-hidden="true"

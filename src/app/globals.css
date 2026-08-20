@@ -51,12 +51,10 @@
   --shadow-pill: 0 6px 20px -6px rgba(94, 33, 41, 0.45);
 }
 
-/* Плавният скрол е движение — гейтнат зад reduced-motion */
-@media (prefers-reduced-motion: no-preference) {
-  html {
-    scroll-behavior: smooth;
-  }
-}
+/* БЕЗ scroll-behavior: smooth — дълъг плавен скрол (End/Home) кара всички
+   scroll-driven view() timelines да се преизчисляват кадър по кадър и
+   замразява renderer-а на Chromium за 30+ секунди (възпроизведено 3×,
+   20.08.2026). Инстантният скок е чист. */
 
 /* iOS Safari зумва при фокус върху поле под 16px — никога под 1rem */
 input,

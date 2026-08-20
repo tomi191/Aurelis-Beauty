@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { ArrowDown, ArrowRight, Clock, Phone } from "lucide-react";
 import GoldDust from "@/components/GoldDust";
-import SunRays from "@/components/SunRays";
 import { Card, Chip } from "@/components/ui";
 import { brands, consultation, contact } from "@/lib/data";
 
@@ -45,7 +44,7 @@ export default function HomeHero() {
         };
 
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative overflow-x-clip">
       <div
         className="blob -top-20 right-[-5%] h-[28rem] w-[28rem] bg-gold/25"
         aria-hidden="true"
@@ -132,17 +131,17 @@ export default function HomeHero() {
               })}
           className="relative lg:col-span-5"
         >
-          <div className="arch gold-frame relative mx-auto flex aspect-[4/5] max-w-sm items-center justify-center overflow-hidden bg-gradient-to-b from-wine via-bordeaux to-bordeaux-deep">
-            <div
-              className="blob left-1/2 top-8 h-48 w-48 -translate-x-1/2 bg-gold/30"
-              aria-hidden="true"
+          <div className="arch gold-frame relative mx-auto aspect-[4/5] max-w-sm overflow-hidden bg-gradient-to-b from-wine via-bordeaux to-bordeaux-deep">
+            {/* Временна AI визуализация до фотосесията (портретът на Йоана
+                се снима реално — не се генерира) */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/images/hero-atelier.webp"
+              alt="Интериорът на AURÈLIS Beauty Atelier"
+              className="absolute inset-0 h-full w-full object-cover"
             />
-            {/* Златен прашец — фини частици в слънчевия лъч */}
+            {/* Златен прашец — фини частици върху кадъра */}
             <GoldDust className="absolute inset-0" />
-            <SunRays className="relative w-40 text-gold-soft/90" />
-            <span className="absolute bottom-4 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-gold/40 bg-bordeaux-deep/80 px-3 py-1 text-[0.68rem] text-paper/70">
-              Снимка: портрет на Йоана или интериор
-            </span>
           </div>
           <motion.div {...anim(0.9, 12)}>
             <Card className="hover-lift absolute -left-2 bottom-16 hidden px-5 py-4 md:-left-8 md:block">

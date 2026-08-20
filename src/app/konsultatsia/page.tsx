@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default function KonsultatsiaPage() {
   return (
     <>
-      <section className="relative overflow-hidden">
+      <section className="relative overflow-x-clip">
         <div
           className="blob -top-24 right-[0%] h-96 w-96 bg-gold/20"
           aria-hidden="true"

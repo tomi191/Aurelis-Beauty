@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export default function KontaktiPage() {
   return (
     <>
-      <section className="relative overflow-hidden">
+      <section className="relative overflow-x-clip">
         <div
           className="blob -top-24 right-[5%] h-80 w-80 bg-gold/20"
           aria-hidden="true"

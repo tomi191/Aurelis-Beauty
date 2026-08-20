@@ -36,24 +36,28 @@ const quickCategories = [
     topics: ["почистване", "пилинги", "хидратация", "възстановяване"],
     href: "/uslugi/pochistvane-na-lice",
     photo: "почистване на лице в кабинета",
+    img: "/images/cat-cleansing.webp",
   },
   {
     title: "Терапии",
     topics: ["BioRePeel", "Casmara", "NOON", "SQT", "карбокси"],
     href: "/uslugi/terapii-za-litse",
     photo: "терапия за лице отблизо",
+    img: "/images/cat-therapy.webp",
   },
   {
     title: "Лазерна епилация",
     topics: ["лице", "тяло", "интимна зона", "пакети"],
     href: "/lazerna-epilatsia",
     photo: "лазерният апарат в действие",
+    img: "/images/cat-laser.webp",
   },
   {
     title: "Вежди",
     topics: ["оформяне", "къна", "LED терапия"],
     href: "/uslugi/vezhdi",
     photo: "оформяне на вежди",
+    img: "/images/cat-brows.webp",
   },
 ];
 
@@ -69,13 +73,29 @@ const approach = [
 
 /* Популярните услуги: осемте от плана, с реалните цени от ценоразписа. */
 const popular = [
-  { cat: "pochistvane-na-lice", slug: "klasichesko-pochistvane" },
-  { cat: "pochistvane-na-lice", slug: "vodno-dermabrazio" },
-  { cat: "biorepeel", slug: "biorepeel" },
-  { cat: "terapii-za-litse", slug: "casmara" },
-  { cat: "terapii-za-litse", slug: "noon" },
-  { cat: "mikronidling", slug: "mikronidling-fusion" },
-  { cat: "mikronidling", slug: "sqt-bio-microneedling" },
+  {
+    cat: "pochistvane-na-lice",
+    slug: "klasichesko-pochistvane",
+    img: "/images/proc-classic.webp",
+  },
+  {
+    cat: "pochistvane-na-lice",
+    slug: "vodno-dermabrazio",
+    img: "/images/proc-hydro.webp",
+  },
+  { cat: "biorepeel", slug: "biorepeel", img: "/images/proc-biorepeel.webp" },
+  { cat: "terapii-za-litse", slug: "casmara", img: "/images/proc-casmara.webp" },
+  { cat: "terapii-za-litse", slug: "noon", img: "/images/proc-noon.webp" },
+  {
+    cat: "mikronidling",
+    slug: "mikronidling-fusion",
+    img: "/images/proc-needling.webp",
+  },
+  {
+    cat: "mikronidling",
+    slug: "sqt-bio-microneedling",
+    img: "/images/proc-sqt.webp",
+  },
 ] as const;
 
 /* FAQ: отговорите са само от реалните данни на процедурите. */
@@ -137,7 +157,7 @@ export default function Home() {
             <Reveal key={qc.title} delay={i * 0.05}>
               <Link href={qc.href} className="group block h-full">
                 <div className="hover-lift gold-frame-soft flex h-full flex-col overflow-hidden rounded-[1.75rem] bg-card shadow-soft">
-                  <ImageSlot label={qc.photo} ratio="3 / 2" />
+                  <ImageSlot label={qc.photo} ratio="3 / 2" src={qc.img} />
                   <div className="flex flex-1 flex-col justify-between p-6">
                     <div>
                       <h3 className="font-display text-[1.45rem] font-medium leading-snug text-bordeaux">
@@ -186,6 +206,7 @@ export default function Home() {
             <ImageSlot
               label="интериорът на ателието"
               ratio="4 / 3"
+              src="/images/interior-wide.webp"
               className="mt-8 max-w-md rounded-[1.75rem]"
             />
           </Reveal>
@@ -285,7 +306,7 @@ export default function Home() {
                   className="group block h-full"
                 >
                   <Card className="hover-lift flex h-full flex-col overflow-hidden">
-                    <ImageSlot label={p.name} ratio="16 / 9" />
+                    <ImageSlot label={p.name} ratio="16 / 9" src={pop.img} />
                     <div className="flex flex-1 flex-col justify-between p-6">
                       <div>
                         <h3 className="font-display text-[1.25rem] font-medium leading-snug text-bordeaux">
@@ -316,7 +337,12 @@ export default function Home() {
                   className="blob -right-10 -top-16 h-44 w-44 bg-gold/25"
                   aria-hidden="true"
                 />
-                <ImageSlot label="лазерна епилация" ratio="16 / 9" dark />
+                <ImageSlot
+                  label="лазерна епилация"
+                  ratio="16 / 9"
+                  dark
+                  src="/images/laser-dark.webp"
+                />
                 <div className="relative p-6 pt-4">
                   <h3 className="font-display text-[1.25rem] font-medium leading-snug">
                     Лазерна епилация
@@ -487,14 +513,16 @@ export default function Home() {
         <Reveal>
           <div className="relative overflow-hidden rounded-[2.5rem] px-6 py-16 text-center md:py-20">
             {/* Фонова снимка на ателието с кремав воал отгоре */}
-            <ImageSlot label="ателието, широк кадър за фон" fill />
+            <ImageSlot
+              label="ателието, широк кадър за фон"
+              fill
+              src="/images/cta-atelier-bg.webp"
+            />
+            {/* Воалът е по-лек върху реална снимка, отколкото върху placeholder */}
             <div
-              className="absolute inset-0 bg-gradient-to-b from-paper/90 via-paper/80 to-blush/75"
+              className="absolute inset-0 bg-gradient-to-b from-paper/85 via-paper/60 to-blush/55"
               aria-hidden="true"
             />
-            <span className="absolute right-4 top-4 rounded-full border border-gold/40 bg-card/90 px-3 py-1 text-[0.68rem] text-tertiary-ink">
-              Снимка за фон: ателието, широк кадър
-            </span>
             <div className="relative">
               <SunRays half draw className="mx-auto w-24 text-gold" />
               <h2 className="mx-auto mt-6 max-w-2xl font-display text-[clamp(2rem,4vw,3.1rem)] font-medium leading-tight text-bordeaux">

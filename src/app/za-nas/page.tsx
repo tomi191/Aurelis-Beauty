@@ -16,7 +16,7 @@ export default function ZaNasPage() {
   return (
     <>
       {/* ——— За AURÈLIS ——— */}
-      <section className="relative overflow-hidden">
+      <section className="relative overflow-x-clip">
         <div
           className="blob -top-24 right-[0%] h-96 w-96 bg-gold/20"
           aria-hidden="true"
@@ -131,11 +131,16 @@ export default function ZaNasPage() {
               aria-hidden="true"
               className="arch absolute inset-x-6 -bottom-4 top-10 -z-10 bg-gold/20"
             />
-            <div className="arch relative flex aspect-[4/5] items-center justify-center overflow-hidden bg-gradient-to-b from-taupe/45 to-paper-soft">
-              <SunRays draw className="w-28 text-taupe/80" />
-              <span className="absolute bottom-4 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-gold/40 bg-card/90 px-3 py-1 text-[0.68rem] text-tertiary-ink">
-                Снимка: портрет на Йоана
-              </span>
+            <div className="arch relative aspect-[4/5] overflow-hidden bg-gradient-to-b from-taupe/45 to-paper-soft">
+              {/* Временен кадър: работното място. Реалният портрет на Йоана
+                  идва от фотосесията — не се генерира. */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/about-workspace.webp"
+                alt="Работното място в ателието"
+                loading="lazy"
+                className="absolute inset-0 h-full w-full object-cover"
+              />
             </div>
           </div>
         </Reveal>
