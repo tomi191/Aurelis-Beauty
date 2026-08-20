@@ -30,8 +30,8 @@ export default function Footer() {
               className="h-24 w-auto opacity-90"
             />
             <p className="mt-6 max-w-xs text-[0.95rem] leading-relaxed text-paper/70">
-              Истинската грижа започва там, където човекът е по-важен от
-              процедурата.
+              Първо човекът, после процедурата. Грижа за лице и тяло във
+              Варна.
             </p>
             <a
               href={contact.phoneHref}

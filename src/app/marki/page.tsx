@@ -7,7 +7,7 @@ import { brands } from "@/lib/data";
 export const metadata: Metadata = {
   title: "Марките, с които работим",
   description:
-    "Професионалната козметика в AURÈLIS Beauty Atelier: Collagena, BioRePeel, Casmara, NOON Aesthetics, Fusion Meso и SQT Bio-Microneedling. Историята и патентите зад всяка марка.",
+    "Професионалната козметика в AURÈLIS Beauty Atelier: Collagena, BioRePeel, Casmara, NOON Aesthetics, Fusion Meso и SQT Bio-Microneedling. Историята и патентите на всяка марка.",
   alternates: { canonical: "/marki" },
 };
 
@@ -18,7 +18,7 @@ export default function MarkiPage() {
         img="/images/about-workspace.webp"
         objectPosition="center 60%"
         title="Марките, с които работим"
-        sub="Качествената грижа започва с качествения избор. Всяка марка в ателието е избрана с причина: патент, формула или технология, чийто ефект се вижда в резултата."
+        sub="Всяка марка в ателието е тук неслучайно: заради патент, формула или технология с видим резултат."
       />
 
       <section className="mx-auto max-w-6xl px-5 py-12 md:px-8 md:py-16">
@@ -35,7 +35,7 @@ export default function MarkiPage() {
                 <div className="mt-5 space-y-4 border-t hairline pt-5">
                   <div>
                     <p className="text-[0.8rem] text-tertiary-ink">
-                      Историята зад марката
+                      Откъде идва
                     </p>
                     <p className="mt-1 text-[0.93rem] text-secondary-ink">
                       {brand.story}
@@ -43,7 +43,7 @@ export default function MarkiPage() {
                   </div>
                   <div>
                     <p className="text-[0.8rem] text-tertiary-ink">
-                      Сърцето на марката
+                      Какво я отличава
                     </p>
                     <p className="mt-1 text-[0.93rem] text-secondary-ink">
                       {brand.heart}

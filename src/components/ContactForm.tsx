@@ -144,7 +144,7 @@ export default function ContactForm() {
             onChange={(e) => setService(e.target.value)}
             className={field}
           >
-            <option value="">Изберете услуга (по избор)</option>
+            <option value="">Изберете услуга (по желание)</option>
             {SERVICE_OPTIONS.map((s) => (
               <option key={s} value={s}>
                 {s}
@@ -154,7 +154,7 @@ export default function ContactForm() {
         </label>
         <label className="block">
           <span className="mb-1.5 block text-[0.85rem] text-tertiary-ink">
-            Имейл (по избор)
+            Имейл (по желание)
           </span>
           <input
             type="email"
@@ -170,7 +170,7 @@ export default function ContactForm() {
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="block">
           <span className="mb-1.5 block text-[0.85rem] text-tertiary-ink">
-            Предпочитан ден (по избор)
+            Предпочитан ден (по желание)
           </span>
           <input
             type="date"
@@ -272,7 +272,7 @@ export default function ContactForm() {
           role="alert"
           className="fade-up rounded-2xl border border-bordeaux/20 bg-bordeaux/5 px-5 py-3.5 text-[0.9rem] text-bordeaux"
         >
-          Нещо се обърка. Обадете се направо на{" "}
+          Съобщението не се изпрати. Обадете се направо на{" "}
           <a
             href={contact.phoneHref}
             className="tnum font-semibold underline decoration-gold/60 underline-offset-2"

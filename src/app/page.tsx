@@ -70,7 +70,7 @@ const approach = [
   "План и продукти за домашна грижа",
   "Подбор на подходяща козметика",
   "Проследяване на резултатите",
-  "Само процедури, които кожата ви наистина изисква",
+  "Само процедури, от които кожата ви наистина има нужда",
 ];
 
 /* Популярните услуги: осемте от плана, с реалните цени от ценоразписа. */
@@ -218,7 +218,7 @@ export default function Home() {
                 Грижата започва с разбиране
               </h2>
               <p className="mt-4 max-w-lg text-[0.98rem] text-secondary-ink">
-                Първо гледаме кожата и слушаме вас, чак после препоръчваме
+                Първо гледаме кожата и ви изслушваме, чак после препоръчваме
                 процедура.
               </p>
             </Reveal>
@@ -259,11 +259,11 @@ export default function Home() {
               <div className="lg:col-span-6">
                 <SunRays half className="w-16 text-gold-soft" />
                 <h2 className="mt-5 max-w-[16ch] font-display text-[clamp(2rem,4.2vw,3.4rem)] font-normal leading-[1.08]">
-                  Преоткрийте своята <em>истинска кожа</em>
+                  Кожата ви в <em>най-добрия ѝ вид</em>
                 </h2>
                 <p className="mt-5 max-w-md text-[0.98rem] text-paper/70">
-                  Всичко в ателието започва с персонална консултация с Йоана,
-                  посветена само на вашата кожа.
+                  Всичко в ателието минава първо през консултация при Йоана:
+                  преглед на кожата и план само за вас.
                 </p>
                 <div className="mt-8 flex flex-wrap items-center gap-5">
                   <CtaSolid href="/konsultatsia">Запази консултация</CtaSolid>
@@ -494,7 +494,7 @@ export default function Home() {
               </h2>
             </div>
             <Link href="/marki" className="link-ink text-[0.95rem]">
-              Историята зад всяка марка
+              Историята на всяка марка
             </Link>
           </div>
         </Reveal>
@@ -524,7 +524,7 @@ export default function Home() {
               Чести въпроси
             </h2>
             <p className="mt-4 max-w-xs text-[0.95rem] text-secondary-ink">
-              Ако не намирате отговора си тук, обадете се:{" "}
+              Ако не намирате отговор тук, обадете се:{" "}
               <a href={contact.phoneHref} className="link-ink tnum">
                 {contact.phone}
               </a>
@@ -556,7 +556,7 @@ export default function Home() {
             <div className="relative">
               <SunRays half draw className="mx-auto w-24 text-gold" />
               <h2 className="mx-auto mt-6 max-w-2xl font-display text-[clamp(2rem,4vw,3.1rem)] font-medium leading-tight text-bordeaux">
-                Готови ли сте да се погрижите за кожата си?
+                Елате да се погрижим за кожата ви
               </h2>
               <p className="mx-auto mt-4 max-w-md text-[0.95rem] text-secondary-ink">
                 Обадете се или ни пишете: ще намерим удобен час и точната

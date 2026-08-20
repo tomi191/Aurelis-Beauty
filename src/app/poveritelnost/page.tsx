@@ -45,7 +45,7 @@ export default function PoveritelnostPage() {
             .
           </p>
 
-          <h2 className={h2}>Какво този сайт не прави</h2>
+          <h2 className={h2}>Какво не прави този сайт</h2>
           <ul className="mt-3 space-y-2.5">
             <li className={li}>
               {bullet}

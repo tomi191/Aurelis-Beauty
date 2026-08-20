@@ -135,7 +135,7 @@ export default function HomeHero() {
             "Медицински козметик",
             "Индивидуален протокол след анализ на кожата",
             `${brands.length} професионални марки`,
-            "Цени без изненади, обявени предварително",
+            "Предварително обявени цени",
           ].map((f) => (
             <li key={f} className="text-[0.9rem] leading-snug text-tertiary-ink">
               {f}

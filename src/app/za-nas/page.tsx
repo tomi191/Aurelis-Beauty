@@ -33,7 +33,7 @@ export default function ZaNasPage() {
           <Reveal>
             <Card className="h-full p-7 md:p-8">
               <h2 className="text-[1.05rem] font-semibold text-bordeaux">
-                Нашата мисия
+                Каква е целта ни
               </h2>
               <p className="mt-3 text-[0.98rem] text-secondary-ink">
                 {about.mission}
@@ -43,7 +43,7 @@ export default function ZaNasPage() {
           <Reveal delay={0.08} className="md:mt-10">
             <Card className="h-full p-7 md:p-8">
               <h2 className="text-[1.05rem] font-semibold text-bordeaux">
-                Нашата визия
+                Към какво се стремим
               </h2>
               <p className="mt-3 text-[0.98rem] text-secondary-ink">
                 {about.vision}
