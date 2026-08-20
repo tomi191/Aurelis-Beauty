@@ -34,8 +34,10 @@ export default function HomeHero() {
     /* Отрицателният top margin вкарва фоновата снимка под прозрачния header
        (main има pt-20/24); вътрешният padding връща съдържанието надолу. */
     <section className="relative -mt-20 overflow-x-clip md:-mt-24">
-      {/* Фонова снимка на цялото hero + воали за четимост на текста */}
-      <div className="absolute inset-0" aria-hidden="true">
+      {/* Фонова снимка на цялото hero + воали за четимост на текста.
+          overflow-hidden е задължителен: parallax-ът (hero-drift) мести
+          кадъра надолу и без clip долният му ръб виси под секцията. */}
+      <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/images/hero-bg.webp"
