@@ -82,7 +82,10 @@ export default function Header() {
 
   useEffect(() => {
     document.documentElement.style.overflow = open ? "hidden" : "";
-    const rest = document.querySelectorAll("main, footer");
+    // menu-open скрива и мобилния CTA бар (globals.css) — иначе той е
+    // z-40 като overlay-а и плува върху отвореното меню
+    document.documentElement.classList.toggle("menu-open", open);
+    const rest = document.querySelectorAll("main, footer, .mobile-bar");
     rest.forEach((el) =>
       open ? el.setAttribute("inert", "") : el.removeAttribute("inert")
     );
@@ -92,6 +95,7 @@ export default function Header() {
     if (open) document.addEventListener("keydown", onKey);
     return () => {
       document.documentElement.style.overflow = "";
+      document.documentElement.classList.remove("menu-open");
       rest.forEach((el) => el.removeAttribute("inert"));
       document.removeEventListener("keydown", onKey);
     };

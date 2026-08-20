@@ -43,7 +43,8 @@ export default function Footer() {
 
           <div className="lg:col-span-3">
             <p className="text-[0.8rem] text-paper/55">Навигация</p>
-            <ul className="mt-4 space-y-2.5">
+            {/* Две колони: осемте линка иначе разтягат футъра на мобилно */}
+            <ul className="mt-4 grid grid-cols-2 gap-x-6 gap-y-2.5">
               {nav.map((item) => (
                 <li key={item.href}>
                   <Link
@@ -97,7 +98,18 @@ export default function Footer() {
               Поверителност
             </Link>
           </p>
-          <p>© {new Date().getFullYear()} AURÈLIS Beauty Atelier</p>
+          <p>
+            © {new Date().getFullYear()} AURÈLIS Beauty Atelier · Сайтът е
+            разработен от{" "}
+            <a
+              href="https://level8.bg"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="-my-2 inline-block py-2 transition-colors duration-300 hover:text-gold-soft"
+            >
+              Level 8
+            </a>
+          </p>
         </div>
       </div>
     </footer>

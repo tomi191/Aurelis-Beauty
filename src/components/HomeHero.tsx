@@ -5,8 +5,7 @@ import { useEffect, useState } from "react";
 import { useReducedMotion } from "motion/react";
 import { ArrowDown, ArrowRight, Clock, Phone } from "lucide-react";
 import GoldDust from "@/components/GoldDust";
-import { Card } from "@/components/ui";
-import { brands, consultation, contact } from "@/lib/data";
+import { brands, contact } from "@/lib/data";
 
 /** Днешното работно време по графика: вт/чт/сб 08–16, ср/пт 12–20, пн/нд почивни. */
 function todayHours(): { open: boolean; label: string } {
@@ -124,37 +123,9 @@ export default function HomeHero() {
           </div>
         </div>
 
-        {/* Плаващи карти върху фоновата снимка. CSS fade-up вместо framer:
-            transform на анимиран wrapper би станал containing block за
-            absolute картите и би счупил позиционирането им. */}
-        <div className="relative hidden lg:col-span-5 lg:block lg:self-stretch">
-          <div
-            className="fade-up absolute right-0 top-6"
-            style={{ animationDelay: "0.7s" }}
-          >
-            <Card className="hover-lift px-5 py-4">
-              <p className="font-display text-xl font-semibold text-bordeaux">
-                LED терапия подарък
-              </p>
-              <p className="mt-0.5 text-[0.8rem] text-tertiary-ink">
-                към всяка пакетна програма за лице
-              </p>
-            </Card>
-          </div>
-          <div
-            className="fade-up absolute bottom-10 left-6"
-            style={{ animationDelay: "0.9s" }}
-          >
-            <Card className="hover-lift px-5 py-4">
-              <p className="font-display text-xl font-semibold text-bordeaux">
-                Консултация · {consultation.price}
-              </p>
-              <p className="mt-0.5 text-[0.8rem] text-tertiary-ink">
-                приспада се при последваща процедура
-              </p>
-            </Card>
-          </div>
-        </div>
+        {/* Дясната половина е оставена на кадъра: информацията от старите
+            плаващи карти живее в секциите си (LED подаръкът в „Пакети и
+            програми", консултацията 20 € в тъмния панел). */}
       </div>
 
       {/* Доверие в един ред: само проверими факти */}

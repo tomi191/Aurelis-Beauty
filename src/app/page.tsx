@@ -7,6 +7,7 @@ import ImageSlot from "@/components/ImageSlot";
 import JsonLd from "@/components/JsonLd";
 import Marquee from "@/components/Marquee";
 import Reveal from "@/components/Reveal";
+import SnapCarousel from "@/components/SnapCarousel";
 import SunRays from "@/components/SunRays";
 import { Card, CtaGhost, CtaSolid } from "@/components/ui";
 import {
@@ -153,9 +154,14 @@ export default function Home() {
             </Link>
           </div>
         </Reveal>
-        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {/* Мобилно: автоматичен слайдер със свайп; от sm: обикновен grid */}
+        <SnapCarousel className="mt-10 sm:grid sm:grid-cols-2 sm:gap-5 lg:grid-cols-4">
           {quickCategories.map((qc, i) => (
-            <Reveal key={qc.title} delay={i * 0.05}>
+            <Reveal
+              key={qc.title}
+              delay={i * 0.05}
+              className="max-sm:w-[82%] max-sm:shrink-0 max-sm:snap-start"
+            >
               <Link href={qc.href} className="group block h-full">
                 <div className="spot hover-lift gold-frame-soft flex h-full flex-col overflow-hidden rounded-[1.75rem] bg-card shadow-soft">
                   <ImageSlot label={qc.photo} ratio="3 / 2" src={qc.img} />
@@ -186,7 +192,7 @@ export default function Home() {
               </Link>
             </Reveal>
           ))}
-        </div>
+        </SnapCarousel>
       </section>
 
       {/* ——— Нашият подход (бежова секция като салона). Снимката пълни
@@ -389,11 +395,16 @@ export default function Home() {
             </p>
           </div>
         </Reveal>
-        <div className="mt-10 grid gap-6 lg:grid-cols-3">
+        {/* Мобилно: автоматичен слайдер със свайп; от sm: grid */}
+        <SnapCarousel className="mt-10 sm:grid sm:gap-6 lg:grid-cols-3">
           {facePackages.programs.map((prog, i) => {
             const vip = prog.name.startsWith("VIP");
             return (
-              <Reveal key={prog.name} delay={i * 0.07}>
+              <Reveal
+                key={prog.name}
+                delay={i * 0.07}
+                className="max-sm:w-[86%] max-sm:shrink-0 max-sm:snap-start"
+              >
                 <Link
                   href={`/paketi/${prog.slug}`}
                   className={
@@ -459,7 +470,7 @@ export default function Home() {
               </Reveal>
             );
           })}
-        </div>
+        </SnapCarousel>
         <Reveal delay={0.1}>
           <div className="mt-8 flex flex-wrap items-center gap-5">
             <CtaSolid href={contact.phoneHref} external>

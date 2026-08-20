@@ -176,6 +176,22 @@ body {
   }
 }
 
+/* При отворено мобилно меню долният CTA бар изчезва (Header toggle-ва
+   .menu-open на <html>): менюто е fixed z-40 като бара, а барът е
+   по-късно в DOM и иначе плува върху него. display:none, не opacity —
+   opacity транзицията можеше да замръзне под пълноекранния overlay. */
+.menu-open .mobile-bar {
+  display: none;
+}
+
+/* Мобилният слайдер крие scrollbar-а си (свайпът е жестът) */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* ——— Pointer-живите ефекти (LiveEffects.tsx пише --sx/--sy и transform) ——— */
 
 /* Златен spotlight, следващ курсора по карта с клас .spot */

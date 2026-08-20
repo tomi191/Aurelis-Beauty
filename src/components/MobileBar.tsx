@@ -11,7 +11,7 @@ export default function MobileBar() {
   if (pathname === "/kontakti" || pathname === "/konsultatsia") return null;
 
   return (
-    <div className="fixed inset-x-4 bottom-[calc(env(safe-area-inset-bottom)+1rem)] z-40 lg:hidden">
+    <div className="mobile-bar fixed inset-x-4 bottom-[calc(env(safe-area-inset-bottom)+1rem)] z-40 lg:hidden">
       <div className="flex gap-2 rounded-full border border-white/70 bg-paper/95 p-2 shadow-lift backdrop-blur-md">
         <a
           href={contact.phoneHref}
