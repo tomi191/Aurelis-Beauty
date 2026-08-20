@@ -258,7 +258,7 @@ export default function Header() {
       </header>
 
       {open && (
-        <div className="fade-up fixed inset-0 z-40 flex flex-col overflow-y-auto bg-bordeaux-deep px-6 pb-10 pt-28 lg:hidden">
+        <div className="fade-up fixed inset-0 z-40 flex flex-col overflow-y-auto bg-bordeaux-deep px-6 pb-36 pt-28 lg:hidden">
           <div
             className="blob left-1/2 top-0 h-72 w-72 -translate-x-1/2 bg-gold/25"
             aria-hidden="true"
@@ -350,18 +350,33 @@ export default function Header() {
               Контакти
             </Link>
           </nav>
-          <div className="relative mt-8 flex flex-col gap-3">
+          <p className="relative mt-8 text-center text-[0.85rem] text-paper/60">
+            {contact.addressFull}
+          </p>
+        </div>
+      )}
+
+      {/* Fixed елементите на менюто са SIBLINGS на overlay-а: той е
+          анимиран (transform) скрол контейнер и fixed децата му биха
+          скролвали със съдържанието. */}
+      {open && (
+        <>
+          {/* Скролнатите линкове потъват под тъмния градиент, вместо да
+              се блъскат с логото и X-а в прозрачния header */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none fixed inset-x-0 top-0 z-40 h-24 bg-gradient-to-b from-bordeaux-deep via-bordeaux-deep/85 to-transparent lg:hidden"
+          />
+          {/* Закачен бутон за обаждане: винаги под палеца */}
+          <div className="fixed inset-x-0 bottom-0 z-40 bg-gradient-to-t from-bordeaux-deep via-bordeaux-deep/90 to-transparent px-6 pb-[calc(env(safe-area-inset-bottom)+1.1rem)] pt-8 lg:hidden">
             <a
               href={contact.phoneHref}
-              className="rounded-full bg-paper px-6 py-4 text-center text-bordeaux transition-transform duration-200 active:scale-[0.97]"
+              className="sheen flex items-center justify-center rounded-full bg-paper px-6 py-4 text-center text-bordeaux transition-transform duration-200 active:scale-[0.97]"
             >
               Запази час · {contact.phone}
             </a>
-            <p className="text-center text-[0.85rem] text-paper/60">
-              {contact.addressFull}
-            </p>
           </div>
-        </div>
+        </>
       )}
     </>
   );
