@@ -269,6 +269,28 @@ body {
   }
 }
 
+/* Вход на всяка страница (template.tsx) — плавно, без exit фаза */
+@keyframes page-in {
+  from { opacity: 0.0001; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .page-enter {
+    animation: page-in 0.35s var(--ease-brand) both;
+  }
+}
+
+/* Ред-hover за ценови редове: лека топлина под курсора */
+@media (hover: hover) and (pointer: fine) {
+  .row-hover {
+    transition: background-color 0.15s ease;
+    border-radius: 0.5rem;
+  }
+  .row-hover:hover {
+    background-color: color-mix(in srgb, var(--paper-soft) 55%, transparent);
+  }
+}
+
 /* Меко влизане на runtime състояния (форма success/error, менюто) */
 @keyframes fade-up {
   from { opacity: 0.0001; transform: translateY(8px); }

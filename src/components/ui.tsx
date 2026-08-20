@@ -53,7 +53,7 @@ export function PriceRow({
   dark?: boolean;
 }) {
   return (
-    <div className="flex items-baseline py-2.5">
+    <div className="row-hover flex items-baseline px-2 py-2.5 -mx-2">
       <span className={dark ? "text-paper/85" : "text-secondary-ink"}>
         {label}
       </span>

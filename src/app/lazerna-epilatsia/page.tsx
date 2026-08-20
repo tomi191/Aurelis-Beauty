@@ -93,7 +93,7 @@ export default function LaserPage() {
                   {group.zones.map((z) => (
                     <li
                       key={z.zone}
-                      className="flex items-baseline justify-between gap-4 py-2.5"
+                      className="row-hover -mx-2 flex items-baseline justify-between gap-4 px-2 py-2.5"
                     >
                       <span className="text-[0.95rem] text-secondary-ink">
                         {z.zone}

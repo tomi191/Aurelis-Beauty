@@ -59,7 +59,7 @@ export default function KonsultatsiaPage() {
 
           <Reveal delay={0.1} className="lg:col-span-5">
             <Card className="relative overflow-hidden p-7 md:p-8">
-              <SunRays className="absolute right-6 top-6 w-11 text-gold/70" />
+              <SunRays draw className="absolute right-6 top-6 w-11 text-gold/70" />
               <p className="text-[1.05rem] font-semibold text-bordeaux">
                 Какво включва
               </p>

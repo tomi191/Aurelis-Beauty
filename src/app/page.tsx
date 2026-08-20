@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Faq from "@/components/Faq";
+import GoldDust from "@/components/GoldDust";
 import HomeHero from "@/components/HomeHero";
 import ImageSlot from "@/components/ImageSlot";
 import JsonLd from "@/components/JsonLd";
@@ -215,6 +216,8 @@ export default function Home() {
               className="blob -right-24 -top-28 h-96 w-96 bg-gold/20"
               aria-hidden="true"
             />
+            {/* Втората (и последна) инстанция на златния прашец */}
+            <GoldDust className="absolute inset-0" />
             <div className="relative grid gap-10 lg:grid-cols-12 lg:items-center">
               <div className="lg:col-span-6">
                 <SunRays half className="w-16 text-gold-soft" />
