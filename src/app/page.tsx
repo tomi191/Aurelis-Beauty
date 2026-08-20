@@ -489,6 +489,9 @@ export default function Home() {
               className="absolute inset-0 bg-gradient-to-b from-paper/90 via-paper/80 to-blush/75"
               aria-hidden="true"
             />
+            <span className="absolute right-4 top-4 rounded-full border border-gold/40 bg-card/90 px-3 py-1 text-[0.68rem] text-tertiary-ink">
+              Снимка за фон: ателието, широк кадър
+            </span>
             <div className="relative">
               <SunRays half draw className="mx-auto w-24 text-gold" />
               <h2 className="mx-auto mt-6 max-w-2xl font-display text-[clamp(2rem,4vw,3.1rem)] font-medium leading-tight text-bordeaux">

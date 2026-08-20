@@ -30,7 +30,7 @@ export default function KontaktiPage() {
             />
             <p className="mt-5 max-w-xl text-secondary-ink">
               Обадете се, за да си запазите час, или ни пишете: отговаряме
-              още същия ден.
+              до края на работния ден.
             </p>
           </Reveal>
         </div>
