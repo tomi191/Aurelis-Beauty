@@ -189,34 +189,38 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ——— Нашият подход (бежова секция като салона) ——— */}
+      {/* ——— Нашият подход (бежова секция като салона). Снимката пълни
+          лявата колона по височина, текст + чеклист + CTA плътно вдясно:
+          двете колони завършват заедно, без празен въздух. ——— */}
       <section className="bg-blush/50">
-        <div className="mx-auto grid max-w-6xl gap-12 px-5 py-16 md:px-8 md:py-24 lg:grid-cols-12">
-          <Reveal className="lg:col-span-5">
-            <span className="gold-rule" aria-hidden="true" />
-            <h2 className="font-display text-[clamp(1.9rem,3.6vw,3rem)] font-medium leading-tight text-bordeaux">
-              Грижата започва с разбиране
-            </h2>
-            <p className="mt-5 max-w-md text-[0.98rem] text-secondary-ink">
-              Първо гледаме кожата и слушаме вас, чак после препоръчваме
-              процедура.
-            </p>
-            <div className="mt-7">
-              <CtaGhost href="/za-nas">Повече за нашия подход</CtaGhost>
+        <div className="mx-auto grid max-w-6xl items-stretch gap-10 px-5 py-14 md:px-8 md:py-20 lg:grid-cols-12">
+          <Reveal className="order-last lg:order-first lg:col-span-5">
+            <div className="relative h-64 overflow-hidden rounded-[1.75rem] gold-frame-soft sm:h-80 lg:h-full lg:min-h-[26rem]">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/interior-wide.webp"
+                alt="Интериорът на ателието"
+                loading="lazy"
+                className="absolute inset-0 h-full w-full object-cover"
+              />
             </div>
-            <ImageSlot
-              label="интериорът на ателието"
-              ratio="4 / 3"
-              src="/images/interior-wide.webp"
-              className="mt-8 max-w-md rounded-[1.75rem]"
-            />
           </Reveal>
-          <div className="lg:col-span-6 lg:col-start-7">
-            <ul className="grid gap-x-8 gap-y-5 sm:grid-cols-2">
+          <div className="lg:col-span-7 lg:py-2">
+            <Reveal>
+              <span className="gold-rule" aria-hidden="true" />
+              <h2 className="mt-4 font-display text-[clamp(1.9rem,3.6vw,3rem)] font-medium leading-tight text-bordeaux">
+                Грижата започва с разбиране
+              </h2>
+              <p className="mt-4 max-w-lg text-[0.98rem] text-secondary-ink">
+                Първо гледаме кожата и слушаме вас, чак после препоръчваме
+                процедура.
+              </p>
+            </Reveal>
+            <ul className="mt-8 grid gap-x-8 gap-y-4 border-t border-gold/25 pt-8 sm:grid-cols-2">
               {approach.map((a, i) => (
-                <Reveal key={a} delay={i * 0.05} as="li">
+                <Reveal key={a} delay={i * 0.04} as="li">
                   <div className="flex items-start gap-3">
-                    <span className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-gold/50 text-[0.7rem] text-gold-deep">
+                    <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-gold/50 text-[0.7rem] text-gold-deep">
                       ✓
                     </span>
                     <span className="text-[0.95rem] leading-snug text-secondary-ink">
@@ -226,6 +230,11 @@ export default function Home() {
                 </Reveal>
               ))}
             </ul>
+            <Reveal delay={0.2}>
+              <div className="mt-9">
+                <CtaGhost href="/za-nas">Повече за нашия подход</CtaGhost>
+              </div>
+            </Reveal>
           </div>
         </div>
       </section>
