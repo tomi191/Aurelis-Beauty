@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { motion, useReducedMotion } from "motion/react";
+import { useReducedMotion } from "motion/react";
 import { ArrowDown, ArrowRight, Clock, Phone } from "lucide-react";
 import GoldDust from "@/components/GoldDust";
-import { Card, Chip } from "@/components/ui";
+import { Card } from "@/components/ui";
 import { brands, consultation, contact } from "@/lib/data";
 
 /** Днешното работно време по графика: вт/чт/сб 08–16, ср/пт 12–20, пн/нд почивни. */
@@ -19,8 +19,6 @@ function todayHours(): { open: boolean; label: string } {
   return { open: true, label: "08:00 – 16:00" };
 }
 
-const ease = [0.22, 1, 0.36, 1] as const;
-
 export default function HomeHero() {
   const reduce = useReducedMotion();
   // Само клиентски: при static prerender денят на билда би се запекъл в
@@ -32,29 +30,33 @@ export default function HomeHero() {
     setToday(todayHours());
   }, []);
 
-  /* Само за плаващите карти (не са LCP); критичният текст се рендва статично,
-     за да не стои opacity:0 до hydration. */
-  const anim = (delay: number, y = 18) =>
-    reduce
-      ? {}
-      : {
-          initial: { opacity: 0, y },
-          animate: { opacity: 1, y: 0 },
-          transition: { duration: 0.9, delay, ease },
-        };
-
   return (
-    <section className="relative overflow-x-clip">
-      <div
-        className="blob -top-20 right-[-5%] h-[28rem] w-[28rem] bg-gold/25"
-        aria-hidden="true"
-      />
-      <div
-        className="blob bottom-[-30%] left-[-10%] h-[30rem] w-[30rem] bg-wine/15"
-        aria-hidden="true"
-      />
+    /* Отрицателният top margin вкарва фоновата снимка под прозрачния header
+       (main има pt-20/24); вътрешният padding връща съдържанието надолу. */
+    <section className="relative -mt-20 overflow-x-clip md:-mt-24">
+      {/* Фонова снимка на цялото hero + воали за четимост на текста */}
+      <div className="absolute inset-0" aria-hidden="true">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/images/hero-bg.webp"
+          alt=""
+          loading="eager"
+          fetchPriority="high"
+          className="h-full w-full object-cover"
+        />
+        {/* Мобилно: почти плътен воал (текстът е върху цялата ширина) */}
+        <div className="absolute inset-0 bg-gradient-to-b from-paper/90 via-paper/80 to-paper/90 md:hidden" />
+        {/* Desktop: текстът вляво на плътно, снимката диша вдясно */}
+        <div className="absolute inset-0 hidden bg-gradient-to-r from-paper via-paper/75 to-paper/10 md:block" />
+        {/* Светла лента горе за навигацията */}
+        <div className="absolute inset-x-0 top-0 hidden h-28 bg-gradient-to-b from-paper/80 to-transparent md:block" />
+        {/* Плавен преход към хартията на следващата секция */}
+        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-b from-transparent to-paper" />
+        {/* Златен прашец върху кадъра */}
+        <GoldDust className="absolute inset-0" />
+      </div>
 
-      <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-5 pb-14 pt-8 md:px-8 md:pt-14 lg:grid-cols-12 lg:gap-8">
+      <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-5 pb-14 pt-28 md:px-8 md:pt-[9.5rem] lg:grid-cols-12 lg:gap-8">
         <div className="lg:col-span-7">
           <span className="gold-rule" aria-hidden="true" />
 
@@ -120,41 +122,15 @@ export default function HomeHero() {
           </div>
         </div>
 
-        {/* Арка вместо снимка: очаква фотосесия от клиента (shot-list във vault) */}
-        <motion.div
-          {...(reduce
-            ? {}
-            : {
-                initial: { opacity: 0, scale: 0.94, y: 20 },
-                animate: { opacity: 1, scale: 1, y: 0 },
-                transition: { duration: 1.1, delay: 0.3, ease },
-              })}
-          className="relative lg:col-span-5"
-        >
-          <div className="arch gold-frame relative mx-auto aspect-[4/5] max-w-sm overflow-hidden bg-gradient-to-b from-wine via-bordeaux to-bordeaux-deep">
-            {/* Временна AI визуализация до фотосесията (портретът на Йоана
-                се снима реално — не се генерира) */}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/images/hero-atelier.webp"
-              alt="Интериорът на AURÈLIS Beauty Atelier"
-              className="absolute inset-0 h-full w-full object-cover"
-            />
-            {/* Златен прашец — фини частици върху кадъра */}
-            <GoldDust className="absolute inset-0" />
-          </div>
-          <motion.div {...anim(0.9, 12)}>
-            <Card className="hover-lift absolute -left-2 bottom-16 hidden px-5 py-4 md:-left-8 md:block">
-              <p className="font-display text-xl font-semibold text-bordeaux">
-                Консултация · {consultation.price}
-              </p>
-              <p className="mt-0.5 text-[0.8rem] text-tertiary-ink">
-                приспада се при последваща процедура
-              </p>
-            </Card>
-          </motion.div>
-          <motion.div {...anim(1.05, 12)}>
-            <Card className="hover-lift absolute -right-1 top-10 hidden px-5 py-4 md:-right-4 md:block">
+        {/* Плаващи карти върху фоновата снимка. CSS fade-up вместо framer:
+            transform на анимиран wrapper би станал containing block за
+            absolute картите и би счупил позиционирането им. */}
+        <div className="relative hidden lg:col-span-5 lg:block lg:self-stretch">
+          <div
+            className="fade-up absolute right-0 top-6"
+            style={{ animationDelay: "0.7s" }}
+          >
+            <Card className="hover-lift px-5 py-4">
               <p className="font-display text-xl font-semibold text-bordeaux">
                 LED терапия подарък
               </p>
@@ -162,8 +138,21 @@ export default function HomeHero() {
                 към всяка пакетна програма за лице
               </p>
             </Card>
-          </motion.div>
-        </motion.div>
+          </div>
+          <div
+            className="fade-up absolute bottom-10 left-6"
+            style={{ animationDelay: "0.9s" }}
+          >
+            <Card className="hover-lift px-5 py-4">
+              <p className="font-display text-xl font-semibold text-bordeaux">
+                Консултация · {consultation.price}
+              </p>
+              <p className="mt-0.5 text-[0.8rem] text-tertiary-ink">
+                приспада се при последваща процедура
+              </p>
+            </Card>
+          </div>
+        </div>
       </div>
 
       {/* Доверие в един ред: само проверими факти */}
