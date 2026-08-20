@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Faq from "@/components/Faq";
 import HomeHero from "@/components/HomeHero";
+import ImageSlot from "@/components/ImageSlot";
 import JsonLd from "@/components/JsonLd";
 import Marquee from "@/components/Marquee";
 import Reveal from "@/components/Reveal";
@@ -33,21 +34,25 @@ const quickCategories = [
     title: "Грижа за лице",
     topics: ["почистване", "пилинги", "хидратация", "възстановяване"],
     href: "/uslugi/pochistvane-na-lice",
+    photo: "почистване на лице в кабинета",
   },
   {
     title: "Терапии",
     topics: ["BioRePeel", "Casmara", "NOON", "SQT", "карбокси"],
     href: "/uslugi/terapii-za-litse",
+    photo: "терапия за лице отблизо",
   },
   {
     title: "Лазерна епилация",
     topics: ["лице", "тяло", "интимна зона", "пакети"],
     href: "/lazerna-epilatsia",
+    photo: "лазерният апарат в действие",
   },
   {
     title: "Вежди",
     topics: ["оформяне", "къна", "LED терапия"],
     href: "/uslugi/vezhdi",
+    photo: "оформяне на вежди",
   },
 ];
 
@@ -58,7 +63,7 @@ const approach = [
   "План и продукти за домашна грижа",
   "Подбор на подходяща козметика",
   "Проследяване на резултатите",
-  "Процедури според реалните нужди, не по шаблон",
+  "Само процедури, които кожата ви наистина изисква",
 ];
 
 /* Популярните услуги: осемте от плана, с реалните цени от ценоразписа. */
@@ -130,28 +135,31 @@ export default function Home() {
           {quickCategories.map((qc, i) => (
             <Reveal key={qc.title} delay={i * 0.05}>
               <Link href={qc.href} className="group block h-full">
-                <div className="hover-lift gold-frame-soft flex h-full flex-col justify-between rounded-[1.75rem] bg-card p-6 shadow-soft">
-                  <div>
-                    <h3 className="font-display text-[1.45rem] font-medium leading-snug text-bordeaux">
-                      {qc.title}
-                    </h3>
-                    <ul className="mt-4 flex flex-wrap gap-1.5">
-                      {qc.topics.map((t) => (
-                        <li
-                          key={t}
-                          className="rounded-full bg-paper-soft px-3 py-1 text-[0.78rem] text-tertiary-ink"
-                        >
-                          {t}
-                        </li>
-                      ))}
-                    </ul>
+                <div className="hover-lift gold-frame-soft flex h-full flex-col overflow-hidden rounded-[1.75rem] bg-card shadow-soft">
+                  <ImageSlot label={qc.photo} ratio="3 / 2" />
+                  <div className="flex flex-1 flex-col justify-between p-6">
+                    <div>
+                      <h3 className="font-display text-[1.45rem] font-medium leading-snug text-bordeaux">
+                        {qc.title}
+                      </h3>
+                      <ul className="mt-4 flex flex-wrap gap-1.5">
+                        {qc.topics.map((t) => (
+                          <li
+                            key={t}
+                            className="rounded-full bg-paper-soft px-3 py-1 text-[0.78rem] text-tertiary-ink"
+                          >
+                            {t}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <span
+                      aria-hidden="true"
+                      className="mt-6 flex h-9 w-9 items-center justify-center rounded-full border border-gold/45 text-gold-deep transition-all duration-200 group-hover:bg-gold group-hover:text-paper"
+                    >
+                      →
+                    </span>
                   </div>
-                  <span
-                    aria-hidden="true"
-                    className="mt-6 flex h-9 w-9 items-center justify-center rounded-full border border-gold/45 text-gold-deep transition-all duration-200 group-hover:bg-gold group-hover:text-paper"
-                  >
-                    →
-                  </span>
                 </div>
               </Link>
             </Reveal>
@@ -168,13 +176,17 @@ export default function Home() {
               Грижата започва с разбиране
             </h2>
             <p className="mt-5 max-w-md text-[0.98rem] text-secondary-ink">
-              Услугите в ателието не са случаен списък. Първо гледаме кожата и
-              слушаме вас, чак после препоръчваме процедура. Затова резултатите
-              траят.
+              Първо гледаме кожата и слушаме вас, чак после препоръчваме
+              процедура.
             </p>
             <div className="mt-7">
               <CtaGhost href="/za-nas">Повече за нашия подход</CtaGhost>
             </div>
+            <ImageSlot
+              label="интериорът на ателието"
+              ratio="4 / 3"
+              className="mt-8 max-w-md rounded-[1.75rem]"
+            />
           </Reveal>
           <div className="lg:col-span-6 lg:col-start-7">
             <ul className="grid gap-x-8 gap-y-5 sm:grid-cols-2">
@@ -251,7 +263,7 @@ export default function Home() {
             <div>
               <span className="gold-rule" aria-hidden="true" />
               <h2 className="max-w-[18ch] font-display text-[clamp(1.9rem,3.6vw,3rem)] font-medium leading-tight text-bordeaux">
-                Най-търсените процедури
+                Избрани процедури
               </h2>
             </div>
             <Link href="/uslugi" className="link-ink mb-2 text-[0.95rem]">
@@ -269,22 +281,25 @@ export default function Home() {
                   href={`/uslugi/${cat.slug}`}
                   className="group block h-full"
                 >
-                  <Card className="hover-lift flex h-full flex-col justify-between p-6">
-                    <div>
-                      <h3 className="font-display text-[1.25rem] font-medium leading-snug text-bordeaux">
-                        {p.name}
-                      </h3>
-                      <p className="mt-2.5 text-[0.86rem] leading-relaxed text-tertiary-ink">
-                        {p.short}
-                      </p>
-                    </div>
-                    <div className="mt-5 flex items-center justify-between border-t hairline pt-4">
-                      <span className="tnum text-[0.95rem] font-semibold text-gold-deep">
-                        {minPrice(p.prices)}
-                      </span>
-                      <span className="text-[0.85rem] text-secondary-ink transition-colors duration-200 group-hover:text-bordeaux">
-                        Виж детайли →
-                      </span>
+                  <Card className="hover-lift flex h-full flex-col overflow-hidden">
+                    <ImageSlot label={p.name} ratio="16 / 9" />
+                    <div className="flex flex-1 flex-col justify-between p-6">
+                      <div>
+                        <h3 className="font-display text-[1.25rem] font-medium leading-snug text-bordeaux">
+                          {p.name}
+                        </h3>
+                        <p className="mt-2.5 text-[0.86rem] leading-relaxed text-tertiary-ink">
+                          {p.short}
+                        </p>
+                      </div>
+                      <div className="mt-5 flex items-center justify-between border-t hairline pt-4">
+                        <span className="tnum text-[0.95rem] font-semibold text-gold-deep">
+                          {minPrice(p.prices)}
+                        </span>
+                        <span className="text-[0.85rem] text-secondary-ink transition-colors duration-200 group-hover:text-bordeaux">
+                          Виж детайли →
+                        </span>
+                      </div>
                     </div>
                   </Card>
                 </Link>
@@ -293,12 +308,13 @@ export default function Home() {
           })}
           <Reveal delay={0.35}>
             <Link href="/lazerna-epilatsia" className="group block h-full">
-              <div className="hover-lift relative flex h-full flex-col justify-between overflow-hidden rounded-[1.75rem] bg-bordeaux p-6 text-paper shadow-soft">
+              <div className="hover-lift relative flex h-full flex-col justify-between overflow-hidden rounded-[1.75rem] bg-bordeaux text-paper shadow-soft">
                 <div
                   className="blob -right-10 -top-16 h-44 w-44 bg-gold/25"
                   aria-hidden="true"
                 />
-                <div className="relative">
+                <ImageSlot label="лазерна епилация" ratio="16 / 9" dark />
+                <div className="relative p-6 pt-4">
                   <h3 className="font-display text-[1.25rem] font-medium leading-snug">
                     Лазерна епилация
                   </h3>
@@ -307,12 +323,12 @@ export default function Home() {
                     пакети.
                   </p>
                 </div>
-                <div className="relative mt-5 flex items-center justify-between border-t hairline-cream pt-4">
+                <div className="relative mx-6 mb-6 mt-auto flex items-center justify-between border-t hairline-cream pt-4">
                   <span className="text-[0.95rem] font-semibold text-gold-soft">
                     Цени по зони
                   </span>
                   <span className="text-[0.85rem] text-paper/70 transition-colors duration-200 group-hover:text-paper">
-                    Виж детайли →
+                    Виж зоните →
                   </span>
                 </div>
               </div>
@@ -466,20 +482,28 @@ export default function Home() {
       {/* ——— Финален CTA (бежов, златни детайли) ——— */}
       <section className="mx-auto max-w-6xl px-5 pb-16 md:px-8 md:pb-24">
         <Reveal>
-          <div className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-b from-paper-soft to-blush/70 px-6 py-16 text-center md:py-20">
-            <SunRays half draw className="mx-auto w-24 text-gold" />
-            <h2 className="mx-auto mt-6 max-w-2xl font-display text-[clamp(2rem,4vw,3.1rem)] font-medium leading-tight text-bordeaux">
-              Готови ли сте да започнете персоналната си грижа?
-            </h2>
-            <p className="mx-auto mt-4 max-w-md text-[0.95rem] text-secondary-ink">
-              Обадете се или ни пишете: ще намерим удобен час и точната
-              процедура за вас.
-            </p>
-            <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <CtaSolid href={contact.phoneHref} external>
-                Обади се · {contact.phone}
-              </CtaSolid>
-              <CtaGhost href="/kontakti">Пиши ни</CtaGhost>
+          <div className="relative overflow-hidden rounded-[2.5rem] px-6 py-16 text-center md:py-20">
+            {/* Фонова снимка на ателието с кремав воал отгоре */}
+            <ImageSlot label="ателието, широк кадър за фон" fill />
+            <div
+              className="absolute inset-0 bg-gradient-to-b from-paper/90 via-paper/80 to-blush/75"
+              aria-hidden="true"
+            />
+            <div className="relative">
+              <SunRays half draw className="mx-auto w-24 text-gold" />
+              <h2 className="mx-auto mt-6 max-w-2xl font-display text-[clamp(2rem,4vw,3.1rem)] font-medium leading-tight text-bordeaux">
+                Готови ли сте да се погрижите за кожата си?
+              </h2>
+              <p className="mx-auto mt-4 max-w-md text-[0.95rem] text-secondary-ink">
+                Обадете се или ни пишете: ще намерим удобен час и точната
+                процедура за вас.
+              </p>
+              <div className="mt-8 flex flex-wrap justify-center gap-4">
+                <CtaSolid href={contact.phoneHref} external>
+                  Обади се · {contact.phone}
+                </CtaSolid>
+                <CtaGhost href="/kontakti">Пиши ни</CtaGhost>
+              </div>
             </div>
           </div>
         </Reveal>

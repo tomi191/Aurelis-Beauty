@@ -90,7 +90,7 @@ export default function ContactForm() {
           Получихме запитването ви.
         </p>
         <p className="mt-1 text-[0.92rem] text-emerald-900/75">
-          Ще се свържем с вас още същия работен ден.
+          Отговаряме до края на работния ден.
         </p>
       </div>
     );
@@ -263,7 +263,7 @@ export default function ContactForm() {
           {status === "sending" ? "Изпращане…" : "Изпрати запитване"}
         </button>
         <p className="text-[0.82rem] text-tertiary-ink">
-          Отговаряме още същия ден в работно време.
+          Отговаряме до края на работния ден.
         </p>
       </div>
 
