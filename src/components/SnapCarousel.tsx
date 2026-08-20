@@ -28,15 +28,12 @@ export default function SnapCarousel({
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     let paused = false;
-    let resume: number | undefined;
     let visible = true;
 
+    // Докосването спира автоплея ОКОНЧАТЕЛНО: човекът е поел управлението
+    // и слайдер, който му се изплъзва след 6 s, е дразнещ (одитна находка)
     const pause = () => {
       paused = true;
-      window.clearTimeout(resume);
-      resume = window.setTimeout(() => {
-        paused = false;
-      }, 6000);
     };
     el.addEventListener("touchstart", pause, { passive: true });
     el.addEventListener("pointerdown", pause);
@@ -62,7 +59,6 @@ export default function SnapCarousel({
 
     return () => {
       window.clearInterval(timer);
-      window.clearTimeout(resume);
       io.disconnect();
       el.removeEventListener("touchstart", pause);
       el.removeEventListener("pointerdown", pause);

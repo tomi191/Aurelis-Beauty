@@ -42,14 +42,14 @@ export default function Footer() {
           </div>
 
           <div className="lg:col-span-3">
-            <p className="text-[0.8rem] text-paper/55">Навигация</p>
+            <p className="text-[0.8rem] tracking-wide text-gold-soft/90">Навигация</p>
             {/* Две колони: осемте линка иначе разтягат футъра на мобилно */}
             <ul className="mt-4 grid grid-cols-2 gap-x-6 gap-y-2.5">
               {nav.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="-my-1.5 inline-block py-1.5 text-[0.95rem] text-paper/80 transition-colors duration-300 hover:text-gold-soft"
+                    className="-my-2 inline-block py-2 text-[0.95rem] text-paper/80 transition-colors duration-300 hover:text-gold-soft"
                   >
                     {item.label}
                   </Link>
@@ -59,7 +59,7 @@ export default function Footer() {
           </div>
 
           <div className="lg:col-span-4">
-            <p className="text-[0.8rem] text-paper/55">Работно време</p>
+            <p className="text-[0.8rem] tracking-wide text-gold-soft/90">Работно време</p>
             <ul className="mt-4 space-y-3">
               {hours.map((h) => (
                 <li key={h.days} className="flex items-baseline text-[0.92rem]">
@@ -75,7 +75,16 @@ export default function Footer() {
             </ul>
             <p className="mt-6 text-[0.8rem] text-paper/55">Адрес</p>
             <address className="mt-2 space-y-1 text-[0.92rem] not-italic text-paper/80">
-              <p>{contact.addressFull}</p>
+              <p>
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=ул.+Дунавски+лебед+14,+Варна"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="-my-2 inline-block py-2 transition-colors duration-300 hover:text-gold-soft"
+                >
+                  {contact.addressFull}
+                </a>
+              </p>
               <p>
                 <a
                   href={`mailto:${contact.email}`}

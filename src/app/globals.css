@@ -21,7 +21,8 @@
   --taupe: #ae9483;
   --gold: #b98d52;
   --gold-soft: #d9b98a;
-  --gold-deep: #9d7440;
+  /* По-тъмно злато за текст на светло: #9d7440 беше 4.13:1 (под AA 4.5) */
+  --gold-deep: #8a6538;
 
   /* Motion токени: една entrance крива за целия сайт */
   --ease-brand: cubic-bezier(0.22, 1, 0.36, 1);
@@ -126,37 +127,40 @@ body {
   flex: 1 1 auto;
   min-width: 1.5rem;
   margin: 0 0.75rem;
-  border-bottom: 1px dotted color-mix(in srgb, var(--gold) 55%, transparent);
+  border-bottom: 1px dotted color-mix(in srgb, var(--gold) 80%, transparent);
   transform: translateY(-0.3em);
 }
 
 /* Златна печатна рамка — двоен кант като върху луксозна кутия.
    Ползва се пестеливо: пакетните карти и акцентни повърхности. */
 .gold-frame {
-  border: 1px solid color-mix(in srgb, var(--gold) 55%, transparent);
-  outline: 1px solid color-mix(in srgb, var(--gold) 28%, transparent);
+  border: 1px solid color-mix(in srgb, var(--gold) 78%, transparent);
+  outline: 1px solid color-mix(in srgb, var(--gold) 45%, transparent);
   outline-offset: 5px;
 }
 .gold-frame-soft {
-  border: 1px solid color-mix(in srgb, var(--gold) 38%, transparent);
+  border: 1px solid color-mix(in srgb, var(--gold) 60%, transparent);
 }
 
-/* Златна чертичка над секционно заглавие — системният „малък детайл" */
+/* Златна чертичка над секционно заглавие — системният „малък детайл".
+   2px и плътно злато: при 1px + fade беше практически невидима (клиентска
+   забележка „златисти елементи не виждам") */
 .gold-rule {
   display: block;
-  width: 2.5rem;
-  height: 1px;
+  width: 3rem;
+  height: 2px;
   margin-bottom: 1rem;
-  background: linear-gradient(90deg, var(--gold), color-mix(in srgb, var(--gold) 15%, transparent));
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--gold-deep), var(--gold) 55%, color-mix(in srgb, var(--gold) 45%, transparent));
 }
 .gold-rule-center {
   margin-left: auto;
   margin-right: auto;
   background: linear-gradient(
     90deg,
-    color-mix(in srgb, var(--gold) 15%, transparent),
-    var(--gold),
-    color-mix(in srgb, var(--gold) 15%, transparent)
+    color-mix(in srgb, var(--gold) 40%, transparent),
+    var(--gold-deep),
+    color-mix(in srgb, var(--gold) 40%, transparent)
   );
 }
 

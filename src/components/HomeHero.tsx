@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useReducedMotion } from "motion/react";
-import { ArrowDown, ArrowRight, Clock, Phone } from "lucide-react";
+import { ArrowRight, Clock, Phone } from "lucide-react";
 import GoldDust from "@/components/GoldDust";
 import { brands, contact } from "@/lib/data";
 
@@ -78,7 +78,7 @@ export default function HomeHero() {
           <div className="mt-9 flex flex-wrap items-center gap-4">
             <Link
               href="/konsultatsia"
-              className="sheen magnet group inline-flex items-center gap-2.5 rounded-full bg-bordeaux px-7 py-3.5 text-[0.95rem] text-paper shadow-pill transition-[transform,background-color] duration-200 active:scale-[0.97] motion-safe:hover:-translate-y-0.5 hover:bg-wine"
+              className="sheen magnet group inline-flex items-center gap-2.5 rounded-full border border-gold/50 bg-bordeaux px-7 py-3.5 text-[0.95rem] text-paper shadow-pill transition-[transform,background-color] duration-200 active:scale-[0.97] motion-safe:hover:-translate-y-0.5 hover:bg-wine"
             >
               Запази консултация
               <ArrowRight className="size-4 text-gold-soft transition-transform duration-300 group-hover:translate-x-1" />
@@ -88,7 +88,7 @@ export default function HomeHero() {
               className="group inline-flex items-center gap-3 text-[0.95rem] text-bordeaux"
             >
               <span className="grid size-11 place-items-center rounded-full border border-gold/50 bg-card/60 text-gold-deep transition-colors duration-300 group-hover:bg-gold group-hover:text-paper">
-                <ArrowDown className="size-4" />
+                <ArrowRight className="size-4" />
               </span>
               <span className="border-b border-gold/50 pb-0.5">
                 Разгледай услугите

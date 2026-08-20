@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { categories, contact } from "@/lib/data";
 
-type Status = "idle" | "sending" | "success" | "error";
+type Status = "idle" | "sending" | "success" | "invalid" | "error";
 
 const SERVICE_OPTIONS = [
   "Консултация и анализ",
@@ -43,6 +43,12 @@ export default function ContactForm() {
   // Honeypot: хората не виждат полето, ботовете го попълват
   const [website, setWebsite] = useState("");
   const [status, setStatus] = useState<Status>("idle");
+  // min за датата се сетва клиентски: при static prerender build денят
+  // би се запекъл в HTML-а (одитна находка: избираеми минали дати)
+  const [minDate, setMinDate] = useState<string | undefined>(undefined);
+  useEffect(() => {
+    setMinDate(new Date().toISOString().slice(0, 10));
+  }, []);
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -73,8 +79,16 @@ export default function ContactForm() {
       });
       const data = (await res.json().catch(() => null)) as {
         ok?: boolean;
+        reason?: string;
       } | null;
-      setStatus(res.ok && data?.ok ? "success" : "error");
+      if (res.ok && data?.ok) {
+        setStatus("success");
+      } else if (res.status === 400) {
+        // Валидационна грешка ≠ техническа: кажи на човека КАКВО да поправи
+        setStatus("invalid");
+      } else {
+        setStatus("error");
+      }
     } catch {
       setStatus("error");
     }
@@ -175,6 +189,7 @@ export default function ContactForm() {
           <input
             type="date"
             name="preferredDate"
+            min={minDate}
             value={preferredDate}
             onChange={(e) => setPreferredDate(e.target.value)}
             className={field}
@@ -258,7 +273,7 @@ export default function ContactForm() {
         <button
           type="submit"
           disabled={status === "sending"}
-          className="inline-flex items-center justify-center gap-2 rounded-full bg-bordeaux px-7 py-3.5 text-[0.95rem] text-paper shadow-pill transition-all duration-300 hover:-translate-y-0.5 hover:bg-wine disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
+          className="sheen magnet inline-flex items-center justify-center gap-2 rounded-full border border-gold/50 bg-bordeaux px-7 py-3.5 text-[0.95rem] text-paper shadow-pill transition-[transform,background-color,border-color,color] duration-200 active:scale-[0.97] motion-safe:hover:-translate-y-0.5 hover:bg-wine disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
         >
           {status === "sending" ? "Изпращане…" : "Изпрати запитване"}
         </button>
@@ -267,6 +282,15 @@ export default function ContactForm() {
         </p>
       </div>
 
+      {status === "invalid" && (
+        <p
+          role="alert"
+          className="fade-up rounded-2xl border border-bordeaux/20 bg-bordeaux/5 px-5 py-3.5 text-[0.9rem] text-bordeaux"
+        >
+          Проверете полетата: трябват ни име, телефон с поне 6 цифри и
+          съобщение с няколко думи.
+        </p>
+      )}
       {status === "error" && (
         <p
           role="alert"

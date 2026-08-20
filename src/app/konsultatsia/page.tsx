@@ -26,7 +26,7 @@ export default function KonsultatsiaPage() {
               items={[
                 { term: "Продължителност", value: consultation.duration },
                 { term: "Цена", value: consultation.price },
-                { term: "Кога", value: "преди курс от процедури" },
+                { term: "Кога", value: "преди първа терапия" },
                 { term: "Бонус", value: "приспада се от процедурата" },
               ]}
             />
@@ -53,7 +53,7 @@ export default function KonsultatsiaPage() {
               <ul className="mt-5 space-y-3">
                 {consultation.includes.map((item) => (
                   <li key={item} className="flex items-start gap-3">
-                    <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gold/15 text-[0.7rem] text-gold">
+                    <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-gold/60 bg-gold/20 text-[0.7rem] text-gold-deep">
                       ✓
                     </span>
                     <span className="text-[0.95rem] text-secondary-ink">

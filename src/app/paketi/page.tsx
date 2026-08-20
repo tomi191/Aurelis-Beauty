@@ -91,7 +91,7 @@ export default function PaketiPage() {
                     <ul className="mt-5 flex-1 space-y-2.5">
                       {prog.items.map((item) => (
                         <li key={item} className="flex items-start gap-2.5">
-                          <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gold/15 text-[0.65rem] text-gold">
+                          <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-gold/60 bg-gold/20 text-[0.65rem] text-gold-deep">
                             ✓
                           </span>
                           <span className="text-[0.93rem] text-secondary-ink">

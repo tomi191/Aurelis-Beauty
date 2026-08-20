@@ -91,14 +91,14 @@ export default function LaserPage() {
         <Reveal delay={0.1}>
           <div className="mt-10 grid gap-5 md:grid-cols-3">
             {laserPackages.courses.map((c) => (
-              <Card key={c.name} className="hover-lift p-6 text-center">
+              <Card key={c.name} className="p-6 text-center">
                 <p className="font-display text-xl font-semibold text-bordeaux">
                   {c.name}
                 </p>
                 <p className="mt-1 text-[0.88rem] text-tertiary-ink">
                   {c.label}
                 </p>
-                <p className="mt-3 font-display text-3xl font-semibold text-gold">
+                <p className="mt-3 font-display text-3xl font-semibold text-gold-deep">
                   {c.discount}
                 </p>
               </Card>
@@ -110,6 +110,33 @@ export default function LaserPage() {
               Виж комбо пакетите
             </Link>
           </p>
+        </Reveal>
+
+        {/* Финален booking CTA: страницата свършваше с текстов линк
+            (одитна находка: без действие след ценовите таблици) */}
+        <Reveal delay={0.1}>
+          <div className="relative mt-12 overflow-hidden rounded-[2.5rem] bg-bordeaux-deep px-6 py-12 text-center text-paper md:px-14 md:py-14">
+            <div
+              className="blob -right-20 -top-28 h-80 w-80 bg-gold/20"
+              aria-hidden="true"
+            />
+            <div className="relative">
+              <h2 className="mx-auto max-w-[20ch] font-display text-[clamp(1.8rem,3.4vw,2.7rem)] font-medium leading-tight">
+                Готови за трайно гладка кожа?
+              </h2>
+              <p className="mx-auto mt-4 max-w-md text-paper/70">
+                Обадете се: избираме зоните заедно и ви запазваме час.
+              </p>
+              <div className="mt-7 flex flex-wrap justify-center gap-4">
+                <CtaSolid href={contact.phoneHref} external>
+                  Запази час · {contact.phone}
+                </CtaSolid>
+                <CtaGhost href="/paketi" dark>
+                  Пакети и отстъпки
+                </CtaGhost>
+              </div>
+            </div>
+          </div>
         </Reveal>
       </section>
     </>

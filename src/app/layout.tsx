@@ -8,11 +8,7 @@ import MobileBar from "@/components/MobileBar";
 import { contact, hours } from "@/lib/data";
 import "./globals.css";
 
-// Домейнът още не е избран: една env смяна (NEXT_PUBLIC_SITE_URL) при deploy.
-// trim() пази new URL() от невидим CR/LF, промъкнал се при задаване на env-а.
-const siteUrl = (
-  process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
-).trim();
+import { siteUrl } from "@/lib/site";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["cyrillic", "latin"],
@@ -64,8 +60,15 @@ const openingHoursSpecification = [
 const salonSchema = {
   "@context": "https://schema.org",
   "@type": "BeautySalon",
+  "@id": `${siteUrl}/#salon`,
   name: "AURÈLIS Beauty Atelier",
   url: siteUrl,
+  image: [
+    `${siteUrl}/images/interior-wide.webp`,
+    `${siteUrl}/images/hero-bg.webp`,
+  ],
+  hasMap:
+    "https://www.google.com/maps/search/?api=1&query=ул.+Дунавски+лебед+14,+Варна",
   telephone: contact.phoneHref.replace("tel:", ""),
   email: contact.email,
   priceRange: "€€",

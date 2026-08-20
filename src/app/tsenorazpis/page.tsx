@@ -4,12 +4,18 @@ import PageHero from "@/components/PageHero";
 import LaserPriceToggle from "@/components/LaserPriceToggle";
 import Reveal from "@/components/Reveal";
 import { Card, Chip, CtaSolid, PriceRow } from "@/components/ui";
-import { categories, consultation, contact, laserPackages } from "@/lib/data";
+import {
+  categories,
+  consultation,
+  contact,
+  facePackages,
+  laserPackages,
+} from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "Ценоразпис · Козметично студио Варна",
   description:
-    "Всички цени на студио AURÈLIS Варна на едно място: почистване на лице от 45 €, BioRePeel от 65 €, микронидлинг от 80 €, лазерна епилация по зони за жени и мъже. Консултация 20 €.",
+    "Всички цени на едно място: почистване на лице от 45 €, BioRePeel от 65 €, микронидлинг от 80 €, лазерна епилация по зони. Козметично студио Варна.",
   alternates: { canonical: "/tsenorazpis" },
 };
 
@@ -101,6 +107,35 @@ export default function TsenorazpisPage() {
         </section>
       ))}
 
+      {/* Пакетни програми за лице: заглавието обещава ВСИЧКИ цени (одитна
+          находка: програмите липсваха от ценоразписа) */}
+      <section className="mx-auto max-w-6xl px-5 pt-12 md:px-8 md:pt-16">
+        <Reveal>
+          <span className="gold-rule" aria-hidden="true" />
+          <h2 className="font-display text-[clamp(1.9rem,3.6vw,2.9rem)] font-medium text-bordeaux">
+            Пакетни програми за лице
+          </h2>
+        </Reveal>
+        <Reveal delay={0.06}>
+          <Card className="mt-6 p-7">
+            {facePackages.programs.map((prog) => (
+              <PriceRow
+                key={prog.slug}
+                label={prog.name}
+                strike={prog.oldPrice}
+                price={prog.price}
+              />
+            ))}
+            <p className="mt-3 text-[0.9rem] text-tertiary-ink">
+              {facePackages.gift}{" "}
+              <Link href="/paketi" className="link-ink">
+                Какво включва всяка програма
+              </Link>
+            </p>
+          </Card>
+        </Reveal>
+      </section>
+
       {/* Лазерна епилация */}
       <section className="mx-auto max-w-6xl px-5 pt-12 md:px-8 md:pt-16">
         <Reveal>
@@ -125,14 +160,14 @@ export default function TsenorazpisPage() {
         <Reveal delay={0.08}>
           <div className="mt-10 grid gap-5 md:grid-cols-3">
             {laserPackages.courses.map((c) => (
-              <Card key={c.name} className="hover-lift p-6 text-center">
+              <Card key={c.name} className="p-6 text-center">
                 <p className="font-display text-xl font-semibold text-bordeaux">
                   {c.name}
                 </p>
                 <p className="mt-1 text-[0.88rem] text-tertiary-ink">
                   {c.label}
                 </p>
-                <p className="mt-3 font-display text-3xl font-semibold text-gold">
+                <p className="mt-3 font-display text-3xl font-semibold text-gold-deep">
                   {c.discount}
                 </p>
               </Card>

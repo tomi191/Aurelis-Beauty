@@ -7,9 +7,9 @@ import { Card, Chip, CtaGhost, CtaSolid } from "@/components/ui";
 import { about, contact, founder } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "За нас · Козметично студио AURÈLIS Варна",
+  title: "За нас · Козметично студио Варна",
   description:
-    "AURÈLIS Beauty Atelier е козметично студио във Варна, създадено от медицинския козметик Йоана Здравкова. Историята на ателието, името и философията ни за грижа за кожата.",
+    "Козметично студио във Варна, създадено от медицинския козметик Йоана Здравкова. Историята на ателието и философията ни за грижа за кожата.",
   alternates: { canonical: "/za-nas" },
 };
 

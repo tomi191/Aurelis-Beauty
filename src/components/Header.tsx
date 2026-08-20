@@ -114,7 +114,7 @@ export default function Header() {
         {/* При отворено меню воалът се маха: header-ът плува върху тъмния
             overlay, затова логото и X-ът минават в кремаво */}
         <div
-          className={`header-veil absolute inset-0 border-b border-gold/25 bg-paper/92 backdrop-blur-md ${
+          className={`header-veil absolute inset-0 border-b border-gold/40 bg-paper/92 backdrop-blur-md ${
             open ? "hidden" : ""
           }`}
           aria-hidden="true"
@@ -137,6 +137,9 @@ export default function Header() {
                   <Nav.Link asChild>
                     <Link
                       href={item.href}
+                      aria-current={
+                        pathname.startsWith(item.href) ? "page" : undefined
+                      }
                       className={linkCls(pathname.startsWith(item.href))}
                     >
                       {item.label}
@@ -212,6 +215,9 @@ export default function Header() {
                   <Nav.Link asChild>
                     <Link
                       href={item.href}
+                      aria-current={
+                        pathname.startsWith(item.href) ? "page" : undefined
+                      }
                       className={linkCls(pathname.startsWith(item.href))}
                     >
                       {item.label}
@@ -225,7 +231,7 @@ export default function Header() {
           <div className="flex items-center gap-2">
             <a
               href={contact.phoneHref}
-              className="magnet hidden items-center gap-2 rounded-full bg-bordeaux px-5 py-3 text-[0.9rem] text-paper shadow-pill transition-[transform,background-color] duration-200 active:scale-[0.97] motion-safe:hover:-translate-y-0.5 hover:bg-wine sm:flex"
+              className="magnet hidden items-center gap-2 rounded-full border border-gold/50 bg-bordeaux px-5 py-3 text-[0.9rem] text-paper shadow-pill transition-[transform,background-color] duration-200 active:scale-[0.97] motion-safe:hover:-translate-y-0.5 hover:bg-wine sm:flex"
             >
               Запази час
             </a>
@@ -305,6 +311,12 @@ export default function Header() {
                   className="py-2 text-[1rem] text-paper/75 transition-colors duration-150 hover:text-gold-soft"
                 >
                   Лазерна епилация
+                </Link>
+                <Link
+                  href="/tsenorazpis"
+                  className="py-2 text-[1rem] text-paper/75 transition-colors duration-150 hover:text-gold-soft"
+                >
+                  Пълен ценоразпис
                 </Link>
               </div>
             </div>

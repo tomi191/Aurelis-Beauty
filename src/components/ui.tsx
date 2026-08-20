@@ -5,13 +5,18 @@ import type { ReactNode } from "react";
 export function Card({
   children,
   className = "",
+  id,
 }: {
   children: ReactNode;
   className?: string;
+  id?: string;
 }) {
   return (
+    /* Кантът е злато, не бял: системният „малък златен детайл" на всяка
+       карта (клиентска забележка: златото не се виждаше) */
     <div
-      className={`rounded-[1.75rem] border border-white/70 bg-card shadow-soft ${className}`}
+      id={id}
+      className={`rounded-[1.75rem] border border-gold/30 bg-card shadow-soft ${className}`}
     >
       {children}
     </div>
@@ -91,7 +96,7 @@ export function CtaSolid({
   external?: boolean;
 }) {
   const cls =
-    "sheen magnet inline-flex items-center justify-center gap-2 rounded-full bg-bordeaux px-7 py-3.5 text-[0.95rem] text-paper shadow-pill transition-[transform,background-color,border-color,color] duration-200 active:scale-[0.97] motion-safe:hover:-translate-y-0.5 hover:bg-wine";
+    "sheen magnet inline-flex items-center justify-center gap-2 rounded-full border border-gold/50 bg-bordeaux px-7 py-3.5 text-[0.95rem] text-paper shadow-pill transition-[transform,background-color,border-color,color] duration-200 active:scale-[0.97] motion-safe:hover:-translate-y-0.5 hover:bg-wine";
   return external ? (
     <a href={href} className={cls}>
       {children}

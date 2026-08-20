@@ -122,7 +122,7 @@ export default function KontaktiPage() {
         </div>
 
         <Reveal delay={0.1}>
-          <Card className="mt-5 p-7 md:p-9">
+          <Card id="forma" className="mt-5 scroll-mt-28 p-7 md:p-9">
             <h2 className="font-display text-[clamp(1.6rem,2.8vw,2.2rem)] font-medium leading-tight text-bordeaux">
               Пишете ни направо оттук
             </h2>

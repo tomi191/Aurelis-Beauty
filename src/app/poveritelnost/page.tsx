@@ -7,7 +7,7 @@ import { contact } from "@/lib/data";
 export const metadata: Metadata = {
   title: "Поверителност",
   description:
-    "Как сайтът на AURÈLIS Beauty Atelier работи с личните ви данни: без проследяващи бисквитки и без аналитични инструменти. Данни само от формата за запитване, права по GDPR.",
+    "Как сайтът работи с личните ви данни: без проследяващи бисквитки, данни само от формата за запитване, пълни права по GDPR.",
   alternates: { canonical: "/poveritelnost" },
 };
 

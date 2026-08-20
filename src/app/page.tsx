@@ -313,14 +313,20 @@ export default function Home() {
             </Link>
           </div>
         </Reveal>
-        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {/* Мобилно: слайдер вместо 8 карти в колона (~3200px скрол);
+            линкът е дълбока котва право при процедурата */}
+        <SnapCarousel className="mt-10 sm:grid sm:grid-cols-2 sm:gap-5 lg:grid-cols-4">
           {popular.map((pop, i) => {
             const { cat, p } = proc(pop.cat, pop.slug);
             if (!cat || !p) return null;
             return (
-              <Reveal key={p.slug} delay={(i % 4) * 0.05}>
+              <Reveal
+                key={p.slug}
+                delay={(i % 4) * 0.05}
+                className="max-sm:w-[82%] max-sm:shrink-0 max-sm:snap-start"
+              >
                 <Link
-                  href={`/uslugi/${cat.slug}`}
+                  href={`/uslugi/${cat.slug}#${p.slug}`}
                   className="group block h-full"
                 >
                   <Card className="spot hover-lift flex h-full flex-col overflow-hidden">
@@ -348,7 +354,10 @@ export default function Home() {
               </Reveal>
             );
           })}
-          <Reveal delay={0.35}>
+          <Reveal
+            delay={0.35}
+            className="max-sm:w-[82%] max-sm:shrink-0 max-sm:snap-start"
+          >
             <Link href="/lazerna-epilatsia" className="group block h-full">
               <div className="spot hover-lift relative flex h-full flex-col justify-between overflow-hidden rounded-[1.75rem] bg-bordeaux text-paper shadow-soft">
                 <div
@@ -381,7 +390,7 @@ export default function Home() {
               </div>
             </Link>
           </Reveal>
-        </div>
+        </SnapCarousel>
       </section>
 
       {/* ——— Пакети и програми ——— */}
@@ -433,7 +442,7 @@ export default function Home() {
                           className={`mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[0.65rem] ${
                             vip
                               ? "bg-gold/25 text-gold-soft"
-                              : "bg-gold/15 text-gold-deep"
+                              : "border border-gold/60 bg-gold/20 text-gold-deep"
                           }`}
                         >
                           ✓
@@ -568,7 +577,7 @@ export default function Home() {
                 <CtaSolid href={contact.phoneHref} external>
                   Обади се · {contact.phone}
                 </CtaSolid>
-                <CtaGhost href="/kontakti">Пиши ни</CtaGhost>
+                <CtaGhost href="/kontakti#forma">Пиши ни</CtaGhost>
               </div>
             </div>
           </div>
