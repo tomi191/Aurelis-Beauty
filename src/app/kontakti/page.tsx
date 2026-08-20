@@ -23,7 +23,7 @@ export default function KontaktiPage() {
         />
         <div className="relative mx-auto max-w-6xl px-5 pb-4 pt-8 md:px-8 md:pt-12">
           <Reveal>
-            <Chip>Контакти</Chip>
+            <span className="gold-rule" aria-hidden="true" />
             <BlurTitle
               text="Заповядайте в ателието"
               className="mt-6 max-w-[16ch] font-display text-[clamp(2.3rem,5vw,4.2rem)] font-normal leading-[1.05] text-bordeaux"

@@ -205,6 +205,24 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
+/* Header фонът се проявява при скрол (Euphoria патърна, но без JS):
+   прозрачен на върха на страницата, плътен щом съдържанието мине отдолу.
+   Без поддръжка на scroll() лентата е просто винаги плътна. */
+@keyframes header-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.header-veil {
+  opacity: 1;
+}
+@supports (animation-timeline: scroll()) {
+  .header-veil {
+    animation: header-in linear both;
+    animation-timeline: scroll();
+    animation-range: 0 140px;
+  }
+}
+
 /* Marquee — чист CSS, дублирано съдържание; движи се само при желание за
    motion (при reduced-motion лентата стои статична), пауза при hover */
 @keyframes marquee {

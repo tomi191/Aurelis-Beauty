@@ -103,10 +103,15 @@ export default function Header() {
 
   return (
     <>
-      {/* Плаваща pill навигация. Мобилното меню е sibling, не дете —
-          backdrop-filter тук би станал containing block за fixed панела. */}
-      <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 md:px-6 md:pt-5">
-        <div className="mx-auto flex max-w-6xl items-center justify-between rounded-full border border-white/60 bg-paper/85 py-2 pl-5 pr-2 shadow-soft backdrop-blur-md md:pl-7">
+      {/* Мобилното меню е sibling, не дете — backdrop-filter тук би станал
+          containing block за fixed панела. Фонът на лентата се проявява при
+          скрол (.header-veil), за да не „реже" секциите под нея. */}
+      <header className="fixed inset-x-0 top-0 z-50">
+        <div
+          className="header-veil absolute inset-0 border-b border-gold/25 bg-paper/92 backdrop-blur-md"
+          aria-hidden="true"
+        />
+        <div className="relative mx-auto flex h-[4.5rem] max-w-6xl items-center justify-between px-5 md:px-8">
           <Link href="/" className="flex items-center py-1">
             {/* Векторизирано от клиентския лого.pdf (public/logo.svg) */}
             {/* eslint-disable-next-line @next/next/no-img-element */}

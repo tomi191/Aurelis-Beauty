@@ -23,7 +23,7 @@ export default function ZaNasPage() {
         />
         <div className="relative mx-auto max-w-6xl px-5 pb-4 pt-8 md:px-8 md:pt-12">
           <Reveal>
-            <Chip>За нас</Chip>
+            <span className="gold-rule" aria-hidden="true" />
             <BlurTitle
               text="За AURÈLIS"
               className="mt-6 max-w-[16ch] font-display text-[clamp(2.3rem,5vw,4.2rem)] font-normal leading-[1.05] text-bordeaux"
@@ -93,12 +93,12 @@ export default function ZaNasPage() {
       <section className="mx-auto grid max-w-6xl items-center gap-12 px-5 py-14 md:px-8 md:py-20 lg:grid-cols-12">
         <div className="lg:col-span-6">
           <Reveal>
-            <Chip>Моята история</Chip>
-            <h2 className="mt-6 font-display text-[clamp(1.9rem,3.6vw,3rem)] font-medium leading-tight text-bordeaux">
-              {founder.name}
+            <span className="gold-rule" aria-hidden="true" />
+            <h2 className="font-display text-[clamp(1.9rem,3.6vw,3rem)] font-medium leading-tight text-bordeaux">
+              Моята история
             </h2>
             <p className="mt-2 text-[0.95rem] text-tertiary-ink">
-              {founder.role}
+              {founder.name} · {founder.role}
             </p>
           </Reveal>
           <Reveal delay={0.08}>

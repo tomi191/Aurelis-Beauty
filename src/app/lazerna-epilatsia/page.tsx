@@ -35,7 +35,7 @@ export default function LaserPage() {
               className="pointer-events-none absolute -right-4 bottom-0 hidden h-[115%] w-auto opacity-45 md:block"
             />
             <div className="relative">
-              <Chip dark>Трайно обезкосмяване · жени и мъже</Chip>
+              <span className="gold-rule" aria-hidden="true" />
               <BlurTitle
                 text="Лазерна епилация във Варна"
                 className="mt-6 max-w-[16ch] font-display text-[clamp(2.3rem,5vw,4.2rem)] font-normal leading-[1.05]"

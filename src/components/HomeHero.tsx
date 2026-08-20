@@ -57,9 +57,7 @@ export default function HomeHero() {
 
       <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-5 pb-14 pt-8 md:px-8 md:pt-14 lg:grid-cols-12 lg:gap-8">
         <div className="lg:col-span-7">
-          <div>
-            <Chip>Козметично студио във Варна</Chip>
-          </div>
+          <span className="gold-rule" aria-hidden="true" />
 
           <h1 className="mt-6 max-w-[13ch] font-display text-[clamp(2.6rem,6vw,5.2rem)] font-normal leading-[1.04] tracking-[-0.01em] text-bordeaux">
             Красотата започва със <em>здрава кожа</em>.

@@ -23,7 +23,7 @@ export default function KonsultatsiaPage() {
         <div className="relative mx-auto grid max-w-6xl items-start gap-10 px-5 pb-4 pt-8 md:px-8 md:pt-12 lg:grid-cols-12">
           <div className="lg:col-span-7">
             <Reveal>
-              <Chip>Първата стъпка</Chip>
+              <span className="gold-rule" aria-hidden="true" />
               <BlurTitle
                 text="Консултация с козметик и анализ на кожата"
                 className="mt-6 max-w-[15ch] font-display text-[clamp(2.3rem,5vw,4.2rem)] font-normal leading-[1.05] text-bordeaux"
