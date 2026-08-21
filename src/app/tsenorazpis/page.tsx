@@ -29,6 +29,30 @@ export default function TsenorazpisPage() {
         sub="Цените са крайни, в евро, и ги обявяваме предварително: и в студиото, и тук. Без изненади."
       />
 
+      {/* Котвена навигация: най-дългата страница на сайта, без нея
+          мобилният потребител скролва на сляпо (одитна находка) */}
+      <nav
+        aria-label="Секции в ценоразписа"
+        className="mx-auto max-w-6xl px-5 pt-8 md:px-8"
+      >
+        <ul className="flex flex-wrap gap-2">
+          {[
+            ...categories.map((c) => ({ id: c.slug, label: c.name })),
+            { id: "programi", label: "Програми за лице" },
+            { id: "lazer", label: "Лазерна епилация" },
+          ].map((s) => (
+            <li key={s.id}>
+              <a
+                href={`#${s.id}`}
+                className="inline-block rounded-full border border-gold/45 bg-card px-4 py-2 text-[0.88rem] text-secondary-ink transition-colors duration-150 hover:border-bordeaux hover:text-bordeaux"
+              >
+                {s.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
       {/* Консултация */}
       <section className="mx-auto max-w-6xl px-5 pt-10 md:px-8 md:pt-14">
         <Reveal>
@@ -57,7 +81,8 @@ export default function TsenorazpisPage() {
       {categories.map((cat, ci) => (
         <section
           key={cat.slug}
-          className="mx-auto max-w-6xl px-5 pt-12 md:px-8 md:pt-16"
+          id={cat.slug}
+          className="mx-auto max-w-6xl scroll-mt-24 px-5 pt-12 md:px-8 md:pt-16"
         >
           <Reveal>
             <span className="gold-rule" aria-hidden="true" />
@@ -109,7 +134,10 @@ export default function TsenorazpisPage() {
 
       {/* Пакетни програми за лице: заглавието обещава ВСИЧКИ цени (одитна
           находка: програмите липсваха от ценоразписа) */}
-      <section className="mx-auto max-w-6xl px-5 pt-12 md:px-8 md:pt-16">
+      <section
+        id="programi"
+        className="mx-auto max-w-6xl scroll-mt-24 px-5 pt-12 md:px-8 md:pt-16"
+      >
         <Reveal>
           <span className="gold-rule" aria-hidden="true" />
           <h2 className="font-display text-[clamp(1.9rem,3.6vw,2.9rem)] font-medium text-bordeaux">
@@ -137,7 +165,10 @@ export default function TsenorazpisPage() {
       </section>
 
       {/* Лазерна епилация */}
-      <section className="mx-auto max-w-6xl px-5 pt-12 md:px-8 md:pt-16">
+      <section
+        id="lazer"
+        className="mx-auto max-w-6xl scroll-mt-24 px-5 pt-12 md:px-8 md:pt-16"
+      >
         <Reveal>
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>

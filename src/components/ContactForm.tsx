@@ -111,7 +111,7 @@ export default function ContactForm() {
   }
 
   const field =
-    "w-full rounded-2xl border hairline bg-paper-soft/60 px-5 py-3.5 text-base text-primary-ink placeholder:text-tertiary-ink focus:border-gold focus:outline-none";
+    "w-full rounded-2xl border hairline bg-paper-soft/60 px-5 py-3.5 text-base text-primary-ink transition-colors duration-150 placeholder:text-tertiary-ink hover:border-gold/50 focus:border-gold focus:outline-none";
 
   return (
     <form onSubmit={handleSubmit} className="relative space-y-4">

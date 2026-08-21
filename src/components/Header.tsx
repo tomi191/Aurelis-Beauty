@@ -234,6 +234,11 @@ export default function Header() {
               className="magnet hidden items-center gap-2 rounded-full border border-gold/50 bg-bordeaux px-5 py-3 text-[0.9rem] text-paper shadow-pill transition-[transform,background-color] duration-200 active:scale-[0.97] motion-safe:hover:-translate-y-0.5 hover:bg-wine sm:flex"
             >
               Запази час
+              {/* На широк екран номерът е видим: гол tel: линк на desktop
+                  отваря системен диалог, а човек иска първо да ВИДИ номера */}
+              <span className="tnum hidden font-medium xl:inline">
+                · {contact.phone}
+              </span>
             </a>
             <button
               type="button"
