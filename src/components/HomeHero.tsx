@@ -50,10 +50,15 @@ export default function HomeHero() {
             className="hero-drift h-full w-full object-cover"
           />
         </picture>
-        {/* Мобилно: почти плътен воал (текстът е върху цялата ширина) */}
-        <div className="absolute inset-0 bg-gradient-to-b from-paper/90 via-paper/80 to-paper/90 md:hidden" />
-        {/* Desktop: текстът вляво на плътно, снимката диша вдясно */}
-        <div className="absolute inset-0 hidden bg-gradient-to-r from-paper via-paper/75 to-paper/10 md:block" />
+        {/* Мобилно: плътен воал — живият кадър стои в арката под текста */}
+        <div className="absolute inset-0 bg-gradient-to-b from-paper/95 via-paper/88 to-paper/95 md:hidden" />
+        {/* Desktop: воалът се вдига — снимката вдясно се чете като снимка */}
+        <div className="absolute inset-0 hidden bg-gradient-to-r from-paper from-40% via-paper/60 via-65% to-transparent md:block" />
+        {/* Тъмна бордо винетка в долния десен ъгъл — тежест и дълбочина */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-y-0 right-0 hidden w-3/5 bg-[radial-gradient(120%_100%_at_100%_100%,rgba(61,18,24,0.30),transparent_60%)] md:block"
+        />
         {/* Светла лента горе за навигацията */}
         <div className="absolute inset-x-0 top-0 hidden h-28 bg-gradient-to-b from-paper/80 to-transparent md:block" />
         {/* Плавен преход към хартията на следващата секция */}
@@ -66,8 +71,37 @@ export default function HomeHero() {
         <div className="lg:col-span-7">
           <span className="gold-rule" aria-hidden="true" />
 
-          <h1 className="mt-6 max-w-[13ch] font-display text-[clamp(2.6rem,6vw,5.2rem)] font-normal leading-[1.04] tracking-[-0.01em] text-bordeaux">
-            Красотата започва със <em>здрава кожа</em>.
+          {/* Плакатна скала + masked word rise; „здрава кожа" е злато-фолио.
+              Копито е идентично — само markup. Маските (overflow-clip +
+              pb-[0.08em]) пазят кирилските дескендери. */}
+          <h1 className="mt-6 max-w-[13ch] font-display text-[clamp(2.7rem,6.6vw,6rem)] font-normal leading-[0.98] tracking-[-0.015em] text-bordeaux">
+            <span className="inline-block overflow-clip align-bottom pb-[0.08em]">
+              <span className="word-rise inline-block">Красотата</span>
+            </span>{" "}
+            <span className="inline-block overflow-clip align-bottom pb-[0.08em]">
+              <span
+                className="word-rise inline-block"
+                style={{ animationDelay: "0.06s" }}
+              >
+                започва
+              </span>
+            </span>{" "}
+            <span className="inline-block overflow-clip align-bottom pb-[0.08em]">
+              <span
+                className="word-rise inline-block"
+                style={{ animationDelay: "0.12s" }}
+              >
+                със
+              </span>
+            </span>{" "}
+            <span className="inline-block overflow-clip align-bottom pb-[0.08em]">
+              <span
+                className="word-rise inline-block"
+                style={{ animationDelay: "0.18s" }}
+              >
+                <em className="foil">здрава кожа</em>.
+              </span>
+            </span>
           </h1>
 
           <p className="mt-6 max-w-lg text-[1.05rem] leading-relaxed text-secondary-ink">
@@ -94,16 +128,18 @@ export default function HomeHero() {
                 Разгледай услугите
               </span>
             </Link>
-            <a
-              href={contact.phoneHref}
-              className="-my-3 inline-flex items-center gap-2 py-3 text-[0.95rem] text-secondary-ink transition-colors duration-150 hover:text-bordeaux"
-            >
-              <Phone className="size-4 text-gold-deep" strokeWidth={1.6} />
-              {contact.phone}
-            </a>
           </div>
 
+          {/* Телефонът живее тук като информация, не като трети CTA:
+              в реда на действията се конкурираше с консултацията */}
           <div className="mt-7 flex min-h-6 flex-wrap items-center gap-x-5 gap-y-2 text-[0.88rem] text-tertiary-ink">
+            <a
+              href={contact.phoneHref}
+              className="tnum -my-2 inline-flex items-center gap-1.5 py-2 transition-colors duration-150 hover:text-bordeaux"
+            >
+              <Phone className="size-3.5 text-gold-deep" strokeWidth={1.6} />
+              {contact.phone}
+            </a>
             {today && (
               <>
                 <span className="fade-up inline-flex items-center gap-2">
@@ -125,6 +161,18 @@ export default function HomeHero() {
               </>
             )}
             <span>{contact.addressFull}</span>
+          </div>
+
+          {/* Мобилно: живият кадър в арковидна рамка (мотивът от логото) —
+              същият URL като фоновия source, нула допълнителен трансфер */}
+          <div className="arch gold-frame relative mt-9 h-[19rem] overflow-hidden shadow-lift md:hidden">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/images/hero-bg-mob.webp"
+              alt=""
+              loading="eager"
+              className="absolute inset-0 h-full w-full object-cover"
+            />
           </div>
         </div>
 

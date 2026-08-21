@@ -1,8 +1,8 @@
 /**
- * Заглавие с каскадно per-word появяване. Server компонент, чист CSS:
- * текстът е в SSR HTML-а (opacity .001 само в keyframes, никога в markup-а),
- * анимацията не чака hydration и не ползва filter: blur — JS-управляваният
- * per-word blur(12px) даваше рендер timeout-и и празни първи кадри.
+ * Заглавие с каскаден masked word rise: всяка дума изплува изпод невидим
+ * ръб (overflow-clip маска около word-rise транслацията). Server компонент,
+ * чист CSS: текстът е в SSR HTML-а, from-състоянието живее само в keyframes.
+ * pb-[0.08em] в маската пази кирилските дескендери (р, у, д) от клипване.
  * При prefers-reduced-motion думите са просто видими (гейтът е в globals.css).
  */
 export default function BlurTitle({
@@ -24,10 +24,14 @@ export default function BlurTitle({
         ) : (
           <span
             key={i}
-            className="word-in inline-block"
-            style={{ animationDelay: `${delay + i * 0.045}s` }}
+            className="inline-block overflow-clip align-bottom pb-[0.08em]"
           >
-            {w}
+            <span
+              className="word-rise inline-block"
+              style={{ animationDelay: `${delay + i * 0.055}s` }}
+            >
+              {w}
+            </span>
           </span>
         )
       )}

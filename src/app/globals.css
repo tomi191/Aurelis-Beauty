@@ -400,6 +400,117 @@ html {
   }
 }
 
+/* Masked word rise — заглавията изплуват изпод невидим ръб (home h1 +
+   BlurTitle). Отделен клас от .word-in: менюто в Header ползва word-in
+   като fade без маска и не бива да скача от 112%. From-състоянието живее
+   само в keyframe-а: без анимация текстът е просто видим (SSR-чист). */
+@keyframes word-rise {
+  from { transform: translateY(112%); }
+  to { transform: translateY(0); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .word-rise {
+    animation: word-rise 0.7s var(--ease-brand) both;
+  }
+}
+
+/* Златно фолио върху най-големите display акценти: златото като материал,
+   не като цвят. Основата gold/gold-deep държи AA large на светло; върху
+   тъмните панели .foil-dark вдига основата до gold/gold-soft. */
+.foil {
+  background: linear-gradient(
+    100deg,
+    var(--gold-deep) 0%,
+    var(--gold) 32%,
+    #d9b98a 50%,
+    var(--gold) 68%,
+    var(--gold-deep) 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.foil-dark {
+  background-image: linear-gradient(
+    100deg,
+    var(--gold) 0%,
+    var(--gold-soft) 35%,
+    #f0ddba 50%,
+    var(--gold-soft) 65%,
+    var(--gold) 100%
+  );
+}
+@keyframes foil-shift {
+  0%, 100% { background-position: 0% 0; }
+  50% { background-position: 100% 0; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .foil {
+    animation: foil-shift 8s ease-in-out infinite;
+  }
+}
+@supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+  .foil {
+    background: none;
+    color: var(--gold-deep);
+  }
+  .foil-dark {
+    background: none;
+    color: var(--gold-soft);
+  }
+}
+
+/* Филмово зърно върху двата тъмни „сцени" панела (консултация + финал):
+   подпис на сцените, не текстура на всичко */
+.grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Очертани имена в брандовата лента — типографски контраст, не акцент */
+.text-outline-soft {
+  -webkit-text-stroke: 1px color-mix(in srgb, var(--bordeaux) 65%, transparent);
+  color: transparent;
+}
+@supports not (-webkit-text-stroke: 1px #000) {
+  .text-outline-soft {
+    color: color-mix(in srgb, var(--bordeaux) 70%, transparent);
+  }
+}
+
+/* По-бавен, по-достолепен ход на едрата брандова лента */
+.marquee-slow .marquee-track {
+  animation-duration: 64s;
+}
+
+/* Златната чертичка се изчертава отляво надясно при влизане на секцията —
+   системният микроподпис, жив на всички страници. Без view() поддръжка
+   или при reduced-motion е просто видима, както досега. */
+@keyframes rule-draw {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .gold-rule {
+      transform-origin: left;
+      animation: rule-draw linear both;
+      animation-timeline: view();
+      animation-range: entry 10% entry 45%;
+    }
+    .gold-rule-center {
+      transform-origin: center;
+    }
+  }
+}
+
 /* Вход на всяка страница (template.tsx) — плавно, без exit фаза */
 @keyframes page-in {
   from { opacity: 0.0001; transform: translateY(10px); }

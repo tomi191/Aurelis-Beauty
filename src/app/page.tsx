@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import Link from "next/link";
 import CountUp from "@/components/CountUp";
 import Faq from "@/components/Faq";
@@ -145,8 +146,8 @@ export default function Home() {
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
               <span className="gold-rule" aria-hidden="true" />
-              <h2 className="max-w-[18ch] font-display text-[clamp(1.9rem,3.6vw,3rem)] font-medium leading-tight text-bordeaux">
-                С какво да започнем?
+              <h2 className="max-w-[18ch] font-display text-[clamp(2.1rem,4.4vw,3.6rem)] font-medium leading-[1.05] text-bordeaux [&_em]:italic [&_em]:font-normal [&_em]:text-gold-deep">
+                С какво да <em>започнем</em>?
               </h2>
             </div>
             <Link href="/tsenorazpis" className="link-ink mb-2 text-[0.95rem]">
@@ -164,23 +165,29 @@ export default function Home() {
             >
               <Link href={qc.href} className="group block h-full">
                 <div className="spot hover-lift gold-frame-soft flex h-full flex-col overflow-hidden rounded-[1.75rem] bg-card shadow-soft">
-                  <ImageSlot label={qc.photo} ratio="3 / 2" src={qc.img} />
+                  {/* Заглавието стъпва върху кадъра, върху бордо scrim —
+                      арт-директирана карта вместо „снимка + текст отдолу" */}
+                  <div className="relative">
+                    <ImageSlot label={qc.photo} ratio="4 / 3" src={qc.img} />
+                    <div
+                      aria-hidden="true"
+                      className="absolute inset-0 bg-gradient-to-t from-bordeaux-deep/70 via-bordeaux-deep/15 to-transparent"
+                    />
+                    <h3 className="absolute inset-x-5 bottom-4 font-display text-[1.5rem] font-medium leading-snug text-paper">
+                      {qc.title}
+                    </h3>
+                  </div>
                   <div className="flex flex-1 flex-col justify-between p-6">
-                    <div>
-                      <h3 className="font-display text-[1.45rem] font-medium leading-snug text-bordeaux">
-                        {qc.title}
-                      </h3>
-                      <ul className="mt-4 flex flex-wrap gap-1.5">
-                        {qc.topics.map((t) => (
-                          <li
-                            key={t}
-                            className="rounded-full bg-paper-soft px-3 py-1 text-[0.78rem] text-tertiary-ink"
-                          >
-                            {t}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                    <ul className="flex flex-wrap gap-1.5">
+                      {qc.topics.map((t) => (
+                        <li
+                          key={t}
+                          className="rounded-full bg-paper-soft px-3 py-1 text-[0.78rem] text-tertiary-ink"
+                        >
+                          {t}
+                        </li>
+                      ))}
+                    </ul>
                     <span
                       aria-hidden="true"
                       className="mt-6 flex h-9 w-9 items-center justify-center rounded-full border border-gold/45 text-gold-deep transition-all duration-200 group-hover:bg-gold group-hover:text-paper"
@@ -200,8 +207,13 @@ export default function Home() {
           двете колони завършват заедно, без празен въздух. ——— */}
       <section className="bg-blush/50">
         <div className="mx-auto grid max-w-6xl items-stretch gap-10 px-5 py-14 md:px-8 md:py-20 lg:grid-cols-12">
-          <Reveal className="order-last lg:order-first lg:col-span-5">
-            <div className="relative h-64 overflow-hidden rounded-[1.75rem] gold-frame-soft sm:h-80 lg:h-full lg:min-h-[26rem]">
+          <Reveal className="order-last lg:relative lg:order-first lg:col-span-5">
+            {/* Арката (мотивът от логото) пробива бежовата лента: на lg е
+                absolute (-top-28/-bottom-28 = ~2rem над и под ръба на
+                bg-blush/50). НЕ height calc(100%+X) в stretch grid клетка:
+                процентът срещу собствения ред = цикличен reflow, който дави
+                main thread-а (доказано с pinned height, 21.08.2026). */}
+            <div className="arch gold-frame relative h-72 overflow-hidden shadow-lift sm:h-96 lg:absolute lg:inset-x-0 lg:-top-28 lg:-bottom-28 lg:h-auto">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/images/interior-wide.webp"
@@ -216,8 +228,8 @@ export default function Home() {
           <div className="lg:col-span-7 lg:py-2">
             <Reveal>
               <span className="gold-rule" aria-hidden="true" />
-              <h2 className="mt-4 font-display text-[clamp(1.9rem,3.6vw,3rem)] font-medium leading-tight text-bordeaux">
-                Грижата започва с разбиране
+              <h2 className="mt-4 font-display text-[clamp(2.1rem,4.4vw,3.6rem)] font-medium leading-[1.05] text-bordeaux [&_em]:italic [&_em]:font-normal [&_em]:text-gold-deep">
+                Грижата започва с <em>разбиране</em>
               </h2>
               <p className="mt-4 max-w-lg text-[0.98rem] text-secondary-ink">
                 Първо гледаме кожата и ви изслушваме, чак после препоръчваме
@@ -250,18 +262,26 @@ export default function Home() {
       {/* ——— Персонална консултация (тъмночервеният акцент) ——— */}
       <section className="mx-auto max-w-6xl px-5 py-14 md:px-8 md:py-20">
         <Reveal>
-          <div className="gold-frame relative overflow-hidden rounded-[2.5rem] bg-bordeaux-deep px-6 py-14 text-paper md:px-14 md:py-20">
+          <div className="gold-frame grain relative overflow-hidden rounded-[2.5rem] bg-bordeaux-deep px-6 py-14 text-paper md:px-14 md:py-20">
             <div
               className="blob -right-24 -top-28 h-96 w-96 bg-gold/20"
               aria-hidden="true"
             />
             {/* Втората (и последна) инстанция на златния прашец */}
             <GoldDust className="absolute inset-0" />
+            {/* Заден план: гигантското слънце от логото като воден знак +
+                второ винено сияние — сцена със слоеве, не плосък панел */}
+            <SunRays className="absolute -bottom-24 -left-16 w-[24rem] rotate-12 text-gold/10" />
+            <div
+              className="blob -bottom-28 -left-24 h-80 w-80 bg-wine/40"
+              aria-hidden="true"
+            />
             <div className="relative grid gap-10 lg:grid-cols-12 lg:items-center">
               <div className="lg:col-span-6">
                 <SunRays half className="w-16 text-gold-soft" />
                 <h2 className="mt-5 max-w-[16ch] font-display text-[clamp(2rem,4.2vw,3.4rem)] font-normal leading-[1.08]">
-                  Кожата ви в <em>най-добрия ѝ вид</em>
+                  Кожата ви в{" "}
+                  <em className="foil foil-dark">най-добрия ѝ вид</em>
                 </h2>
                 <p className="mt-5 max-w-md text-[0.98rem] text-paper/70">
                   Всичко в ателието минава първо през консултация при Йоана:
@@ -270,10 +290,11 @@ export default function Home() {
                 <div className="mt-8 flex flex-wrap items-center gap-5">
                   <CtaSolid href="/konsultatsia">Запази консултация</CtaSolid>
                   <div>
-                    <p className="font-display text-[1.9rem] font-semibold leading-none text-gold-soft">
+                    {/* Pull-number: цената като editorial акцент, не етикет */}
+                    <p className="font-display text-[clamp(2.6rem,5vw,3.8rem)] font-medium italic leading-none text-gold-soft">
                       {consultation.price}
                     </p>
-                    <p className="mt-1 text-[0.8rem] text-paper/55">
+                    <p className="mt-1 max-w-[16ch] text-[0.8rem] text-paper/55">
                       приспада се при последваща процедура
                     </p>
                   </div>
@@ -298,24 +319,27 @@ export default function Home() {
         </Reveal>
       </section>
 
-      {/* ——— Популярни услуги (8-те от плана) ——— */}
+      {/* ——— Популярни услуги (8-те от плана): sticky editorial split —
+          заглавието остава заковано вляво при скрол, картите текат вдясно
+          в 2 широки колони (16/9 кадрите най-после се четат) ——— */}
       <section className="mx-auto max-w-6xl px-5 py-8 md:px-8 md:py-12">
-        <Reveal>
-          <div className="flex flex-wrap items-end justify-between gap-6">
-            <div>
-              <span className="gold-rule" aria-hidden="true" />
-              <h2 className="max-w-[18ch] font-display text-[clamp(1.9rem,3.6vw,3rem)] font-medium leading-tight text-bordeaux">
-                Избрани процедури
-              </h2>
-            </div>
-            <Link href="/uslugi" className="link-ink mb-2 text-[0.95rem]">
+        <div className="grid gap-10 lg:grid-cols-12 lg:items-start">
+          <Reveal className="lg:sticky lg:top-28 lg:col-span-4">
+            <span className="gold-rule" aria-hidden="true" />
+            <h2 className="max-w-[18ch] font-display text-[clamp(2.1rem,4.4vw,3.6rem)] font-medium leading-[1.05] text-bordeaux [&_em]:italic [&_em]:font-normal [&_em]:text-gold-deep">
+              <em>Избрани</em> процедури
+            </h2>
+            <Link
+              href="/uslugi"
+              className="link-ink mt-6 inline-block text-[0.95rem]"
+            >
               Всички услуги
             </Link>
-          </div>
-        </Reveal>
-        {/* Мобилно: слайдер вместо 8 карти в колона (~3200px скрол);
-            линкът е дълбока котва право при процедурата */}
-        <SnapCarousel className="mt-10 sm:grid sm:grid-cols-2 sm:gap-5 lg:grid-cols-4">
+          </Reveal>
+          <div className="lg:col-span-8">
+            {/* Мобилно: слайдер вместо 8 карти в колона (~3200px скрол);
+                линкът е дълбока котва право при процедурата */}
+            <SnapCarousel className="sm:grid sm:grid-cols-2 sm:gap-5">
           {popular.map((pop, i) => {
             const { cat, p } = proc(pop.cat, pop.slug);
             if (!cat || !p) return null;
@@ -390,7 +414,9 @@ export default function Home() {
               </div>
             </Link>
           </Reveal>
-        </SnapCarousel>
+            </SnapCarousel>
+          </div>
+        </div>
       </section>
 
       {/* ——— Пакети и програми ——— */}
@@ -398,8 +424,8 @@ export default function Home() {
         <Reveal>
           <div>
             <span className="gold-rule" aria-hidden="true" />
-            <h2 className="max-w-[20ch] font-display text-[clamp(1.9rem,3.6vw,3rem)] font-medium leading-tight text-bordeaux">
-              Пакети и програми
+            <h2 className="max-w-[20ch] font-display text-[clamp(2.1rem,4.4vw,3.6rem)] font-medium leading-[1.05] text-bordeaux [&_em]:italic [&_em]:font-normal [&_em]:text-gold-deep">
+              Пакети и <em>програми</em>
             </h2>
             <p className="mt-3 max-w-xl text-[0.95rem] text-tertiary-ink">
               {facePackages.gift}
@@ -500,8 +526,8 @@ export default function Home() {
           <div className="flex flex-wrap items-baseline justify-between gap-4">
             <div>
               <span className="gold-rule" aria-hidden="true" />
-              <h2 className="font-display text-[clamp(1.7rem,3vw,2.4rem)] font-medium text-bordeaux">
-                Марките, на които се доверяваме
+              <h2 className="font-display text-[clamp(1.7rem,3vw,2.4rem)] font-medium text-bordeaux [&_em]:italic [&_em]:font-normal [&_em]:text-gold-deep">
+                Марките, на които се <em>доверяваме</em>
               </h2>
             </div>
             <Link href="/marki" className="link-ink text-[0.95rem]">
@@ -510,16 +536,27 @@ export default function Home() {
           </div>
         </Reveal>
         <Reveal delay={0.08}>
-          <div className="mt-8">
+          {/* Едра типографска лента: всяко второ име очертано курсивно,
+              златна точка сепарира (и шевовете при loop-а), по-бавен ход */}
+          <div className="marquee-slow mt-8">
             <Marquee>
-              {brands.map((b) => (
-                <Link
-                  key={b.name}
-                  href="/marki"
-                  className="font-display text-[clamp(1.5rem,2.6vw,2.1rem)] whitespace-nowrap text-bordeaux/80 transition-colors duration-300 hover:text-bordeaux"
-                >
-                  {b.name}
-                </Link>
+              {brands.map((b, i) => (
+                <Fragment key={b.name}>
+                  <Link
+                    href="/marki"
+                    className={`whitespace-nowrap font-display leading-none text-[clamp(2rem,4vw,3rem)] transition-colors duration-300 ${
+                      i % 2
+                        ? "italic text-outline-soft"
+                        : "text-bordeaux/85 hover:text-bordeaux"
+                    }`}
+                  >
+                    {b.name}
+                  </Link>
+                  <span
+                    aria-hidden="true"
+                    className="h-1.5 w-1.5 shrink-0 self-center rounded-full bg-gold/70"
+                  />
+                </Fragment>
               ))}
             </Marquee>
           </div>
@@ -552,24 +589,25 @@ export default function Home() {
       {/* ——— Финален CTA (бежов, златни детайли) ——— */}
       <section className="mx-auto max-w-6xl px-5 pb-16 md:px-8 md:pb-24">
         <Reveal>
-          <div className="relative overflow-hidden rounded-[2.5rem] px-6 py-16 text-center md:py-20">
-            {/* Фонова снимка на ателието с кремав воал отгоре */}
+          {/* Бордо bookend: тъмен финален акорд, огледален на консултационния
+              панел (споделят gold-frame, зърно и злато) — снимката остава,
+              но под кинематографичен бордо воал */}
+          <div className="gold-frame grain relative overflow-hidden rounded-[2.5rem] px-6 py-16 text-center md:py-20">
             <ImageSlot
               label="ателието, широк кадър за фон"
               fill
               src="/images/cta-atelier-bg.webp"
             />
-            {/* Воалът е по-лек върху реална снимка, отколкото върху placeholder */}
             <div
-              className="absolute inset-0 bg-gradient-to-b from-paper/85 via-paper/60 to-blush/55"
+              className="absolute inset-0 bg-gradient-to-b from-bordeaux-deep/85 via-bordeaux/65 to-bordeaux-deep/90"
               aria-hidden="true"
             />
             <div className="relative">
-              <SunRays half draw className="mx-auto w-24 text-gold" />
-              <h2 className="mx-auto mt-6 max-w-2xl font-display text-[clamp(2rem,4vw,3.1rem)] font-medium leading-tight text-bordeaux">
-                Елате да се погрижим за кожата ви
+              <SunRays half draw className="mx-auto w-24 text-gold-soft" />
+              <h2 className="mx-auto mt-6 max-w-2xl font-display text-[clamp(2.2rem,4.8vw,3.8rem)] font-medium leading-[1.05] text-paper [&_em]:italic [&_em]:font-normal [&_em]:text-gold-soft">
+                Елате да се <em>погрижим</em> за кожата ви
               </h2>
-              <p className="mx-auto mt-4 max-w-md text-[0.95rem] text-secondary-ink">
+              <p className="mx-auto mt-4 max-w-md text-[0.95rem] text-paper/75">
                 Обадете се или ни пишете: ще намерим удобен час и точната
                 процедура за вас.
               </p>
@@ -577,7 +615,9 @@ export default function Home() {
                 <CtaSolid href={contact.phoneHref} external>
                   Обади се · {contact.phone}
                 </CtaSolid>
-                <CtaGhost href="/kontakti#forma">Пиши ни</CtaGhost>
+                <CtaGhost href="/kontakti#forma" dark>
+                  Пиши ни
+                </CtaGhost>
               </div>
             </div>
           </div>

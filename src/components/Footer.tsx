@@ -99,7 +99,7 @@ export default function Footer() {
 
         <div className="mt-14 flex flex-col gap-2 border-t hairline-cream pt-6 text-[0.78rem] text-paper/60 md:flex-row md:justify-between">
           <p>
-            {contact.company} · ЕИК {contact.eik} ·{" "}
+            {contact.company}, ЕИК {contact.eik} ·{" "}
             <Link
               href="/poveritelnost"
               className="-my-2 inline-block py-2 transition-colors duration-300 hover:text-gold-soft"
